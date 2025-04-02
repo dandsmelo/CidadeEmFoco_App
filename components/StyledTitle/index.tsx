@@ -1,15 +1,16 @@
 import { useCustomFonts } from "@/assets/fonts/Fonts";
 import { Colors } from "@/constants/Colors";
-import { Text } from "react-native";
+import { Text, TextStyle } from "react-native";
 import { StyleSheet } from "react-native";
 
 
 interface Props {
-    title: string
+    title: string;
+    style?: TextStyle;
 }
 
 export default function StyledTitle(props: Props) {
-  const { title } = props;
+  const { title, style } = props;
 
   const fontsLoaded = useCustomFonts()
 
@@ -17,14 +18,14 @@ export default function StyledTitle(props: Props) {
     return null; 
   }
   return (
-    <Text style={style.text}>{title}</Text>
+    <Text style={[styles.text, style]}>{title}</Text>
   );
 }
 
-const style = StyleSheet.create({
+const styles = StyleSheet.create({
     text: {
         color: Colors.primary,
         fontFamily: 'PoppinsSemiBold',
-        fontSize: 20,
+        fontSize: 26,
     },
 })
