@@ -4,5 +4,6 @@ export const Colors = {
   amarelo: '#FFAC11',
   verde: '#8FCF57',
   vermelho: '#E72A2A',
+  cinza: '#898989',
   background: '#E8E8E8',
 };
