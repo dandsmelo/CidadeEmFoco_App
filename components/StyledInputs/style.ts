@@ -1,3 +1,4 @@
+import { Colors } from "@/constants/Colors";
 import { StyleSheet } from "react-native";
 
 export const styles = StyleSheet.create({
@@ -5,10 +6,18 @@ export const styles = StyleSheet.create({
         display: 'flex',
         flexDirection: 'row',
         alignItems: 'center',
-        justifyContent: 'center',
+        backgroundColor: 'white',
+        fontFamily: 'PoppinsSemiBold',
+        height: 50,
+        width: 300,
+        padding: 10,
+        borderRadius: 10,
+        marginBottom: 10
     },
     input: {
         backgroundColor: 'white',
-        padding: 5,
+        padding: 10,
+        color: Colors.cinza,
+        fontSize: 18,
     }
 })
