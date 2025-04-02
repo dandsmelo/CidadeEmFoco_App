@@ -10,7 +10,7 @@ export default function InitialPage() {
   }
   return (
     <View style={InitialPageStyles.container}>
-      <Image source={require('../../assets/images/location.png')} style={InitialPageStyles.img} />
+      <Image source={require('@/assets/images/logo.png')} style={InitialPageStyles.img} />
       <Text style={InitialPageStyles.title}>Cidade em Foco</Text>
       <Text style={InitialPageStyles.caption}>"Cada problema reportado é um passo em direção à solução."</Text>
       <View>

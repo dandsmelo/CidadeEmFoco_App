@@ -12,9 +12,9 @@ export const InitialPageStyles = StyleSheet.create({
 
     },
     img: {
-        width: 180,
-        height: 180,
-        marginBottom: 10,
+        width: 300,
+        height: 220,
+        marginBottom: 15,
     },
     title: {
         fontSize: 30,
