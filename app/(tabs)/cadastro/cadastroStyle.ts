@@ -1,0 +1,121 @@
+import { StyleSheet } from "react-native";
+
+export const CadastroStyle = StyleSheet.create({
+    container: {
+        height: '100%',
+        display: 'flex',
+        flex: 1,
+        width: '100%',
+        alignItems: 'center',
+
+    },
+
+    //TOPO
+
+    topoImg:{
+        backgroundColor: "#6A0DAD",
+        width: '100%',
+        alignItems: 'center',
+        height: 256,
+        position: 'relative',
+
+    },
+
+    img: {
+        marginTop: 50,
+        width: 370,
+        height: 220, 
+    },
+
+    topoIcon:{
+        top: 25,
+        left: 20,
+        position: 'absolute',
+        zIndex: 1,
+
+    },
+
+    //TEXTO
+
+    bodyText:{
+        backgroundColor:"#E8E8E8",
+        width: '100%',
+        
+    },
+
+    topoTexto:{
+        marginLeft:40,
+        marginRight:40,
+    },
+
+    title:{
+        fontSize: 30,
+        color: "#6A0DAD",
+        fontFamily: 'PoppinsSemiBold',
+        marginBottom: 5,
+        marginTop:50,
+    },
+
+    text:{
+        fontSize: 15,
+        fontFamily: 'PoppinsRegular',
+        marginBottom: 10,
+    },
+
+    //INPUT
+
+    bodyInput:{
+        position: 'relative',
+    },
+    
+    input:{
+        backgroundColor: "#FFFFFF",
+        fontSize: 16,
+        fontFamily: 'PoppinsMedium',
+        marginLeft:40,
+        marginRight:40,
+        marginTop: 10,
+        borderColor: "#FFFFFF",
+        borderWidth: 1,
+        borderRadius: 10,
+        padding: 10,
+        color: "#898989",
+        paddingLeft: 42,
+    },
+
+    
+    inputIcon:{
+        top: 20,
+        left: 55,
+        position: 'absolute',
+        zIndex: 1,
+
+    },
+
+    //BOTÃO
+
+    button:{
+        backgroundColor: "#1663C8",
+        marginLeft:40,
+        marginRight:40,
+        marginTop: 30,
+        marginBottom: 20, 
+        padding: 10,
+        borderColor: "#1663C8",
+        borderWidth: 1,
+        borderRadius: 10,
+        alignItems: 'center',
+    },
+
+    textButton:{
+        color: "#FFFFFF",
+        fontSize: 20,
+        fontFamily: 'PoppinsMedium',
+
+
+    }
+
+
+
+
+})
