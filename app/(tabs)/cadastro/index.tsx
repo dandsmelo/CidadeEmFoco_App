@@ -32,7 +32,7 @@ export default function Cadastro(){
             <TouchableOpacity style={CadastroStyle.topoIcon}>
                 <Icon name="chevron-left" size={30} color="#FFFFFF"/>
             </TouchableOpacity>
-                <Image source={require('../../../assets/images/ImagemCadastro.png')} style={CadastroStyle.img} />
+                <Image source={require('@/assets/images/cadastro.png')} style={CadastroStyle.img} />
             </View>
 
             <View style={CadastroStyle.bodyText}>
