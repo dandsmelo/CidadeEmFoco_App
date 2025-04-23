@@ -1,18 +1,18 @@
-import { TouchableOpacity } from "react-native";
+import { TouchableOpacity, TouchableOpacityProps } from "react-native";
 import { Text } from "react-native";
 import { StyleSheet } from "react-native";
 import { Colors } from "@/constants/Colors";
 
-interface Props {
+interface Props extends TouchableOpacityProps {
     text: string;
     background: keyof typeof Colors;
 }
 
 export default function StyledButton(props: Props) {
-    const { text, background } = props;
+    const { text, background, ...rest  } = props;
 
     return (
-        <TouchableOpacity style={[styles.container, { backgroundColor: Colors[background] }]}>
+        <TouchableOpacity style={[styles.container, { backgroundColor: Colors[background] }]} {...rest}>
             <Text style={styles.text}>
                 {text}
             </Text>
