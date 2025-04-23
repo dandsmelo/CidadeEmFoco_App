@@ -5,17 +5,23 @@ import { style } from "./style";
 import Icon from "react-native-vector-icons/FontAwesome5";
 import ModalEdicao from "./components/modalEditar";
 import { useState } from "react";
+import ModalSenha from "./components/modalSenha";
 
 export default function Usuario() {
     const fontsLoaded = useCustomFonts()
 
-    const [modalVisible, setModalVisible] = useState(false);
+    const [modalEditar, setModalEditar] = useState(false);
     const [selectedField, setselectedField] = useState("");
+    const [modalSenha, setModalSenha] = useState(false);
 
-    const openModal = (campo: string) => {
+    const openModalEditar = (campo: string) => {
         setselectedField(campo);
-        setModalVisible(true);
+        setModalEditar(true);
     };
+
+    const openModalSenha = () => {{
+        setModalSenha(true);
+    }}
             
     if (!fontsLoaded) {
         return null; 
@@ -31,19 +37,19 @@ export default function Usuario() {
                 <Text style={style.name}>Dandara Melo</Text>
             </View>
             <View style={style.inputsView}>
-                <TouchableOpacity style={style.btn} onPress={() => openModal("nome")}>
+                <TouchableOpacity style={style.btn} onPress={() => openModalEditar("nome")}>
                     <Text style={style.text}>Nome</Text>
                     <Icon name="chevron-right" size={25} />
                 </TouchableOpacity>
-                <TouchableOpacity style={style.btn} onPress={() => openModal("telefone")}>
+                <TouchableOpacity style={style.btn} onPress={() => openModalEditar("telefone")}>
                     <Text style={style.text}>Telefone</Text>
                     <Icon name="chevron-right" size={25} />
                 </TouchableOpacity>
-                <TouchableOpacity style={style.btn} onPress={() => openModal("email")}>
+                <TouchableOpacity style={style.btn} onPress={() => openModalEditar("email")}>
                     <Text style={style.text}>Email</Text>
                     <Icon name="chevron-right" size={25} />
                 </TouchableOpacity>
-                <TouchableOpacity style={style.btn}>
+                <TouchableOpacity style={style.btn} onPress={() => openModalSenha()}>
                     <Text style={style.text}>Senha</Text>
                     <Icon name="chevron-right" size={25} />
                 </TouchableOpacity>
@@ -53,10 +59,14 @@ export default function Usuario() {
                 </TouchableOpacity>
             </View>
             <ModalEdicao
-                visible={modalVisible}
+                visible={modalEditar}
                 title={selectedField}
-                onClose={() => setModalVisible(false)}
+                onClose={() => setModalEditar(false)}
             />
+
+            <ModalSenha 
+                visible={modalSenha} 
+                onClose={() => setModalSenha(false)}/>
         </StyledView>
     )
 }

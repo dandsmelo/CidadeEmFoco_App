@@ -36,7 +36,8 @@ export const style = StyleSheet.create({
     },
     inputsView: {
         marginTop: 50,
-        justifyContent: 'space-between',
+        justifyContent: 'center',
+        alignItems: 'center',
         display: 'flex',
         flexDirection: 'column',
     },
