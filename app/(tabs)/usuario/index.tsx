@@ -6,6 +6,7 @@ import Icon from "react-native-vector-icons/FontAwesome5";
 import ModalEdicao from "./components/modalEditar";
 import { useState } from "react";
 import ModalSenha from "./components/modalSenha";
+import Icons from "react-native-vector-icons/Feather";
 
 export default function Usuario() {
     const fontsLoaded = useCustomFonts()
@@ -28,7 +29,7 @@ export default function Usuario() {
     }
 
     return (
-        <StyledView>
+        <View>
             <View style={style.container}>
                 <Icon name="chevron-left" size={25} style={style.icon}/>
                 <View style={style.circle}>
@@ -39,23 +40,23 @@ export default function Usuario() {
             <View style={style.inputsView}>
                 <TouchableOpacity style={style.btn} onPress={() => openModalEditar("nome")}>
                     <Text style={style.text}>Nome</Text>
-                    <Icon name="chevron-right" size={25} />
+                    <Icons name="chevron-right" size={25} />
                 </TouchableOpacity>
                 <TouchableOpacity style={style.btn} onPress={() => openModalEditar("telefone")}>
                     <Text style={style.text}>Telefone</Text>
-                    <Icon name="chevron-right" size={25} />
+                    <Icons name="chevron-right" size={25} />
                 </TouchableOpacity>
                 <TouchableOpacity style={style.btn} onPress={() => openModalEditar("email")}>
                     <Text style={style.text}>Email</Text>
-                    <Icon name="chevron-right" size={25} />
+                    <Icons name="chevron-right" size={25} />
                 </TouchableOpacity>
                 <TouchableOpacity style={style.btn} onPress={() => openModalSenha()}>
                     <Text style={style.text}>Senha</Text>
-                    <Icon name="chevron-right" size={25} />
+                    <Icons name="chevron-right" size={25} />
                 </TouchableOpacity>
                 <TouchableOpacity style={style.btn}>
                     <Text style={style.text}>Sair</Text>
-                    <Icon name="chevron-right" size={25} />
+                    <Icons name="chevron-right" size={25} />
                 </TouchableOpacity>
             </View>
             <ModalEdicao
@@ -67,6 +68,6 @@ export default function Usuario() {
             <ModalSenha 
                 visible={modalSenha} 
                 onClose={() => setModalSenha(false)}/>
-        </StyledView>
+        </View>
     )
 }

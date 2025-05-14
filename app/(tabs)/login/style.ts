@@ -37,7 +37,6 @@ export const style = StyleSheet.create({
         alignItems: 'center',
     },
     fgtPassword: {
-        color: 'black',
         fontSize: 16,
         fontFamily: 'PoppinsRegular',
         textDecorationLine: "underline",

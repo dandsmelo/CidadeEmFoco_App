@@ -44,17 +44,18 @@ export default function Cadastro(){
             <View style={CadastroStyle.bodyInput}>
             
             <View>
-            <Icon name="user-alt" size={20} color="#000000" style={CadastroStyle.inputIcon} />
+            <Icon name="user-alt" size={20} color="#898989" style={CadastroStyle.inputIcon} />
             <TextInput
             style={CadastroStyle.input}
             placeholder="Nome Completo"
             value={nomeCompleto}
             onChangeText={setNomeCompleto}
+            placeholderTextColor="#898989"
             />
             </View>
 
             <View>
-            <Icon name="mobile-alt" size={20} color="#000000" style={CadastroStyle.inputIcon} />
+            <Icon name="mobile-alt" size={20} color="#898989" style={CadastroStyle.inputIcon} />
             <TextInput
             style={CadastroStyle.input}
             placeholder="Telefone"
@@ -62,36 +63,40 @@ export default function Cadastro(){
             value={telefone}
             onChangeText={setTelefone}
             maxLength={11}
+            placeholderTextColor="#898989"
             />
             </View>
 
             <View>
-            <Icon name="envelope" size={20} color="#000000" style={CadastroStyle.inputIcon} />
+            <Icon name="envelope" size={20} color="#898989" style={CadastroStyle.inputIcon} />
             <TextInput
             style={CadastroStyle.input}
             placeholder="Email"
             value={email}
             onChangeText={setEmail}
+            placeholderTextColor="#898989"
             />
             </View>
 
             <View>
-            <Icon name="lock" size={20} color="#000000" style={CadastroStyle.inputIcon} />
+            <Icon name="lock" size={20} color="#898989" style={CadastroStyle.inputIcon} />
             <TextInput
             style={CadastroStyle.input}
             placeholder="Senha"
             value={senha}
             onChangeText={setSenha}
+            placeholderTextColor="#898989"
             />
             </View>
 
             <View>
-            <Icon name="lock" size={20} color="#000000" style={CadastroStyle.inputIcon} />
+            <Icon name="lock" size={20} color="#898989" style={CadastroStyle.inputIcon} />
             <TextInput
             style={CadastroStyle.input}
             placeholder="Confirmar Senha"
             value={confirmarSenha}
             onChangeText={setConfirmarSenha}
+            placeholderTextColor="#898989"
             />
             </View>
 

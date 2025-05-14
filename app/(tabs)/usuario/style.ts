@@ -6,7 +6,7 @@ export const style = StyleSheet.create({
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        height: 230,
+        height: 250,
         width: '100%',
         backgroundColor: Colors.primary,
         top: 0,
@@ -29,17 +29,22 @@ export const style = StyleSheet.create({
         display: 'flex',
       },
     name: {
-        fontFamily: 'PoppinsSemiBold',
+        fontFamily: 'PoppinsMedium',
         fontSize: 20,
         color: 'white',
         marginTop: 10,
     },
     inputsView: {
-        marginTop: 50,
         justifyContent: 'center',
         alignItems: 'center',
         display: 'flex',
         flexDirection: 'column',
+        backgroundColor: Colors.background,
+        width: '100%',
+        height: 450,
+        borderTopLeftRadius: 20,
+        borderTopRightRadius: 20,
+        marginTop: -20,
     },
     btn: {
         display: 'flex',
@@ -54,7 +59,7 @@ export const style = StyleSheet.create({
         marginBottom: 15,
     },
     text: {
-        fontFamily: 'PoppinsMedium',
+        fontFamily: 'PoppinsRegular',
         fontSize: 18,
     },
 })

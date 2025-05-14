@@ -33,7 +33,6 @@ export const CadastroStyle = StyleSheet.create({
         color: "white",
         top: 0,
         margin: 15,
-
     },
 
     //TEXTO
@@ -71,7 +70,7 @@ export const CadastroStyle = StyleSheet.create({
     
     input:{
         backgroundColor: "#FFFFFF",
-        fontSize: 16,
+        fontSize: 17,
         fontFamily: 'PoppinsMedium',
         marginLeft:40,
         marginRight:40,
@@ -80,7 +79,7 @@ export const CadastroStyle = StyleSheet.create({
         borderWidth: 1,
         borderRadius: 10,
         padding: 10,
-        color: "#898989",
+        color: "#000000",
         paddingLeft: 42,
     },
 
