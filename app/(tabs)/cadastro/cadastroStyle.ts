@@ -28,10 +28,11 @@ export const CadastroStyle = StyleSheet.create({
     },
 
     topoIcon:{
-        top: 25,
-        left: 20,
-        position: 'absolute',
-        zIndex: 1,
+        position: "absolute",
+        alignSelf: "flex-start",
+        color: "white",
+        top: 0,
+        margin: 15,
 
     },
 

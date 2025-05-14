@@ -16,7 +16,7 @@ export default function DuplaAutenticacao(){
 
             <View style={Style.containerImg}>
                 <TouchableOpacity style={Style.topoIcon}>
-                    <Icon name="chevron-left" size={30} color="#FFFFFF"/>
+                    <Icon name="chevron-left" size={25} color="#FFFFFF"/>
                 </TouchableOpacity>
                 <Image source={require('@/assets/images/duplaAutenticacao.png')} style={Style.img} />
             </View>

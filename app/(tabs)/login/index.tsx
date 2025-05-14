@@ -5,8 +5,15 @@ import StyledTitle from "@/components/StyledTitle";
 import StyledInputs from "@/components/StyledInputs";
 import StyledButton from "@/components/Button";
 import Icon from "react-native-vector-icons/FontAwesome5";
+import { useCustomFonts } from "@/assets/fonts/Fonts";
 
 export default function Login() {
+
+  const fontsLoaded = useCustomFonts()
+  
+      if (!fontsLoaded) {
+        return null; 
+      }
 
   return (
     <StyledView>
@@ -16,7 +23,7 @@ export default function Login() {
       </View>
       <View style={style.textView}>
         <StyledTitle title="Bem vindo de volta" />
-        <Text>"Seja a voz da sua comunidade. Denuncie e inspire mudanças!"</Text>
+        <Text style={style.text}>"Seja a voz da sua comunidade. Denuncie e inspire mudanças!"</Text>
       </View>
       <View>
         <StyledInputs icon="user" placeholder="Username"/>

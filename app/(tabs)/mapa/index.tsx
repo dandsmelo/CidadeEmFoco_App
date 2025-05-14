@@ -2,6 +2,7 @@ import { useCustomFonts } from "@/assets/fonts/Fonts";
 import { View, Text, Image, TouchableOpacity } from "react-native";
 import { Style } from "./style";
 import Icon from 'react-native-vector-icons/FontAwesome5';
+import Icons from 'react-native-vector-icons/Ionicons';
 
 
 export default function Mapa(){
@@ -46,7 +47,7 @@ export default function Mapa(){
                         </View>
                         <View style={Style.btn}>
                             <TouchableOpacity>
-                                <Icon name="plus-circle" size={29} color="#000000" style={Style.icone} />
+                                <Icons name="add-circle-outline" size={35} color="#000000" style={Style.icone} />
                             </TouchableOpacity>
                         </View>
                         <View style={Style.btn}>

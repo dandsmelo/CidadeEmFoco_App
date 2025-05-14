@@ -13,7 +13,7 @@ export default function MinhasDenuncias() {
 
     return (
         <View style={style.container}>
-            <NavBar title="Minhas Denúncias"/>
+            <NavBar title="Minhas denúncias"/>
             <View style={style.cardView}>
                 <Card>
                     <View style={style.topCard}>

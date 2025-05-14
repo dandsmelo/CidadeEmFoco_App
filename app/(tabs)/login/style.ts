@@ -27,6 +27,11 @@ export const style = StyleSheet.create({
         textAlign: 'left',
         margin: 40,
     },
+    text: {
+        fontSize: 16,
+        fontFamily: 'PoppinsRegular',
+        marginTop: 10,
+    },
     divBtn: {
         marginTop: 20,
         alignItems: 'center',
@@ -34,7 +39,7 @@ export const style = StyleSheet.create({
     fgtPassword: {
         color: 'black',
         fontSize: 16,
-        fontFamily: 'PoppinsMedium',
+        fontFamily: 'PoppinsRegular',
         textDecorationLine: "underline",
     }
 

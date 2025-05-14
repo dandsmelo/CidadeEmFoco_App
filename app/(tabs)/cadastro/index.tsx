@@ -5,6 +5,7 @@ import { useState } from "react";
 import Icon from 'react-native-vector-icons/FontAwesome5';
 
 
+
 export default function Cadastro(){
 
 
@@ -15,10 +16,8 @@ export default function Cadastro(){
     }
 
     const [nomeCompleto, setNomeCompleto] = useState("")
-    const [userName, setUserName] = useState("")
     const [telefone, setTelefone] = useState("")
     const [email, setEmail] = useState("")
-    const [cpf, setCPF] = useState("")
     const [senha, setSenha] = useState("")
     const [confirmarSenha, setConfirmarSenha] = useState("")
 
@@ -30,7 +29,7 @@ export default function Cadastro(){
 
             <View style={CadastroStyle.topoImg}>
             <TouchableOpacity style={CadastroStyle.topoIcon}>
-                <Icon name="chevron-left" size={30} color="#FFFFFF"/>
+                <Icon name="chevron-left" size={25} color="#FFFFFF"/>
             </TouchableOpacity>
                 <Image source={require('@/assets/images/cadastro.png')} style={CadastroStyle.img} />
             </View>
@@ -45,7 +44,7 @@ export default function Cadastro(){
             <View style={CadastroStyle.bodyInput}>
             
             <View>
-            <Icon name="user-alt" size={20} color="#898989" style={CadastroStyle.inputIcon} />
+            <Icon name="user-alt" size={20} color="#000000" style={CadastroStyle.inputIcon} />
             <TextInput
             style={CadastroStyle.input}
             placeholder="Nome Completo"
@@ -55,17 +54,7 @@ export default function Cadastro(){
             </View>
 
             <View>
-            <Icon name="user-alt" size={20} color="#898989" style={CadastroStyle.inputIcon} />
-            <TextInput
-            style={CadastroStyle.input}
-            placeholder="Username"
-            value={userName}
-            onChangeText={setUserName}
-            />
-            </View>
-
-            <View>
-            <Icon name="mobile-alt" size={20} color="#898989" style={CadastroStyle.inputIcon} />
+            <Icon name="mobile-alt" size={20} color="#000000" style={CadastroStyle.inputIcon} />
             <TextInput
             style={CadastroStyle.input}
             placeholder="Telefone"
@@ -77,7 +66,7 @@ export default function Cadastro(){
             </View>
 
             <View>
-            <Icon name="envelope" size={20} color="#898989" style={CadastroStyle.inputIcon} />
+            <Icon name="envelope" size={20} color="#000000" style={CadastroStyle.inputIcon} />
             <TextInput
             style={CadastroStyle.input}
             placeholder="Email"
@@ -87,19 +76,7 @@ export default function Cadastro(){
             </View>
 
             <View>
-            <Icon name="user-alt" size={20} color="#898989" style={CadastroStyle.inputIcon} />
-            <TextInput
-            style={CadastroStyle.input}
-            placeholder="CPF"
-            keyboardType="phone-pad"
-            value={cpf}
-            onChangeText={setCPF}
-            maxLength={11}
-            />
-            </View>
-
-            <View>
-            <Icon name="lock" size={20} color="#898989" style={CadastroStyle.inputIcon} />
+            <Icon name="lock" size={20} color="#000000" style={CadastroStyle.inputIcon} />
             <TextInput
             style={CadastroStyle.input}
             placeholder="Senha"
@@ -109,7 +86,7 @@ export default function Cadastro(){
             </View>
 
             <View>
-            <Icon name="lock" size={20} color="#898989" style={CadastroStyle.inputIcon} />
+            <Icon name="lock" size={20} color="#000000" style={CadastroStyle.inputIcon} />
             <TextInput
             style={CadastroStyle.input}
             placeholder="Confirmar Senha"

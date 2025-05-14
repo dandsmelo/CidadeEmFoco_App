@@ -18,6 +18,7 @@ export const styles = StyleSheet.create({
         backgroundColor: 'white',
         padding: 10,
         color: Colors.cinza,
-        fontSize: 18,
+        fontSize: 16,
+        fontFamily: 'PoppinsMedium',
     }
 })
