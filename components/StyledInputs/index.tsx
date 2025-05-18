@@ -10,9 +10,9 @@ interface Props {
 export default function StyledInputs(props: Props) {
     const { icon, placeholder, ...rest } = props;
     return (
-        <View style={styles.container}>
-            <Icon name={icon} solid size={25} />
-            <TextInput placeholder={placeholder} { ...rest} style={styles.input} />
+        <View>
+            <Icon name={icon} solid size={20} color="#898989" style={styles.icon}/>
+            <TextInput placeholder={placeholder} { ...rest} style={styles.input} placeholderTextColor="#898989" />
         </View>
     );
 }

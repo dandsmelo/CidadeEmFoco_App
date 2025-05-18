@@ -20,7 +20,7 @@ export const style = StyleSheet.create({
     },
     img: {
         width: '100%',
-        height: 270,
+        height: 260,
         marginTop: 35,
         resizeMode: 'contain',
     },
