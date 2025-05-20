@@ -7,8 +7,7 @@ import Icon from 'react-native-vector-icons/FontAwesome5';
 
 
 export default function Cadastro(){
-
-
+    const [isLoading, setIsLoading] = useState(false);
     const fontsLoaded = useCustomFonts()
 
     if (!fontsLoaded) {
@@ -21,7 +20,73 @@ export default function Cadastro(){
     const [senha, setSenha] = useState("")
     const [confirmarSenha, setConfirmarSenha] = useState("")
 
-    const handleCadastro =() =>{}
+    const handleCadastro = async () =>{
+        if (!nomeCompleto || !telefone || !email || !senha || !confirmarSenha) {
+            alert("Por favor, preencha todos os campos.");
+            return;
+        }
+
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+            alert("Por favor, insira um e-mail válido.");
+            return;
+        }
+
+        const telefoneRegex = /^\(?\d{2}\)?[\s-]?\d{4,5}-?\d{4}$/;
+        if (!telefoneRegex.test(telefone)) {
+            alert("Por favor, insira um número de telefone válido.");
+            return;
+        }
+
+        if (senha !== confirmarSenha) {
+            alert("As senhas não coincidem.");
+            return;
+        }
+
+         const senhaRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/;
+         if (!senhaRegex.test(senha)) {
+            alert("A senha deve ter pelo menos 6 caracteres e conter letras e números.");
+            return;
+        }
+
+        if (isLoading) return;
+        setIsLoading(true);
+
+        try {
+            const response = await fetch("http://10.0.2.2:3000/api/usuarios", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    nome: nomeCompleto,
+                    telefone: telefone,
+                    email: email,
+                    senha: senha
+                })
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                alert("Usuário cadastrado com sucesso!");
+                setNomeCompleto("");
+                setTelefone("");
+                setEmail("");
+                setSenha("");
+                setConfirmarSenha("");
+    } else {
+      alert(data.message || "Erro ao cadastrar. Tente novamente.");
+    }
+
+    } catch (error) {
+    console.error(error);
+    alert("Erro de conexão com o servidor. Verifique sua internet ou tente mais tarde.");
+    } finally {
+    setIsLoading(false);
+  }
+}
+
 
     return(
         <ScrollView>
