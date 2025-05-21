@@ -3,10 +3,19 @@ import { useCustomFonts } from "@/assets/fonts/Fonts";
 import { CadastroStyle } from "./cadastroStyle";
 import { useState } from "react";
 import Icon from 'react-native-vector-icons/FontAwesome5';
-
+import { Picker } from '@react-native-picker/picker';
+import DropDownPicker from 'react-native-dropdown-picker';
 
 
 export default function Cadastro(){
+    // estado do dropdown
+    const [open, setOpen] = useState(false);
+    const [tipo, setTipo] = useState(null);
+    const [items, setItems] = useState([
+        { label: 'Cidadão', value: 'cidadao' },
+        { label: 'Servidor Público', value: 'servidorPublico' }
+    ]);
+
     const [isLoading, setIsLoading] = useState(false);
     const fontsLoaded = useCustomFonts()
 
@@ -21,7 +30,7 @@ export default function Cadastro(){
     const [confirmarSenha, setConfirmarSenha] = useState("")
 
     const handleCadastro = async () =>{
-        if (!nomeCompleto || !telefone || !email || !senha || !confirmarSenha) {
+        if (!nomeCompleto || !telefone || !email || !senha || !confirmarSenha || !tipo) {
             alert("Por favor, preencha todos os campos.");
             return;
         }
@@ -62,7 +71,8 @@ export default function Cadastro(){
                     nome: nomeCompleto,
                     telefone: telefone,
                     email: email,
-                    senha: senha
+                    senha: senha,
+                    tipo: tipo
                 })
             });
 
@@ -75,6 +85,7 @@ export default function Cadastro(){
                 setEmail("");
                 setSenha("");
                 setConfirmarSenha("");
+                setTipo(null);
     } else {
       alert(data.message || "Erro ao cadastrar. Tente novamente.");
     }
@@ -164,6 +175,36 @@ export default function Cadastro(){
             placeholderTextColor="#898989"
             />
             </View>
+            
+            <View style={{ zIndex: 1000, marginHorizontal: 40, marginTop: 10 }}>
+                <DropDownPicker
+                open={open}
+                value={tipo}
+                items={items}
+                setOpen={setOpen}
+                setValue={setTipo}
+                setItems={setItems}
+                placeholder="Tipo de usuário"
+                style={{
+                    backgroundColor: '#FFFFFF',
+                    borderRadius: 10,
+                    borderColor: '#FFFFFF',
+                    height: 50,
+                }}
+                textStyle={{
+                    fontSize: 17,
+                    fontFamily: 'PoppinsMedium',
+                    color: '#000000',
+                }}
+                placeholderStyle={{
+                    color: '#898989',
+                }}
+                dropDownContainerStyle={{
+                    backgroundColor: '#FFFFFF',
+                    borderColor: '#FFFFFF',
+                }}
+                />
+                </View>
 
             </View>
 

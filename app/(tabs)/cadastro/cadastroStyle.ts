@@ -106,16 +106,10 @@ export const CadastroStyle = StyleSheet.create({
         borderRadius: 10,
         alignItems: 'center',
     },
-
     textButton:{
         color: "#FFFFFF",
         fontSize: 20,
         fontFamily: 'PoppinsMedium',
-
-
-    }
-
-
-
+    },
 
 })
