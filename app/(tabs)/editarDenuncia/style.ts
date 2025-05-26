@@ -30,6 +30,7 @@ export const Style = StyleSheet.create({
     img:{
         height: 130,
         width: 260,
+        borderRadius:10,
     },
 
     divText:{
@@ -63,7 +64,7 @@ export const Style = StyleSheet.create({
         marginTop: 30,
         fontSize: 16,
         color: '#000000',
-        fontFamily: 'PoppinsMedium',
+        fontFamily: 'PoppinsSemibold',
     },
 
     text:{
@@ -84,6 +85,16 @@ export const Style = StyleSheet.create({
         marginTop: 5,
         marginBottom: 5,
     },
+    buttonEditar:{
+        backgroundColor: Colors.verde, 
+        padding: 5,
+        borderRadius: 10,
+        flexDirection:'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginTop: 5,
+        marginBottom: 5,
+    },
 
     iconButton:{ 
     },
@@ -94,6 +105,57 @@ export const Style = StyleSheet.create({
         fontFamily: 'PoppinsMedium',
         marginLeft: 8,
         marginTop: 3,
-    }
+    },
+    input: {
+        width: '100%',
+        paddingVertical: 4,
+        paddingHorizontal: 8,
+        fontSize: 14,
+        color: '#898989',
+        borderWidth: 1,
+        borderColor: '#898989',
+        borderRadius: 10,
+        marginBottom: 8,
+        fontFamily: 'PoppinsMedium',
+        textAlign: 'center',
+        margin: 5,
+    },
+    inputTitulo:{
+        margin: 5,
+        color: 'white',
+        fontFamily: 'PoppinsSemiBold',
+        fontSize: 24,
+        width: '60%',
+    },
+    descricaoInput:{
+        fontSize: 14,
+        color: '#898989',
+        borderWidth: 1,
+        borderColor: '#898989',
+        borderRadius: 10,
+        marginBottom: 8,
+        fontFamily: 'PoppinsMedium',
+        padding: 5,
+    
+    },
+    textTitulo: {
+        color: 'white',
+        fontFamily: 'PoppinsSemiBold',
+        fontSize: 24,
+        marginLeft: 10,
+    },
+    iconNavBar: {
+        color: "white",
+        top: 0,
+        margin: 15,
+    },
+    navBar:{
+        backgroundColor: Colors.primary,
+        height: 70,
+        width: '100%',
+        display: 'flex',
+        flexDirection: 'row',
+        alignItems: 'center',
+    },
 
 })
