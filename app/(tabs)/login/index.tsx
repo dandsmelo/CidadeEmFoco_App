@@ -7,10 +7,47 @@ import StyledButton from "@/components/Button";
 import Icon from "react-native-vector-icons/FontAwesome5";
 import { useCustomFonts } from "@/assets/fonts/Fonts";
 import { router } from 'expo-router';
+import { useState } from "react";
 
 export default function Login() {
 
   const fontsLoaded = useCustomFonts()
+
+  const [email, setEmail] = useState('');
+  const [senha, setSenha] = useState('');
+
+  const handleLogin = async () => {
+    if (!email || !senha) {
+      alert('Preencha todos os campos');
+      return;
+    }
+
+    try {
+      const response = await fetch('http://localhost:3000/usuario/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          email: email,
+          senha: senha
+        })
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        alert('Usuário logado');
+        // navigation.navigate('Home')
+      } else {
+        alert( data.message || 'Usuário ou senha incorretos');
+      }
+
+    } catch (error) {
+      console.log(error);
+      alert('Não foi possível conectar ao servidor');
+    }
+  };
   
       if (!fontsLoaded) {
         return null; 
@@ -27,8 +64,8 @@ export default function Login() {
         <Text style={style.text}>"Seja a voz da sua comunidade. Denuncie e inspire mudanças!"</Text>
       </View>
       <View>
-        <StyledInputs icon="user" placeholder="Username"/>
-        <StyledInputs icon="lock" placeholder="Senha" />
+        <StyledInputs icon="user" placeholder="Email" value= {email} onChangeText={setEmail}/>
+        <StyledInputs icon="lock" placeholder="Senha" value= {senha} onChangeText={setSenha} />
       </View>
       <View style={style.divBtn}>
         <StyledButton text="Logar" background="amarelo"/>
