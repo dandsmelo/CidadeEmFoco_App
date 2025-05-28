@@ -3,12 +3,20 @@ import { useCustomFonts } from "@/assets/fonts/Fonts";
 import { CadastroStyle } from "./cadastroStyle";
 import { useState } from "react";
 import Icon from 'react-native-vector-icons/FontAwesome5';
-
+import { Picker } from '@react-native-picker/picker';
+import DropDownPicker from 'react-native-dropdown-picker';
 
 
 export default function Cadastro(){
+    // estado do dropdown
+    const [open, setOpen] = useState(false);
+    const [tipo, setTipo] = useState(null);
+    const [items, setItems] = useState([
+        { label: 'Cidadão', value: 'cidadao' },
+        { label: 'Servidor Público', value: 'servidorPublico' }
+    ]);
 
-
+    const [isLoading, setIsLoading] = useState(false);
     const fontsLoaded = useCustomFonts()
 
     if (!fontsLoaded) {
@@ -21,7 +29,75 @@ export default function Cadastro(){
     const [senha, setSenha] = useState("")
     const [confirmarSenha, setConfirmarSenha] = useState("")
 
-    const handleCadastro =() =>{}
+    const handleCadastro = async () =>{
+        if (!nomeCompleto || !telefone || !email || !senha || !confirmarSenha || !tipo) {
+            alert("Por favor, preencha todos os campos.");
+            return;
+        }
+
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+            alert("Por favor, insira um e-mail válido.");
+            return;
+        }
+
+        const telefoneRegex = /^\(?\d{2}\)?[\s-]?\d{4,5}-?\d{4}$/;
+        if (!telefoneRegex.test(telefone)) {
+            alert("Por favor, insira um número de telefone válido.");
+            return;
+        }
+
+        if (senha !== confirmarSenha) {
+            alert("As senhas não coincidem.");
+            return;
+        }
+
+         const senhaRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/;
+         if (!senhaRegex.test(senha)) {
+            alert("A senha deve ter pelo menos 6 caracteres e conter letras e números.");
+            return;
+        }
+
+        if (isLoading) return;
+        setIsLoading(true);
+
+        try {
+            const response = await fetch("http://10.0.2.2:3000/api/usuarios", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    nome: nomeCompleto,
+                    telefone: telefone,
+                    email: email,
+                    senha: senha,
+                    tipo: tipo
+                })
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                alert("Usuário cadastrado com sucesso!");
+                setNomeCompleto("");
+                setTelefone("");
+                setEmail("");
+                setSenha("");
+                setConfirmarSenha("");
+                setTipo(null);
+    } else {
+      alert(data.message || "Erro ao cadastrar. Tente novamente.");
+    }
+
+    } catch (error) {
+    console.error(error);
+    alert("Erro de conexão com o servidor. Verifique sua internet ou tente mais tarde.");
+    } finally {
+    setIsLoading(false);
+  }
+}
+
 
     return(
         <ScrollView>
@@ -99,6 +175,36 @@ export default function Cadastro(){
             placeholderTextColor="#898989"
             />
             </View>
+            
+            <View style={{ zIndex: 1000, marginHorizontal: 40, marginTop: 10 }}>
+                <DropDownPicker
+                open={open}
+                value={tipo}
+                items={items}
+                setOpen={setOpen}
+                setValue={setTipo}
+                setItems={setItems}
+                placeholder="Tipo de usuário"
+                style={{
+                    backgroundColor: '#FFFFFF',
+                    borderRadius: 10,
+                    borderColor: '#FFFFFF',
+                    height: 50,
+                }}
+                textStyle={{
+                    fontSize: 17,
+                    fontFamily: 'PoppinsMedium',
+                    color: '#000000',
+                }}
+                placeholderStyle={{
+                    color: '#898989',
+                }}
+                dropDownContainerStyle={{
+                    backgroundColor: '#FFFFFF',
+                    borderColor: '#FFFFFF',
+                }}
+                />
+                </View>
 
             </View>
 
