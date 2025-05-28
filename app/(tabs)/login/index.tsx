@@ -38,7 +38,7 @@ export default function Login() {
 
       if (response.ok) {
         alert('Usuário logado');
-        // navigation.navigate('Home')
+        router.push('/mapa')
       } else {
         alert( data.message || 'Usuário ou senha incorretos');
       }
@@ -68,7 +68,7 @@ export default function Login() {
         <StyledInputs icon="lock" placeholder="Senha" value= {senha} onChangeText={setSenha} />
       </View>
       <View style={style.divBtn}>
-        <StyledButton text="Logar" background="amarelo"/>
+        <StyledButton text="Logar" background="amarelo" onPress={handleLogin}/>
         <Text 
           style={style.fgtPassword}
           onPress={() => router.push('/esqueciMinhaSenha')}

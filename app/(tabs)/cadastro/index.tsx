@@ -61,6 +61,7 @@ export default function Cadastro(){
 
         if (isLoading) return;
         setIsLoading(true);
+        router.push('/login')
 
         try {
             const response = await fetch("http://localhost:3000/usuario", {
