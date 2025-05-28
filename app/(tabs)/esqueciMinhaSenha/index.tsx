@@ -3,15 +3,15 @@ import { Style } from "./style";
 import StyledButton from "@/components/Button";
 import StyledTitle from "@/components/StyledTitle";
 import Icon from 'react-native-vector-icons/FontAwesome5';
-
+import { router } from 'expo-router';
 
 export default function EsqueciMinhaSenha(){
     return(
         <View style={Style.container}>
 
             <View style={Style.containerImg}>
-                <TouchableOpacity style={Style.topoIcon}>
-                    <Icon name="chevron-left" size={30} color="#FFFFFF"/>
+                <TouchableOpacity style={Style.topoIcon} onPress={() => router.push('/login')}>
+                    <Icon name="chevron-left" size={30} color="#FFFFFF" onPress={() => router.push('/login')}/>
                 </TouchableOpacity>
                 <Image source={require('../../../assets/images/redefinirSenha.png')} style={Style.img} />
             </View>
@@ -34,8 +34,8 @@ export default function EsqueciMinhaSenha(){
                 <TextInput style={Style.input}></TextInput>
             </View>
 
-            <View style={Style.containerbtn} >
-                <StyledButton text="Redefinir" background="azul"/>
+            <View style={Style.containerbtn}>
+                <StyledButton text="Redefinir" background="azul" onPress={() => router.push('/login')}/>
             </View>
 
             </View>

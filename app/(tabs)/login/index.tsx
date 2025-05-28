@@ -6,6 +6,7 @@ import StyledInputs from "@/components/StyledInputs";
 import StyledButton from "@/components/Button";
 import Icon from "react-native-vector-icons/FontAwesome5";
 import { useCustomFonts } from "@/assets/fonts/Fonts";
+import { router } from 'expo-router';
 import { useState } from "react";
 
 export default function Login() {
@@ -37,7 +38,7 @@ export default function Login() {
 
       if (response.ok) {
         alert('Usuário logado');
-        // navigation.navigate('Home')
+        router.push('/mapa')
       } else {
         alert( data.message || 'Usuário ou senha incorretos');
       }
@@ -55,7 +56,7 @@ export default function Login() {
   return (
     <StyledView>
       <View style={style.containerImg}>
-        <Icon name="chevron-left" size={25} style={style.icon} />
+        <Icon name="chevron-left" size={25} style={style.icon} onPress={() => router.push('/')}/>
         <Image source={require('@/assets/images/loginImg.png')} style={style.img} />
       </View>
       <View style={style.textView}>
@@ -68,7 +69,10 @@ export default function Login() {
       </View>
       <View style={style.divBtn}>
         <StyledButton text="Logar" background="amarelo" onPress={handleLogin}/>
-        <Text style={style.fgtPassword}>
+        <Text 
+          style={style.fgtPassword}
+          onPress={() => router.push('/esqueciMinhaSenha')}
+        >
           Esqueci minha senha
         </Text>
       </View>

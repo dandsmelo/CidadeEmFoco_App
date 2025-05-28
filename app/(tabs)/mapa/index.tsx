@@ -1,9 +1,9 @@
+import { router } from 'expo-router';
 import { useCustomFonts } from "@/assets/fonts/Fonts";
 import { View, Text, Image, TouchableOpacity } from "react-native";
 import { Style } from "./style";
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import Icons from 'react-native-vector-icons/Ionicons';
-
 
 export default function Mapa(){
     const fontsLoaded = useCustomFonts()
@@ -16,14 +16,16 @@ export default function Mapa(){
             
             <View style={Style.header}>
 
-            <View style={Style.divImg}>
-                <Image source={require('@/assets/images/user.png')} style={Style.img} />
-            </View>
+                <View style={Style.divImg}>
+                    <TouchableOpacity onPress={() => router.push('/usuario')}>
+                        <Image source={require('@/assets/images/user.png')} style={Style.img} />
+                    </TouchableOpacity>
+                </View>
 
-            <View style={Style.divTextHeader}>
-                <Text style={Style.textI}>Olá,</Text>
-                <Text style={Style.textII}>Usuário</Text>
-            </View>
+                <View style={Style.divTextHeader}>
+                    <Text style={Style.textI}>Olá,</Text>
+                    <Text style={Style.textII}>Usuário</Text>
+                </View>
 
             </View> 
 
@@ -41,17 +43,17 @@ export default function Mapa(){
                 <View style={Style.divCard}>
                     <View style={Style.card}>
                         <View style={Style.btnI}>
-                            <TouchableOpacity>
+                            <TouchableOpacity onPress={() => router.push('/mapa')}>
                                 <Icon name="map-marker-alt" size={29} color="#000000" style={Style.icone} />
                             </TouchableOpacity>
                         </View>
                         <View style={Style.btn}>
-                            <TouchableOpacity>
+                            <TouchableOpacity onPress={() => router.push('/criarDenuncia')}>
                                 <Icons name="add-circle-outline" size={35} color="#000000" style={Style.icone} />
                             </TouchableOpacity>
                         </View>
                         <View style={Style.btn}>
-                            <TouchableOpacity>
+                            <TouchableOpacity onPress={() => router.push('/minhasDenuncias')}>
                                 <Icon name="clipboard-list" size={29} color="#000000" style={Style.icone} />
                             </TouchableOpacity>
                         </View>

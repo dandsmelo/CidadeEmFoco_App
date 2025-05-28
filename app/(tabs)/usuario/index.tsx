@@ -7,6 +7,7 @@ import ModalEdicao from "./components/modalEditar";
 import { useState } from "react";
 import ModalSenha from "./components/modalSenha";
 import Icons from "react-native-vector-icons/Feather";
+import { router } from 'expo-router';
 
 export default function Usuario() {
     const fontsLoaded = useCustomFonts()
@@ -31,7 +32,7 @@ export default function Usuario() {
     return (
         <View>
             <View style={style.container}>
-                <Icon name="chevron-left" size={25} style={style.icon}/>
+                <Icon name="chevron-left" size={25} style={style.icon} onPress={() => router.push('/mapa')}/>
                 <View style={style.circle}>
                     <Icon name="user-edit" size={60} style={{color: 'white'}}/>
                 </View>

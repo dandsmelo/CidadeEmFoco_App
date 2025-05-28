@@ -3,6 +3,7 @@ import { useCustomFonts } from "@/assets/fonts/Fonts";
 import { CadastroStyle } from "./cadastroStyle";
 import { useState } from "react";
 import Icon from 'react-native-vector-icons/FontAwesome5';
+import { router } from 'expo-router';
 import { Picker } from '@react-native-picker/picker';
 import DropDownPicker from 'react-native-dropdown-picker';
 
@@ -60,6 +61,7 @@ export default function Cadastro(){
 
         if (isLoading) return;
         setIsLoading(true);
+        router.push('/login')
 
         try {
             const response = await fetch("http://localhost:3000/usuario", {
@@ -105,7 +107,7 @@ export default function Cadastro(){
 
             <View style={CadastroStyle.topoImg}>
             <TouchableOpacity style={CadastroStyle.topoIcon}>
-                <Icon name="chevron-left" size={25} color="#FFFFFF"/>
+                <Icon name="chevron-left" size={25} color="#FFFFFF" onPress={() => router.push('/')}/>
             </TouchableOpacity>
                 <Image source={require('@/assets/images/cadastro.png')} style={CadastroStyle.img} />
             </View>

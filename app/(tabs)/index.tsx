@@ -1,6 +1,7 @@
 import { View, Text, Image, TouchableOpacity } from 'react-native';
 import { InitialPageStyles } from './initialPageStyle';
 import { useCustomFonts } from '@/assets/fonts/Fonts';
+import { router } from 'expo-router';
 
 export default function InitialPage() {
   const fontsLoaded = useCustomFonts()
@@ -14,10 +15,16 @@ export default function InitialPage() {
       <Text style={InitialPageStyles.title}>Cidade em Foco</Text>
       <Text style={InitialPageStyles.caption}>"Cada problema reportado é um passo em direção à solução."</Text>
       <View>
-        <TouchableOpacity  style={InitialPageStyles.button}>
+        <TouchableOpacity  
+          style={InitialPageStyles.button}
+          onPress={() => router.push('/login')}
+        >
           <Text style={InitialPageStyles.btnText}>Login</Text>
         </TouchableOpacity>
-        <TouchableOpacity  style={InitialPageStyles.button}>
+        <TouchableOpacity 
+          style={InitialPageStyles.button}
+          onPress={() => router.push('/cadastro')}
+        >
           <Text style={InitialPageStyles.btnText}>Cadastrar</Text>
         </TouchableOpacity>
       </View>
