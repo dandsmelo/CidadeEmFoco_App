@@ -3,8 +3,7 @@ import { useCustomFonts } from "@/assets/fonts/Fonts";
 import { CadastroStyle } from "./cadastroStyle";
 import { useState } from "react";
 import Icon from 'react-native-vector-icons/FontAwesome5';
-
-
+import { router } from 'expo-router';
 
 export default function Cadastro(){
 
@@ -29,7 +28,7 @@ export default function Cadastro(){
 
             <View style={CadastroStyle.topoImg}>
             <TouchableOpacity style={CadastroStyle.topoIcon}>
-                <Icon name="chevron-left" size={25} color="#FFFFFF"/>
+                <Icon name="chevron-left" size={25} color="#FFFFFF" onPress={() => router.push('/')}/>
             </TouchableOpacity>
                 <Image source={require('@/assets/images/cadastro.png')} style={CadastroStyle.img} />
             </View>

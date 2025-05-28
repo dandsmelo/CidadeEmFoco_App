@@ -5,12 +5,13 @@ import StyledView from "@/components/StyledView";
 import { View, Image } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome5";
 import { style } from "./style";
+import { router } from 'expo-router';
 
 export default function RedefinirSenha() {
     return (
         <StyledView>
             <View style={style.containerImg}>
-                <Icon name="chevron-left" size={25} style={style.icon}/>
+                <Icon name="chevron-left" size={25} style={style.icon} onPress={() => router.push('/login')}/>
                 <Image source={require('@/assets/images/redefinirSenha.png')} style={style.img} />
             </View>
             <View style={style.titleDiv}>

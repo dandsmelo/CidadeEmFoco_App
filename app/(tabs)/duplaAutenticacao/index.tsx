@@ -1,5 +1,6 @@
+import { router } from 'expo-router';
 import StyledButton from "@/components/Button";
-import {View, Text, TextInput, TouchableOpacity, Image, ScrollView, Button} from "react-native";
+import {View, Text, TextInput, TouchableOpacity, Image} from "react-native";
 import React from 'react';
 import { Style } from "./style";
 import { useCustomFonts } from "@/assets/fonts/Fonts";
@@ -15,7 +16,7 @@ export default function DuplaAutenticacao(){
         <View style={Style.container}>
 
             <View style={Style.containerImg}>
-                <TouchableOpacity style={Style.topoIcon}>
+                <TouchableOpacity style={Style.topoIcon} onPress={() => router.push('/login')}>
                     <Icon name="chevron-left" size={25} color="#FFFFFF"/>
                 </TouchableOpacity>
                 <Image source={require('@/assets/images/duplaAutenticacao.png')} style={Style.img} />
@@ -39,13 +40,13 @@ export default function DuplaAutenticacao(){
                 </View>
 
                 <View style={Style.containerbtn}>
-                    <StyledButton text="Verificar" background="azul"></StyledButton>
+                    <StyledButton text="Verificar" background="azul" onPress={() => router.push('/mapa')}/>
                 </View>
 
                 <View style={Style.bottomDiv}>
-                <TouchableOpacity>
-                <Text style={Style.link}>Reenviar código</Text>
-                </TouchableOpacity>
+                    <TouchableOpacity>
+                        <Text style={Style.link}>Reenviar código</Text>
+                    </TouchableOpacity>
                 </View>
             </View>
         </View>

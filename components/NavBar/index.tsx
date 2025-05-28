@@ -3,6 +3,7 @@ import { View, Text } from "react-native"
 import { StyleSheet } from "react-native";
 import { useCustomFonts } from "@/assets/fonts/Fonts";
 import Icon from "react-native-vector-icons/FontAwesome5";
+import { router } from 'expo-router';
 
 interface Props {
     title: string,
@@ -19,7 +20,12 @@ export default function NavBar(props: Props) {
 
     return (
         <View style={styles.container}>
-            <Icon name="chevron-left" size={25} style={styles.icon}/>
+            <Icon 
+                name="chevron-left" 
+                size={25} 
+                style={styles.icon} 
+                onPress={() => router.push('/mapa')}
+            />
             <Text style={styles.text}>{title}</Text>
         </View>
     )
