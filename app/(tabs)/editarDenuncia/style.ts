@@ -8,6 +8,11 @@ export const Style = StyleSheet.create({
         flex: 1,
         width: '100%',
         alignItems: 'center',
+        backgroundColor: Colors.background,
+
+    },
+    backgroud: {
+        backgroundColor: Colors.background,
 
     },
 
@@ -28,7 +33,7 @@ export const Style = StyleSheet.create({
     },
 
     img:{
-        height: 130,
+        height: 150,
         width: 260,
         borderRadius:10,
     },
@@ -40,19 +45,17 @@ export const Style = StyleSheet.create({
     },
 
     textI:{
-        marginTop: 5,
-        fontSize: 16,
+        fontSize: 18,
         color: '#000000',
         fontFamily: 'PoppinsRegular',
         marginLeft: 5,
     },
 
     textII:{
-        marginTop: 5,
-        fontSize: 16,
+        fontSize: 18,
         color: '#000000',
         fontFamily: 'PoppinsRegular',
-        marginLeft: 30,
+        marginLeft: 5,
     },
 
     icon:{
@@ -61,14 +64,14 @@ export const Style = StyleSheet.create({
 
 
     titulo:{
-        marginTop: 30,
-        fontSize: 16,
+        marginTop: 10,
+        fontSize: 18,
         color: '#000000',
         fontFamily: 'PoppinsSemibold',
     },
 
     text:{
-        fontSize: 16,
+        fontSize: 18,
         color: '#000000',
         fontFamily: 'PoppinsRegular',
         textAlign: 'justify',
@@ -98,27 +101,28 @@ export const Style = StyleSheet.create({
 
     iconButton:{ 
     },
+    iconButtonI:{
+        marginRight: 5,
+    },
 
     textButton:{
         color: "#FFFFFF",
-        fontSize: 16,
+        fontSize: 18,
         fontFamily: 'PoppinsMedium',
         marginLeft: 8,
         marginTop: 3,
     },
     input: {
         width: '100%',
-        paddingVertical: 4,
-        paddingHorizontal: 8,
-        fontSize: 14,
+        paddingVertical: 5,
+        fontSize: 18,
         color: '#898989',
         borderWidth: 1,
         borderColor: '#898989',
         borderRadius: 10,
-        marginBottom: 8,
         fontFamily: 'PoppinsMedium',
         textAlign: 'center',
-        margin: 5,
+        marginLeft: 10,
     },
     inputTitulo:{
         margin: 5,
@@ -128,7 +132,7 @@ export const Style = StyleSheet.create({
         width: '60%',
     },
     descricaoInput:{
-        fontSize: 14,
+        fontSize: 18,
         color: '#898989',
         borderWidth: 1,
         borderColor: '#898989',
@@ -156,6 +160,19 @@ export const Style = StyleSheet.create({
         display: 'flex',
         flexDirection: 'row',
         alignItems: 'center',
+    },
+
+    category: {
+        width: 150,
+        height: 40,
+        padding: 7,
+        textAlign: 'center',
+        backgroundColor: Colors.azul,
+        borderRadius: 10,
+        color: 'white', 
+        fontSize: 18,
+        fontFamily: 'PoppinsMedium', 
+        marginTop: 10,
     },
 
 })
