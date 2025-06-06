@@ -1,16 +1,27 @@
 import { useCustomFonts } from "@/assets/fonts/Fonts";
 import NavBar from "@/components/NavBar";
-import { View, Image, Text, TouchableOpacity, TextInput} from "react-native";
+import { View, Image, Text, TouchableOpacity, TextInput, ScrollView} from "react-native";
 import Card from "@/components/Card";
 import { Style } from "./style";
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import { useState } from "react";
 import * as ImagePicker from 'expo-image-picker';
+import DropDownPicker from 'react-native-dropdown-picker';
 
 
 
 
 export default function EditarDenuncia(){
+    const [open, setOpen] = useState(false);
+    const [categoria, setCategoria] = useState<string | null>('buraco');
+    const [items, setItems] = useState([
+    { label: 'Lixo', value: 'lixo' },
+    { label: 'Iluminação', value: 'iluminação' },
+    { label: 'Saneamento', value: 'saneamento' },
+    { label: 'Infraestrutura', value: 'infraestrutura' },
+    { label: 'segurança', value: 'segurança' },
+    { label: 'Outro', value: 'outro' }
+    ]);
 
     const selecionarImagem = async () => {
         const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
@@ -54,6 +65,7 @@ export default function EditarDenuncia(){
 
 
     return(
+        <ScrollView style={Style.backgroud}>
         <View style={Style.container}>
             <View style={Style.navBar}>
                 <TouchableOpacity>
@@ -96,8 +108,9 @@ export default function EditarDenuncia(){
                             )}
                             
                         </View>
+                        
                         <View style={Style.divText}>
-                            <Icon name="map-pin" size={25} color="#000000" style={Style.icon}></Icon>
+                            <Icon name="map-marked-alt" size={23} color="#000000" style={Style.iconButton}></Icon>
                             {isEditing ? (
                                 <>
                                 <TextInput
@@ -106,6 +119,18 @@ export default function EditarDenuncia(){
                                     onChangeText={setEndereco}
                                     maxLength={20}
                                 />
+                                </>
+                            ) : (
+                                <>
+                                <Text style={Style.textI}>{endereco}</Text>
+                                </>
+                            )}
+                        </View>
+
+                        <View style={Style.divText}>
+                            <Icon name="calendar-alt" size={23} color="#000000" style={Style.iconButtonI}></Icon>
+                            {isEditing ? (
+                                <>
                                 <TextInput
                                         style={Style.input}
                                         value={data}
@@ -114,21 +139,59 @@ export default function EditarDenuncia(){
                                 </>
                             ) : (
                                 <>
-                                <Text style={Style.textI}>{endereco}</Text>
                                 <Text style={Style.textII}>{data}</Text>
                                 </>
                             )}
                         </View>
+                        
+
+                        
+                            
+                        <View style={{ zIndex: 1000, marginTop: 10 }}>
+                            {isEditing ? (
+                            <DropDownPicker
+                            open={open}
+                            value={categoria}
+                            items={items}
+                            setOpen={setOpen}
+                            setValue={setCategoria}
+                            setItems={setItems}
+                            placeholder="Selecione categoria"
+                            style={{
+                                backgroundColor: '#FFFFFF',
+                                borderRadius: 10,
+                                borderColor: '#898989',
+                                height: 50,
+                            }}
+                            textStyle={{
+                                fontSize: 17,
+                                fontFamily: 'PoppinsMedium',
+                                color: '#898989',
+                            }}
+                            placeholderStyle={{
+                                color: '#000000',
+                            }}
+                            dropDownContainerStyle={{
+                                backgroundColor: '#FFFFFF',
+                                borderColor: '#898989',
+                            }}
+                            />
+                            ) : (
+                            <Text style={Style.category}>{categoria ? categoria.charAt(0).toUpperCase() + categoria.slice(1) : "Sem categoria"}</Text>
+                            )}
+                        </View>
+                
+                     
 
                         <View>
                             <Text style={Style.titulo}>Descrição</Text>
                             {isEditing ? (
                                 <TextInput
-                                style={[Style.descricaoInput, { height: 100, textAlignVertical: 'top' }]}
+                                style={[Style.descricaoInput, { height: 350, textAlignVertical: 'top' }]}
                                 value={descricao}
                                 onChangeText={setDescricao}
                                 multiline
-                                maxLength={150}
+                                maxLength={250}
                                 />
                             ) : (
                                 <Text style={Style.text}>{descricao}</Text>
@@ -144,7 +207,7 @@ export default function EditarDenuncia(){
                             </TouchableOpacity>
 
                             <TouchableOpacity style={Style.button}>
-                                <Icon name="trash" size={18} color="#FFFFFF" style={Style.iconButton}></Icon>
+                                <Icon name="trash" size={20} color="#FFFFFF" style={Style.iconButton}></Icon>
                                 <Text style={Style.textButton}>Excluir denúncia</Text>
                             </TouchableOpacity>
                         </View>
@@ -157,5 +220,6 @@ export default function EditarDenuncia(){
             </View>
 
         </View>
+        </ScrollView>
     )
 }

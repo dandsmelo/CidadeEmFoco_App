@@ -4,7 +4,6 @@ import { CadastroStyle } from "./cadastroStyle";
 import { useState } from "react";
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import { router } from 'expo-router';
-import { Picker } from '@react-native-picker/picker';
 import DropDownPicker from 'react-native-dropdown-picker';
 
 
@@ -99,7 +98,6 @@ export default function Cadastro(){
     setIsLoading(false);
   }
 }
-
 
     return(
         <ScrollView>
