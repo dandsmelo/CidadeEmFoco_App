@@ -8,6 +8,7 @@ import Icon from "react-native-vector-icons/FontAwesome5";
 import { useCustomFonts } from "@/assets/fonts/Fonts";
 import { router } from 'expo-router';
 import { useState } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function Login() {
 
@@ -37,6 +38,7 @@ export default function Login() {
       const data = await response.json();
 
       if (response.ok) {
+        await AsyncStorage.setItem('token', data.token);
         alert('Usuário logado');
         router.push('/mapa')
       } else {
