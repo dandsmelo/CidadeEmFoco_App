@@ -4,15 +4,27 @@ import * as ImagePicker from 'expo-image-picker';
 import Card from "@/components/Card";
 import NavBar from "@/components/NavBar";
 import StyledView from "@/components/StyledView";
-import { Text, TextInput, TouchableOpacity, View, Image } from "react-native";
+import { Text, TextInput, TouchableOpacity, View, Image, ScrollView } from "react-native";
 import { style } from "./style";
 import { useCustomFonts } from "@/assets/fonts/Fonts";
 import { AntDesign } from '@expo/vector-icons';
 import Icon from "react-native-vector-icons/FontAwesome5";
 import DateTimePicker from '@react-native-community/datetimepicker';
-import { Picker } from '@react-native-picker/picker';
+import DropDownPicker from 'react-native-dropdown-picker';
 
 export default function CriarDenuncia() {
+  const [open, setOpen] = useState(false);
+    const [tipo, setTipo] = useState(null);
+    const [items, setItems] = useState([
+    { label: 'Lixo', value: 'lixo' },
+    { label: 'Iluminação', value: 'iluminação' },
+    { label: 'Saneamento', value: 'saneamento' },
+    { label: 'Infraestrutura', value: 'infraestrutura' },
+    { label: 'segurança', value: 'segurança' },
+    { label: 'Outro', value: 'outro' }
+    ]);
+
+
     const [date, setDate] = useState<Date | undefined>(undefined);
     const [text, setText] = useState('');
     const [showPicker, setShowPicker] = useState(false);
@@ -86,6 +98,7 @@ export default function CriarDenuncia() {
     }
 
     return (
+      <ScrollView style={style.background}>
         <StyledView>
             <NavBar title="Criar denúncia" />
             <View style={style.cardView}>
@@ -106,13 +119,13 @@ export default function CriarDenuncia() {
                         </View>
                     )}
                     <View style={style.input}>
-                        <AntDesign name="pluscircle" size={20} color="#898989" />
+                        <AntDesign name="pluscircle" size={20} color="#2e2e2e" />
                         <TextInput style={style.textInput} placeholder='Adicionar endereço'>
                         </TextInput>
                     </View>
                     <View>
                         <TouchableOpacity onPress={() => setShowPicker(true)} activeOpacity={1} style={style.input}>
-                            <Icon name='calendar-alt' size={20} style={{color: 'black'}}/>
+                            <Icon name='calendar-alt' size={20} style={{color: '2e2e2e'}}/>
                             <TextInput
                             value={text}
                             onChangeText={setText}
@@ -130,27 +143,55 @@ export default function CriarDenuncia() {
                         )}
                     </View>
                     <View>
-                        <Text style={{fontFamily: 'PoppinsMedium', fontSize: 16, marginVertical: 10}}>Descrição</Text>
-                        <TextInput style={style.description} placeholder="Escreva a denúncia aqui"/>
+                        <Text style={{fontFamily: 'PoppinsSemiBold', fontSize: 18, marginVertical: 10, color:'#2e2e2e'}}>Descrição</Text>
+                        <TextInput 
+                        style={style.description} 
+                        placeholder="Escreva a denúncia aqui"
+                        maxLength={250}
+                        multiline={true}
+                        textAlignVertical="top"
+                        />
                     </View>
-                    <Picker
-                        style={style.select}
-                        selectedValue={categoria}
-                        onValueChange={(itemValue) => setCategoria(itemValue)}
-                    >
-                        <Picker.Item label="Selecione uma categoria" value="" enabled={false} />
-                        <Picker.Item label="Iluminação" value="iluminacao" />
-                        <Picker.Item label="Saneamento" value="saneamento" />
-                        <Picker.Item label="Infraestrutura" value="infraestrutura" />
-                        <Picker.Item label="Segurança" value="seguranca" />
-                        <Picker.Item label="Lixo" value="lixo" />
-                        <Picker.Item label="Outro" value="outro" />
-                    </Picker>
+
+                    <View >
+
+                        <DropDownPicker
+                          open={open}
+                          value={tipo}
+                          items={items}
+                          setOpen={setOpen}
+                          setValue={setTipo}
+                          setItems={setItems}
+                          placeholder="Selecione categoria"
+                          style={{
+                              backgroundColor: '#FFFFFF',
+                              borderRadius: 10,
+                              borderColor: '#2e2e2e',
+                              height: 50,
+                          }}
+                          textStyle={{
+                              fontSize: 18,
+                              fontFamily: 'PoppinsMedium',
+                              color: '#2e2e2e',
+                          }}
+                          placeholderStyle={{
+                              color: '#2e2e2e',
+                              fontSize: 18,
+                          }}
+                          dropDownContainerStyle={{
+                              backgroundColor: '#FFFFFF',
+                              borderColor: '#FFFFFF',
+                          }}
+                        />
+                      </View>
+
+
                     <TouchableOpacity style={style.button}>
-                        <Text style={style.textBtn}>Criar</Text>
+                        <Text style={style.textBtn}>Criar denúncia</Text>
                     </TouchableOpacity>
                 </Card>
             </View>
         </StyledView>
+        </ScrollView>
     )
 }

@@ -1,23 +1,28 @@
 import { Colors } from "@/constants/Colors";
-import { StyleSheet } from "react-native";
+import { ScrollView, StyleSheet } from "react-native";
 
 export const style = StyleSheet.create({
+    background:{
+        backgroundColor: Colors.background,
+    },
     cardView: {
         display: 'flex',
         marginTop: 20,
-        fontFamily: 'PoppinsRegular',
+        fontFamily: 'PoppinsMedium',
+        fontSize: 18,
     },
     title: {
-        borderColor: Colors.cinza,
+        borderColor: '#2e2e2e',
         borderRadius: 10,
         fontSize: 16,
-        fontFamily: 'PoppinsRegular',
+        fontFamily: 'PoppinsMedium',
         padding: 5,
         borderWidth: 1,
         marginBottom: 15,
+        color: '2e2e2e'
     },
     addImage: {
-        backgroundColor: Colors.background,
+        backgroundColor: '#2e2e2e',
         height: 100,
         borderRadius: 10,
         display: 'flex',
@@ -32,20 +37,22 @@ export const style = StyleSheet.create({
         marginBottom: 5,
     },
     textInput: {
-        fontFamily: 'PoppinsRegular',
+        fontFamily: 'PoppinsMedium',
         marginLeft: 5,
-        fontSize: 16,
+        fontSize: 18,
         padding: 5,
+        color: '#2e2e2e'
     },
     description: {
-        borderColor: Colors.cinza,
+        borderColor: '#2e2e2e',
         borderRadius: 10,
-        fontSize: 16,
-        fontFamily: 'PoppinsRegular',
+        fontSize: 18,
+        fontFamily: 'PoppinsMedium',
         padding: 5,
         borderWidth: 1,
-        height: 80,
         marginBottom: 15,
+        color: '#2e2e2e',
+        height:100,
     },
     select: {
         borderColor: Colors.cinza,
@@ -62,12 +69,14 @@ export const style = StyleSheet.create({
     },
     button: {
         display: 'flex',
-        height: 50,
+        height: 40,
         width: 260,
         padding: 10,
         borderRadius: 10,
         marginBottom: 10,
         backgroundColor: Colors.verde,
+        justifyContent: 'center',
+        marginTop: 10,
     },
     textBtn: {
         fontSize: 20,
