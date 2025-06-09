@@ -40,6 +40,7 @@ export default function Login() {
       if (response.ok) {
         await AsyncStorage.setItem('token', data.token);
         await AsyncStorage.setItem("userId", data.userId);
+        await AsyncStorage.setItem("userType", data.userType);
         alert('Usuário logado');
         router.push('/mapa')
       } else {
