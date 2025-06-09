@@ -89,7 +89,7 @@ export const Style = StyleSheet.create({
 
     card:{
         backgroundColor:'#FFFFFF',
-        width: 210,
+        width: 'auto',
         height: 60,
         borderRadius: 30,
         shadowColor: '#000',
@@ -109,17 +109,6 @@ export const Style = StyleSheet.create({
 
     btn:{
         backgroundColor: Colors.background,
-        width: 43,
-        height: 43,
-        borderRadius: 30,
-        marginLeft: 6,
-        marginRight: 6,
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-
-    btnI:{
-        backgroundColor: '#8FCF57',
         width: 43,
         height: 43,
         borderRadius: 30,
