@@ -91,7 +91,7 @@ export default function CriarDenuncia() {
         body: JSON.stringify({
           titulo,
           data: date.toISOString(),
-          status: "pendente",         
+          status: "Pendente",         
           descricao,
           categoria,
           local: endereco,

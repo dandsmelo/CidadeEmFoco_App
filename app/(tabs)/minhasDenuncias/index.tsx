@@ -53,6 +53,19 @@ export default function MinhasDenuncias() {
       }
     };
 
+    const getStatusColor = (status: string) => {
+      switch (status) {
+        case "Pendente":
+          return "#E72A2A";
+        case "Em andamento":
+          return "#FFAC11"; 
+        case "Resolvido":
+          return "#1663C8";
+        default:
+          return "#E72A2A"; 
+      }
+    };
+
     const handleCardPress = (denuncia: DenunciaData) => {
       if (tipoUsuario === "servidorPublico") {
         router.push({ pathname: "/atualizarDenuncia", params: { id: denuncia._id } });
@@ -81,7 +94,9 @@ export default function MinhasDenuncias() {
                         </View>
                         <View style={style.endCard}>
                           <Text style={style.category}>{denuncia.categoria}</Text>
-                          <Text style={style.status}>{denuncia.status}</Text>
+                          <Text style={[style.status, { backgroundColor: getStatusColor(denuncia.status) }]}>
+                            {denuncia.status}
+                          </Text>
                         </View>
                       </Card>
                     </TouchableOpacity>
