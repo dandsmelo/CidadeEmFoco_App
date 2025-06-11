@@ -74,6 +74,13 @@ export const Style = StyleSheet.create({
         marginBottom: 10,
     },
 
+    labelText: {
+        marginTop: 5,
+        fontSize: 16,
+        color: '#000000',
+        fontFamily: 'PoppinsMedium',
+    },
+
     //BOTÃO
 
     divButton:{
@@ -87,7 +94,7 @@ export const Style = StyleSheet.create({
         flexDirection:'row',
         alignItems: 'center',
         justifyContent: 'center',
-        marginTop: 5,
+        marginTop: 15,
         marginBottom: 5,
     },
 
