@@ -4,14 +4,20 @@ import { View, Image, Text, TouchableOpacity, TextInput, ScrollView} from "react
 import Card from "@/components/Card";
 import { Style } from "./style";
 import Icon from 'react-native-vector-icons/FontAwesome5';
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import * as ImagePicker from 'expo-image-picker';
 import DropDownPicker from 'react-native-dropdown-picker';
+import {useLocalSearchParams } from 'expo-router';
+import { router } from 'expo-router';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 
 
 
 
 export default function EditarDenuncia(){
+    const { id } = useLocalSearchParams();
+
     const [open, setOpen] = useState(false);
     const [categoria, setCategoria] = useState<string | null>('buraco');
     const [items, setItems] = useState([
@@ -22,6 +28,7 @@ export default function EditarDenuncia(){
     { label: 'segurança', value: 'segurança' },
     { label: 'Outro', value: 'outro' }
     ]);
+
 
     const selecionarImagem = async () => {
         const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
@@ -55,11 +62,67 @@ export default function EditarDenuncia(){
     const [data, setData] = useState("12/02/2025");
     const [descricao, setDescricao] = useState("Lorem Ipsum is simply dummy text of the printing and typesetting industry.");
 
-    const handleEditarSalvar = () => {
-        if (isEditing) {
-            console.log("Salvando denúncia...", { endereco, data, descricao });
+    useEffect(() => {
+        const buscarDenuncia = async () => {
+            try {
+                const token = await AsyncStorage.getItem('token');
+                const response = await fetch(`http://localhost:3000/denuncia/${id}`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                const denuncia = await response.json();
+
+                setTitulo(denuncia.titulo);
+                setEndereco(denuncia.local);
+                setDescricao(denuncia.descricao);
+                setCategoria(denuncia.categoria);
+                setData(denuncia.data.substring(0, 10));
+                // setImagemUrl(denuncia.imagem); // Quando tiver o upload da imagem no backend
+            } catch (err) {
+                console.error(err);
+            }
+        };
+
+        buscarDenuncia();
+    }, []);
+
+    const handleEditarSalvar = async () => {
+        if (!isEditing) {
+            setIsEditing(true);
+            return;
         }
-        setIsEditing(!isEditing);
+
+        try {
+            const token = await AsyncStorage.getItem('token');
+
+            const response = await fetch(`http://localhost:3000/denuncia/${id}`, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                    'Authorization': `Bearer ${token}`,
+                },
+                body: JSON.stringify({
+                    titulo,
+                    data: new Date(data).toISOString(),
+                    status: "pendente",
+                    descricao,
+                    categoria,
+                    local: endereco,
+                    imagem: null // Quando implementar upload, atualizamos aqui
+                }),
+            });
+
+            if (response.ok) {
+                alert("Denúncia atualizada com sucesso!");
+                setIsEditing(false);
+                router.push("/minhasDenuncias");
+            } else {
+                const dataError = await response.json();
+                alert(dataError.message || "Erro ao atualizar denúncia.");
+            }
+        } catch (error) {
+            console.error(error);
+            alert("Erro de conexão. Tente novamente.");
+        }
     };
 
 
@@ -69,7 +132,7 @@ export default function EditarDenuncia(){
         <View style={Style.container}>
             <View style={Style.navBar}>
                 <TouchableOpacity>
-                <Icon name="chevron-left" size={25} style={Style.iconNavBar}/>
+                <Icon name="chevron-left" size={25} style={Style.iconNavBar} onPress={() => router.push('/minhasDenuncias')} />
                 </TouchableOpacity>
                 {isEditing ? (
                     <>
