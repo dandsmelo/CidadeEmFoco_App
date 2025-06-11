@@ -80,17 +80,18 @@ export const Style = StyleSheet.create({
         backgroundColor: "#FFFFFF",
         fontSize: 16,
         fontFamily: 'PoppinsMedium',
-        marginLeft:10,
-        marginRight:10,
+        marginLeft:5,
+        marginRight:5,
         marginBottom:10,
         borderColor: "#FFFFFF",
         borderWidth: 1,
         borderRadius: 8,
         padding: 10,
         color: "#898989",
-        paddingLeft: 42,
+        paddingLeft: 25,
         width: 50,
         height: 50,
+        textAlign: 'center'
         
     },
 
