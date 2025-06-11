@@ -125,6 +125,32 @@ export default function EditarDenuncia(){
         }
     };
 
+    const handleExcluirDenuncia = async () => {
+        try {
+            const token = await AsyncStorage.getItem('token');
+
+            const response = await fetch(`http://localhost:3000/denuncia/${id}`, {
+                method: "DELETE",
+                headers: {
+                    "Content-Type": "application/json",
+                    'Authorization': `Bearer ${token}`,
+                },
+            });
+
+            if (response.ok) {
+                alert("Denúncia excluída com sucesso!");
+                router.push("/minhasDenuncias");
+            } else {
+                const dataError = await response.json();
+                alert(dataError.message || "Erro ao excluir denúncia.");
+            }
+        } catch (error) {
+            console.error(error);
+            alert("Erro de conexão. Tente novamente.");
+        }
+    };
+
+
 
 
     return(
@@ -271,7 +297,7 @@ export default function EditarDenuncia(){
 
                             <TouchableOpacity style={Style.button}>
                                 <Icon name="trash" size={20} color="#FFFFFF" style={Style.iconButton}></Icon>
-                                <Text style={Style.textButton}>Excluir denúncia</Text>
+                                <Text style={Style.textButton} onPress={handleExcluirDenuncia}>Excluir denúncia</Text>
                             </TouchableOpacity>
                         </View>
                     </Card>
