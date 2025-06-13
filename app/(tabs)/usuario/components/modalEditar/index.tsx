@@ -1,9 +1,9 @@
 import StyledButton from "@/components/Button";
-import { View, Text, TextInput, Modal, TouchableWithoutFeedback, Keyboard } from "react-native";
+import { View, Text, TextInput, Modal, TouchableWithoutFeedback, Keyboard, TouchableOpacity } from "react-native";
 import { MaterialIcons } from '@expo/vector-icons';
 import { style } from "./style";
 import { useCustomFonts } from "@/assets/fonts/Fonts";
-import React, { useEffect } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 interface Props {
@@ -17,6 +17,8 @@ interface Props {
 export default function ModalEdicao({ title, visible, onClose, onSuccess, valorInicial }: Props) {
   const fontsLoaded = useCustomFonts();
   const [valor, setValor] = React.useState(valorInicial || "");
+  const [isEditing, setIsEditing] = React.useState(false);
+  const inputRef = React.useRef<TextInput>(null); 
 
   if (!fontsLoaded) return null;
 
@@ -46,8 +48,9 @@ export default function ModalEdicao({ title, visible, onClose, onSuccess, valorI
 
       if (response.ok) {
         alert("Sucesso, usuário atualizado");
+        setIsEditing(false);
         onClose();
-        if (onSuccess) onSuccess();
+        onSuccess?.();
       } else {
         alert(data.message || "Erro ao atualizar");
       }
@@ -57,8 +60,18 @@ export default function ModalEdicao({ title, visible, onClose, onSuccess, valorI
   };
 
   useEffect(() => {
-    if (visible) setValor(valorInicial || "");
+    if (visible) {
+      setValor(valorInicial || "");
+      setIsEditing(false);
+    }
   }, [visible, valorInicial]);
+
+  const handleEditPress = () => {
+    setIsEditing(true);
+    setTimeout(() => {
+      inputRef.current?.focus(); 
+    }, 100);
+  };
 
   return (
     <Modal
@@ -70,16 +83,27 @@ export default function ModalEdicao({ title, visible, onClose, onSuccess, valorI
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <View style={style.modalOverlay}>
           <View style={style.container}>
+            <TouchableOpacity onPress={onClose} style={style.closeIcon}>
+              <MaterialIcons name="close" size={24} color="gray" />
+            </TouchableOpacity>
+
             <Text style={style.title}>Alterar {title}</Text>
+
             <View style={style.input}>
               <TextInput
-                style={style.text}
+                ref={inputRef}
+                style={[style.text, { flex: 1 }]}
                 placeholder={`Digite o novo ${title}`}
                 value={valor}
                 onChangeText={setValor}
+                editable={isEditing}
+                placeholderTextColor="#999"
               />
-              <MaterialIcons name="edit" size={25} />
+              <TouchableOpacity onPress={handleEditPress}>
+                <MaterialIcons name="edit" size={25} color={isEditing ? "#6A0DAD" : "#000"} />
+              </TouchableOpacity>
             </View>
+
             <StyledButton text="Salvar" background="primary" onPress={handleSalvar} />
           </View>
         </View>

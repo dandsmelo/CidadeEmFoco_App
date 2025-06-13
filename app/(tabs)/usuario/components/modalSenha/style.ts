@@ -31,16 +31,24 @@ export const style = StyleSheet.create({
         textAlign: 'center',   
     },
     input: {
-            backgroundColor: Colors.background,
-            flexDirection: 'row',
-            padding: 10,
-            borderRadius: 10,
-            width: 300,
-            marginBottom: 15,
-        },
-        text: {
-            fontFamily: 'PoppinsRegular',
-            fontSize: 16,
-            marginBottom: 5,
-        }
+        backgroundColor: Colors.background,
+        padding: 10,
+        borderRadius: 10,
+        width: 300,
+        marginBottom: 15,
+        borderWidth: 1,
+        borderColor: '#ccc',
+        color: '#000',
+    },
+    text: {
+        fontFamily: 'PoppinsRegular',
+        fontSize: 16,
+    },
+    closeIcon: {
+        position: 'absolute',
+        top: 10,
+        right: 10,
+        zIndex: 1,
+        color: 'gray',
+    },
 })

@@ -124,6 +124,7 @@ export default function Usuario() {
             <ModalSenha 
                 visible={modalSenha} 
                 onClose={() => setModalSenha(false)}
+                onSucess={fetchUsuario}
             />
         </View>
     )
