@@ -11,10 +11,6 @@ import {useLocalSearchParams } from 'expo-router';
 import { router } from 'expo-router';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-
-
-
-
 export default function EditarDenuncia(){
     const { id } = useLocalSearchParams();
 
@@ -103,11 +99,11 @@ export default function EditarDenuncia(){
                 body: JSON.stringify({
                     titulo,
                     data: new Date(data).toISOString(),
-                    status: "pendente",
+                    status: "Pendente",
                     descricao,
                     categoria,
                     local: endereco,
-                    imagem: null // Quando implementar upload, atualizamos aqui
+                    imagem: null 
                 }),
             });
 

@@ -1,21 +1,6 @@
-import { Colors } from "@/constants/Colors";
 import { StyleSheet } from "react-native";
 
 export const styles = StyleSheet.create({
-    /*
-    container: {
-        display: 'flex',
-        flexDirection: 'row',
-        alignItems: 'center',
-        backgroundColor: 'white',
-        fontFamily: 'PoppinsSemiBold',
-        height: 50,
-        width: 300,
-        padding: 10,
-        borderRadius: 10,
-        marginBottom: 10
-    },*/
-
     icon: {
         position: 'absolute',
         zIndex: 1,
@@ -36,5 +21,11 @@ export const styles = StyleSheet.create({
         paddingLeft: 42,
     },
 
+    iconRight: {
+        position: 'absolute',
+        right: 15,
+        top: 11,
+        zIndex: 1,
+    },
     
 })

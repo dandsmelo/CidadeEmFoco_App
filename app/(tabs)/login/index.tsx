@@ -15,6 +15,7 @@ export default function Login() {
 
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
+  const [senhaVisivel, setSenhaVisivel] = useState(false);
 
   const handleLogin = async () => {
   if (!email || !senha) {
@@ -81,8 +82,22 @@ export default function Login() {
       </View>
 
       <View>
-        <StyledInputs icon="user" placeholder="Email" value={email} onChangeText={setEmail} />
-        <StyledInputs icon="lock" placeholder="Senha" value={senha} onChangeText={setSenha} />
+        <StyledInputs
+          icon="user"
+          placeholder="Email"
+          value={email}
+          onChangeText={setEmail}
+        />
+
+        <StyledInputs
+          icon="lock"
+          placeholder="Senha"
+          value={senha}
+          onChangeText={setSenha}
+          secureTextEntry={!senhaVisivel}
+          showToggle={true}
+          onToggleVisibility={() => setSenhaVisivel(!senhaVisivel)}
+        />
       </View>
 
       <View style={style.divBtn}>

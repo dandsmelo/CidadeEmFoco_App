@@ -92,6 +92,12 @@ export const CadastroStyle = StyleSheet.create({
 
     },
 
+    inputIconRight: {
+        position: 'absolute',
+        right: 55,
+        top: 20,
+    },
+
     //BOTÃO
 
     button:{

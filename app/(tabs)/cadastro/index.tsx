@@ -8,7 +8,6 @@ import DropDownPicker from 'react-native-dropdown-picker';
 
 
 export default function Cadastro(){
-    // estado do dropdown
     const [open, setOpen] = useState(false);
     const [tipo, setTipo] = useState(null);
     const [items, setItems] = useState([
@@ -28,6 +27,8 @@ export default function Cadastro(){
     const [email, setEmail] = useState("")
     const [senha, setSenha] = useState("")
     const [confirmarSenha, setConfirmarSenha] = useState("")
+    const [senhaVisivel, setSenhaVisivel] = useState(false);
+    const [confirmarSenhaVisivel, setConfirmarSenhaVisivel] = useState(false);
 
     const handleCadastro = async () =>{
         if (!nomeCompleto || !telefone || !email || !senha || !confirmarSenha || !tipo) {
@@ -157,25 +158,47 @@ export default function Cadastro(){
             <View>
             <Icon name="lock" size={20} color="#898989" style={CadastroStyle.inputIcon} />
             <TextInput
-            style={CadastroStyle.input}
-            placeholder="Senha"
-            value={senha}
-            onChangeText={setSenha}
-            placeholderTextColor="#898989"
+                style={CadastroStyle.input}
+                placeholder="Senha"
+                value={senha}
+                onChangeText={setSenha}
+                secureTextEntry={!senhaVisivel}
+                placeholderTextColor="#898989"
             />
+            <TouchableOpacity
+                style={CadastroStyle.inputIconRight}
+                onPress={() => setSenhaVisivel(!senhaVisivel)}
+            >
+                <Icon
+                name={senhaVisivel ? "eye" : "eye-slash"}
+                size={20}
+                color="#898989"
+                />
+            </TouchableOpacity>
             </View>
 
             <View>
             <Icon name="lock" size={20} color="#898989" style={CadastroStyle.inputIcon} />
             <TextInput
-            style={CadastroStyle.input}
-            placeholder="Confirmar Senha"
-            value={confirmarSenha}
-            onChangeText={setConfirmarSenha}
-            placeholderTextColor="#898989"
+                style={CadastroStyle.input}
+                placeholder="Confirmar Senha"
+                value={confirmarSenha}
+                onChangeText={setConfirmarSenha}
+                secureTextEntry={!confirmarSenhaVisivel}
+                placeholderTextColor="#898989"
             />
+            <TouchableOpacity
+                style={CadastroStyle.inputIconRight}
+                onPress={() => setConfirmarSenhaVisivel(!confirmarSenhaVisivel)}
+            >
+                <Icon
+                name={confirmarSenhaVisivel ? "eye" : "eye-slash"}
+                size={20}
+                color="#898989"
+                />
+            </TouchableOpacity>
             </View>
-            
+
             <View style={{ zIndex: 1000, marginHorizontal: 40, marginTop: 10 }}>
                 <DropDownPicker
                 open={open}
