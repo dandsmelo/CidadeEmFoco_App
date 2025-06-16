@@ -44,6 +44,14 @@ export const style = StyleSheet.create({
     text: {
         fontFamily: 'PoppinsRegular',
         fontSize: 16,
-    }
+    },
+
+    closeIcon: {
+        position: 'absolute',
+        top: 10,
+        right: 10,
+        zIndex: 1,
+        color: 'gray',
+    },
 
 })
