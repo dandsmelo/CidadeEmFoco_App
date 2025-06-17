@@ -36,6 +36,11 @@ export const style = StyleSheet.create({
     }, 
     buttonDiv: {
         marginTop: 10,
-    }
+    },
+    inputIconRight: {
+        position: 'absolute',
+        right: 15,
+        top: 12,
+    },
 
 })
