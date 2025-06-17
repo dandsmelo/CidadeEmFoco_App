@@ -29,14 +29,14 @@ export default function DuplaAutenticacao() {
   const handleVerify = async () => {
     const verificationCode = code.join('');
     if (verificationCode.length < 6) {
-      Alert.alert('Erro', 'Preencha todos os 6 dígitos.');
+      alert('Preencha todos os 6 dígitos.');
       return;
     }
 
     try {
       const tempToken = await AsyncStorage.getItem('tempToken');
       if (!tempToken) {
-        Alert.alert('Erro', 'Token de verificação ausente. Faça login novamente.');
+        alert('Token de verificação ausente. Faça login novamente.');
         router.push('/login');
         return;
       }
@@ -53,21 +53,20 @@ export default function DuplaAutenticacao() {
       const data = await response.json();
 
       if (response.ok && data.success) {
-        // Salvando os dados do usuário
         await AsyncStorage.setItem('token', data.token);
         await AsyncStorage.setItem('userId', data.userId);
         await AsyncStorage.setItem('userType', data.userType);
-        await AsyncStorage.removeItem('tempToken'); // remove token temporário
+        await AsyncStorage.removeItem('tempToken'); 
 
-        Alert.alert('Sucesso', 'Login realizado com sucesso!');
+        alert('Login realizado com sucesso!');
         router.push('/mapa');
       } else {
-        Alert.alert('Código inválido', 'O código está incorreto ou expirou.');
+        alert('O código está incorreto ou expirou.');
       }
 
     } catch (error) {
       console.log(error);
-      Alert.alert('Erro', 'Erro ao verificar o código. Tente novamente.');
+      alert('Erro ao verificar o código. Tente novamente.');
     }
   };
 
@@ -75,7 +74,7 @@ export default function DuplaAutenticacao() {
     try {
       const tempToken = await AsyncStorage.getItem('tempToken');
       if (!tempToken) {
-        Alert.alert('Erro', 'Token ausente. Faça login novamente.');
+        alert('Token ausente. Faça login novamente.');
         router.push('/login');
         return;
       }

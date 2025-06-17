@@ -78,7 +78,7 @@ export const Style = StyleSheet.create({
 
     input:{
         backgroundColor: "#FFFFFF",
-        fontSize: 16,
+        fontSize: 18,
         fontFamily: 'PoppinsMedium',
         marginLeft:5,
         marginRight:5,
@@ -86,13 +86,14 @@ export const Style = StyleSheet.create({
         borderColor: "#FFFFFF",
         borderWidth: 1,
         borderRadius: 8,
-        padding: 10,
-        color: "#898989",
-        paddingLeft: 25,
-        width: 50,
-        height: 50,
-        textAlign: 'center'
-        
+        padding: 5,
+        paddingLeft: 5,
+        paddingRight: 5,
+        color: "#000000",
+        width: 45,
+        height: 45,
+        justifyContent: 'center',
+        textAlign: 'center' 
     },
 
     //BOTÃO
