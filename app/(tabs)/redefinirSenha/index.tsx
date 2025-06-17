@@ -16,13 +16,13 @@ export default function RedefinirSenha() {
 
     const redefinirSenha = async () => {
         if (!novaSenha || novaSenha.length < 6) {
-            Alert.alert("Erro", "A senha deve ter pelo menos 6 caracteres.");
+            alert("A senha deve ter pelo menos 6 caracteres.");
             return;
         }
 
         setLoading(true);
         try {
-            const response = await fetch("`http://localhost:3000/usuario/${usuarioId}`", {
+            const response = await fetch("http://localhost:3000/usuario/redefinir-senha", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -31,14 +31,14 @@ export default function RedefinirSenha() {
             });
 
             if (response.ok) {
-                Alert.alert("Sucesso", "Senha redefinida com sucesso!");
+                alert("Senha redefinida com sucesso!");
                 router.replace("/login");
             } else {
                 const erro = await response.json();
-                Alert.alert("Erro", erro.message || "Erro ao redefinir a senha.");
+                alert(erro.message || "Erro ao redefinir a senha.");
             }
         } catch (err) {
-            Alert.alert("Erro", "Não foi possível conectar ao servidor.");
+            alert("Não foi possível conectar ao servidor.");
         } finally {
             setLoading(false);
         }

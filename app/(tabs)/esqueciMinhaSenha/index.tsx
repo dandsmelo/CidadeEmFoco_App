@@ -24,32 +24,33 @@ export default function EsqueciMinhaSenha() {
     };
 
     const handleVerify = async () => {
-        const verificationCode = code.join('');
-        if (verificationCode.length < 6) {
-            alert('Preencha todos os 6 dígitos.');
-            return;
+    const verificationCode = code.join('');
+    if (verificationCode.length < 6) {
+        alert('Preencha todos os 6 dígitos.');
+        return;
+    }
+
+    try {
+        const response = await fetch('http://localhost:3000/usuario/verificar-sms-redefinirSenha', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email, code: verificationCode }),
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+            alert('Código verificado com sucesso!');
+            router.push({ pathname: '/redefinirSenha', params: { email } });
+        } else {
+            alert(data.message || 'O código informado está incorreto.');
         }
-
-        try {
-            const response = await fetch('http://localhost:3000/usuario/enviarCodigoRedefinirSenha', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ email, code: verificationCode }),
-            });
-
-            const data = await response.json();
-
-            if (response.ok) {
-                Alert.alert('Sucesso', 'Código verificado');
-                router.push({ pathname: '/redefinirSenha', params: { email } });
-            } else {
-                Alert.alert('Erro', data.message || 'Código inválido');
-            }
-        } catch (error) {
-            console.log(error);
-            Alert.alert('Erro', 'Erro ao verificar código');
-        }
+    } catch (error) {
+        console.log(error);
+        alert('Erro ao verificar código. Tente novamente mais tarde.');
+    }
     };
+
 
     return (
         <View style={Style.container}>
