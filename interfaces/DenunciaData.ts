@@ -8,4 +8,6 @@ export interface DenunciaData {
     local: string;
     usuarioId: string;
     imagem?: string;
+    latitude?: number;
+    longitude?: number;
 }
