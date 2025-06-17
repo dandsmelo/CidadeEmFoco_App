@@ -7,10 +7,13 @@ import Icons from 'react-native-vector-icons/Ionicons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, { useEffect } from 'react';
 import { UsuarioData } from '@/interfaces/UsuarioData';
+import { DenunciaData } from '@/interfaces/DenunciaData';
+import MapaDenuncias from '@/components/Mapa/MapaDenuncias';
 
 export default function Mapa(){
     const [tipoUsuario, setTipoUsuario] = React.useState<string | null>(null);
     const [usuario, setUsuario] = React.useState<UsuarioData>();
+    const [denuncias, setDenuncias] = React.useState<DenunciaData[]>([]);
     const fontsLoaded = useCustomFonts()
     if (!fontsLoaded){
         return null;
@@ -44,9 +47,45 @@ export default function Mapa(){
         setTipoUsuario(tipo);
     }
 
+    const fetchDenuncias = async () => {
+      try {
+        const token = await AsyncStorage.getItem("token");
+        const usuarioId = await AsyncStorage.getItem("userId");
+        const tipo = await AsyncStorage.getItem("userType");
+
+        if (!token || !usuarioId || !tipo) {
+          alert("Usuário não autenticado");
+          return;
+        }
+
+        setTipoUsuario(tipo);
+
+        const url = tipo === "servidorPublico"
+          ? "http://localhost:3000/denuncia"
+          : `http://localhost:3000/denuncia/usuario/${usuarioId}`;
+
+        const response = await fetch(url, {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+          setDenuncias(data);
+        } else {
+          alert(data.message || "Erro ao buscar denúncias");
+        }
+      } catch (error) {
+        alert("Erro ao carregar denúncias");
+      }
+    };
+
     useEffect(() => {
         fetchUsuario();
         fetchTipoUsuario();
+        fetchDenuncias();
     }, []);
 
     return(
@@ -70,12 +109,12 @@ export default function Mapa(){
             <View style={Style.body}>
 
                 <View style={Style.textBody}>
-                    <Text style={Style.textMapa}>Mapa</Text>
-                    <Text style={Style.textMapaI}>de denúncias</Text>
+                    <Text style={Style.textMapa}>Mapa de Denuncias</Text>
+                    {/* <Text style={Style.textMapaI}>de denúncias</Text> */}
                 </View>
 
-                <View style={Style.divImgMapa}>
-                    <Image source={require('@/assets/images/mapa.png')} style={Style.imgMapa} />
+                <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+                    <MapaDenuncias denuncias={denuncias} />
                 </View>
 
                 <View style={Style.divCard}>
