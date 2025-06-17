@@ -103,11 +103,38 @@ export default function Login() {
       <View style={style.divBtn}>
         <StyledButton text="Logar" background="amarelo" onPress={handleLogin} />
         <Text
-          style={style.fgtPassword}
-          onPress={() => router.push('/esqueciMinhaSenha')}
-        >
-          Esqueci minha senha
-        </Text>
+        style={style.fgtPassword}
+        onPress={async () => {
+          if (!email) {
+            alert('Por favor, preencha o email para redefinir a senha.');
+            return;
+          }
+
+          try {
+            const response = await fetch('http://localhost:3000/usuario/enviarCodigoRedefinirSenha', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ email }),
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+              alert('Código enviado com sucesso');
+              router.push({ pathname: '/esqueciMinhaSenha', params: { email } });
+            } else {
+              alert(data.message || 'Não foi possível enviar o código.');
+            }
+          } catch (error) {
+            console.log(error);
+            alert('Erro ao enviar código.');
+          }
+        }}
+      >
+        Esqueci minha senha
+      </Text>
+
+
       </View>
     </StyledView>
   );

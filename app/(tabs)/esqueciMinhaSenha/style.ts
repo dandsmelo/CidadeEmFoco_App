@@ -54,7 +54,7 @@ export const Style = StyleSheet.create({
     texto:{
         fontSize: 17,
         fontFamily: 'PoppinsRegular',
-        marginBottom: 20,
+        marginBottom: 8,
     },
 
     textoI:{
@@ -77,19 +77,43 @@ export const Style = StyleSheet.create({
 
     input:{
         backgroundColor: "#FFFFFF",
-        fontSize: 16,
+        fontSize: 18,
         fontFamily: 'PoppinsMedium',
-        marginLeft:10,
-        marginRight:10,
+        marginLeft:5,
+        marginRight:5,
         marginBottom:10,
         borderColor: "#FFFFFF",
         borderWidth: 1,
         borderRadius: 8,
+        padding: 5,
+        paddingLeft: 5,
+        paddingRight: 5,
+        color: "#000000",
+        width: 42,
+        height: 42,
+        justifyContent: 'center',
+        textAlign: 'center' 
+    },
+
+    inputEmail:{
+        backgroundColor: "#FFFFFF",
+        fontSize: 18,
+        fontFamily: 'PoppinsMedium',
+        borderColor: "#FFFFFF",
+        borderWidth: 1,
+        borderRadius: 10,
         padding: 10,
-        color: "#898989",
-        paddingLeft: 42,
-        width:45,
-        
+        color: "#000000",
+        marginBottom: 15,
+        width: 300,
+    },
+
+    inputIcon:{
+        top: 20,
+        left: 55,
+        position: 'absolute',
+        zIndex: 1,
+
     },
 
     //BOTÃO
