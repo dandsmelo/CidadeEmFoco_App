@@ -22,7 +22,7 @@ export const style = StyleSheet.create({
         marginBottom: 5,
     },
     title: {
-        fontFamily: 'PoppinsBold',
+        fontFamily: 'PoppinsMedium',
         fontSize: 20,
     },
     data: {
