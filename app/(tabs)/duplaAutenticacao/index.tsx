@@ -111,7 +111,7 @@ export default function DuplaAutenticacao() {
 
       <View style={Style.bodyText}>
         <View style={Style.divTexto}>
-          <Text style={Style.texto}>Um código foi enviado para seu telefone</Text>
+          <Text style={Style.texto}>Um código foi enviado para o número de telefone cadastrado</Text>
         </View>
         <View style={Style.divTexto}>
           <Text style={Style.textoI}>Digite o código recebido</Text>

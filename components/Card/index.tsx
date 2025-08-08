@@ -19,7 +19,7 @@ const style = StyleSheet.create({
         backgroundColor: 'white',
         display: 'flex',
         flexDirection: 'column',
-        width: 300,
+        width: 370,
         height: 'auto',
         borderRadius: 10,
         paddingHorizontal: 20,

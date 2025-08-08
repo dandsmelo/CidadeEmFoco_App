@@ -70,7 +70,7 @@ export const style = StyleSheet.create({
     button: {
         display: 'flex',
         height: 40,
-        width: 260,
+        width: 'auto',
         padding: 10,
         borderRadius: 10,
         marginBottom: 10,
