@@ -83,7 +83,7 @@ export default function MinhasDenuncias() {
             <NavBar title={tipoUsuario === "servidorPublico" ? "Denúncias" : "Minhas denúncias"} />
             <ScrollView>
               <View style={style.cardView}>
-                  {denuncias.map((denuncia, index) => (
+                  {denuncias.length > 0 ? denuncias.map((denuncia, index) => (
                     <TouchableOpacity key={index} onPress={() => handleCardPress(denuncia)}>
                       <Card>
                         <View style={style.topCard}>
@@ -100,7 +100,11 @@ export default function MinhasDenuncias() {
                         </View>
                       </Card>
                     </TouchableOpacity>
-                  ))}
+                  )) : (
+                    <View style={style.noContent}>
+                      <Text style={style.data}>Não há denúncias registradas.</Text>
+                    </View>
+                  )}
               </View>
             </ScrollView>
         </View>
