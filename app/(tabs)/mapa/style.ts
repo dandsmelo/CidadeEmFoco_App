@@ -28,14 +28,25 @@ export const Style = StyleSheet.create({
     },
 
     textII:{
-        fontSize: 15,
+        fontSize: 17,
         fontFamily: 'PoppinsMedium',
         color: '#FFFFFF'
     },
 
     divTextHeader:{
         marginLeft: 12,
-        
+    },
+
+    divNoContent: {
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: 450,
+    },
+
+    noContentText: {
+        fontSize: 17,
+        fontFamily: 'PoppinsRegular',
     },
 
     //IMAGEM HEADER
@@ -63,11 +74,6 @@ export const Style = StyleSheet.create({
         fontFamily: 'PoppinsMedium',
     },
 
-    textMapaI:{
-        fontSize: 20,
-        fontFamily: 'PoppinsMedium',
-    },
-
     textBody:{
         marginLeft: 15,
         marginTop: 20,
@@ -78,14 +84,7 @@ export const Style = StyleSheet.create({
 
     },
 
-    imgMapa:{
-        width: '100%',
-        height: 360, 
-    },
-
     //FOOTER
-
-
 
     card:{
         backgroundColor:'#FFFFFF',

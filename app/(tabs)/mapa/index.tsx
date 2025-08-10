@@ -109,12 +109,17 @@ export default function Mapa(){
             <View style={Style.body}>
 
                 <View style={Style.textBody}>
-                    <Text style={Style.textMapa}>Mapa de Denuncias</Text>
-                    {/* <Text style={Style.textMapaI}>de denúncias</Text> */}
+                    <Text style={Style.textMapa}>Mapa de Denúncias</Text>
                 </View>
 
                 <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-                    <MapaDenuncias denuncias={denuncias} />
+                    {denuncias.length > 0 ? (
+                        <MapaDenuncias denuncias={denuncias} />
+                    ) : (
+                        <View style={Style.divNoContent}>
+                            <Text style={Style.noContentText}>Não há denúncias registradas.</Text>
+                        </View>
+                    )}
                 </View>
 
                 <View style={Style.divCard}>

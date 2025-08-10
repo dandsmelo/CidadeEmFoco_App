@@ -49,5 +49,11 @@ export const style = StyleSheet.create({
         color: 'white', 
         fontFamily: 'PoppinsRegular',
         marginTop: 5, 
-    }
+    },
+    noContent: {
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
 })
