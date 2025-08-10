@@ -9,6 +9,7 @@ import Icons from "react-native-vector-icons/Feather";
 import { router } from 'expo-router';
 import { UsuarioData } from "@/interfaces/UsuarioData";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useFlashMessage } from "@/components/FlashMessageContext";
 
 export default function Usuario() {
     const fontsLoaded = useCustomFonts()
@@ -17,6 +18,7 @@ export default function Usuario() {
     const [selectedField, setselectedField] = useState("");
     const [modalSenha, setModalSenha] = useState(false);
     const [usuario, setUsuario] = React.useState<UsuarioData>();
+    const { showMessage } = useFlashMessage();
 
     const openModalEditar = (campo: string) => {
         setselectedField(campo);
@@ -37,7 +39,7 @@ export default function Usuario() {
         const tipo = await AsyncStorage.getItem("userType");
 
         if (!token || !usuarioId || !tipo) {
-          alert("Usuário não autenticado");
+          showMessage("Usuário não autenticado", 'error');
           return;
         }
 
@@ -52,10 +54,10 @@ export default function Usuario() {
             if(response.ok) {
                 setUsuario(data);
             } else {
-                alert(data.message || "Erro ao carregar usuário");
+                showMessage(data.message || "Erro ao carregar usuário", "error");
             }
         } catch (error) {
-            alert("Erro ao carregar usuário");
+            showMessage("Erro ao carregar usuário", "error");
         }
     }
 
@@ -67,7 +69,7 @@ export default function Usuario() {
           router.replace('/login');
 
         } catch (error) {
-          alert("Erro ao deslogar. Tente novamente")
+          showMessage("Erro ao deslogar. Tente novamente", "error")
         }
     }
 

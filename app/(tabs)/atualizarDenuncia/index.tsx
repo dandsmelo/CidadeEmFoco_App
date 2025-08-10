@@ -7,13 +7,16 @@ import Icon from 'react-native-vector-icons/FontAwesome5';
 import Card from "@/components/Card";
 import { useLocalSearchParams } from "expo-router";
 import { DenunciaData } from "@/interfaces/DenunciaData";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useFlashMessage } from "@/components/FlashMessageContext";
 
 export default function AtualizarDenuncia(){
     const [denuncia, setDenuncia] = React.useState<DenunciaData>();
     const [statusSelecionado, setStatusSelecionado] = React.useState<string | null>(null);
+    const { showMessage } = useFlashMessage();
     const fontsLoaded = useCustomFonts()
+
     if(!fontsLoaded){
         return null;
     }
@@ -66,14 +69,14 @@ export default function AtualizarDenuncia(){
             });
 
             if (response.ok) {
-                alert("Denúncia atualizada com sucesso!");
+                showMessage("Denúncia atualizada com sucesso!", "success");
                 router.push('/minhasDenuncias');
             } else {
                 const error = await response.json();
-                alert(error.message || "Erro ao atualizar denúncia");
+                showMessage(error.message || "Erro ao atualizar denúncia", "error");
             }
         } catch (error) {
-            alert("Erro de rede ao atualizar denúncia");
+            showMessage("Erro de rede ao atualizar denúncia", "error");
         }
     };
 

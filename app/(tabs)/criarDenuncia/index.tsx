@@ -12,6 +12,7 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import DropDownPicker from 'react-native-dropdown-picker';
 import { router } from 'expo-router';
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useFlashMessage } from '@/components/FlashMessageContext';
 
 export default function CriarDenuncia() {
   const [open, setOpen] = useState(false);
@@ -33,6 +34,8 @@ export default function CriarDenuncia() {
   const [showPicker, setShowPicker] = useState(false);
   const [imageUri, setImageUri] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const { showMessage } = useFlashMessage();
+  
 
   const fontsLoaded = useCustomFonts();
 
@@ -72,7 +75,7 @@ export default function CriarDenuncia() {
 
   const handleCriarDenuncia = async () => {
     if (!titulo || !endereco || !descricao || !date || !categoria) {
-      alert("Por favor, preencha todos os campos.");
+      showMessage("Por favor, preencha todos os campos.", "warning");
       return;
     }
 
@@ -102,20 +105,19 @@ export default function CriarDenuncia() {
       const data = await response.json();
 
       if (response.ok) {
-        alert("Denúncia enviada com sucesso!");
         setTitulo("");
         setEndereco("");
         setDescricao("");
         setDate(undefined);
         setCategoria(null);
         setImageUri(null);
+        showMessage("Denúncia enviada com sucesso!", "success")
         router.push("/minhasDenuncias");
       } else {
-        alert(data.message || "Erro ao enviar denúncia.");
+        showMessage(data.message || "Erro ao enviar denúncia.", "error");
       }
     } catch (error) {
-      console.error(error);
-      alert("Erro de conexão. Tente novamente.");
+      showMessage("Erro de conexão. Tente novamente.", "error");
     } finally {
       setIsLoading(false);
     }

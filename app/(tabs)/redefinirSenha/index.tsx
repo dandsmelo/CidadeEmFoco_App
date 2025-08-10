@@ -2,21 +2,23 @@ import StyledButton from "@/components/Button";
 import StyledInputs from "@/components/StyledInputs";
 import StyledTitle from "@/components/StyledTitle";
 import StyledView from "@/components/StyledView";
-import { View, Image, Alert, TouchableOpacity } from "react-native";
+import { View, Image, Text, TouchableOpacity } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome5";
 import { style } from "./style";
 import { router, useLocalSearchParams } from "expo-router";
 import { useState } from "react";
+import { useFlashMessage } from "@/components/FlashMessageContext";
 
 export default function RedefinirSenha() {
     const { email } = useLocalSearchParams(); 
     const [novaSenha, setNovaSenha] = useState("");
     const [mostrarSenha, setMostrarSenha] = useState(false);
     const [loading, setLoading] = useState(false);
+    const { showMessage } = useFlashMessage(); 
 
     const redefinirSenha = async () => {
         if (!novaSenha || novaSenha.length < 6) {
-            alert("A senha deve ter pelo menos 6 caracteres.");
+            showMessage("A senha deve ter pelo menos 6 caracteres.", "warning");
             return;
         }
 
@@ -31,14 +33,14 @@ export default function RedefinirSenha() {
             });
 
             if (response.ok) {
-                alert("Senha redefinida com sucesso!");
+                showMessage("Senha redefinida com sucesso!", "success");
                 router.replace("/login");
             } else {
                 const erro = await response.json();
-                alert(erro.message || "Erro ao redefinir a senha.");
+                showMessage(erro.message || "Erro ao redefinir a senha.", "warning");
             }
         } catch (err) {
-            alert("Não foi possível conectar ao servidor.");
+            showMessage("Não foi possível conectar ao servidor.", "error");
         } finally {
             setLoading(false);
         }

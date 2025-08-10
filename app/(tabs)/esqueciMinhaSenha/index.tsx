@@ -5,11 +5,13 @@ import StyledTitle from "@/components/StyledTitle";
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import { router, useLocalSearchParams } from 'expo-router';
 import React, { useState } from 'react';
+import { useFlashMessage } from "@/components/FlashMessageContext";
 
 export default function EsqueciMinhaSenha() {
     const { email } = useLocalSearchParams();
     const [code, setCode] = useState(['', '', '', '', '', '']);
     const inputRefs = Array(6).fill(0).map(() => React.createRef<TextInput>());
+    const { showMessage } = useFlashMessage();
 
     const handleChange = (text: string, index: number) => {
         if (/^\d?$/.test(text)) {
@@ -26,7 +28,7 @@ export default function EsqueciMinhaSenha() {
     const handleVerify = async () => {
     const verificationCode = code.join('');
     if (verificationCode.length < 6) {
-        alert('Preencha todos os 6 dígitos.');
+        showMessage('Preencha todos os 6 dígitos.', "warning");
         return;
     }
 
@@ -40,21 +42,19 @@ export default function EsqueciMinhaSenha() {
         const data = await response.json();
 
         if (response.ok) {
-            alert('Código verificado com sucesso!');
+            showMessage('Código verificado com sucesso!', "success");
             router.push({ pathname: '/redefinirSenha', params: { email } });
         } else {
-            alert(data.message || 'O código informado está incorreto.');
+            showMessage(data.message || 'O código informado está incorreto.', "warning");
         }
     } catch (error) {
-        console.log(error);
-        alert('Erro ao verificar código. Tente novamente mais tarde.');
+        showMessage('Erro ao verificar código. Tente novamente mais tarde.', "error");
     }
     };
 
 
     return (
         <View style={Style.container}>
-
             <View style={Style.containerImg}>
                 <TouchableOpacity style={Style.topoIcon} onPress={() => router.push('/login')}>
                     <Icon name="chevron-left" size={30} color="#FFFFFF" />

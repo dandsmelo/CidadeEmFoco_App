@@ -6,12 +6,14 @@ import { Style } from "./style";
 import { useCustomFonts } from "@/assets/fonts/Fonts";
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useFlashMessage } from '@/components/FlashMessageContext';
 
 export default function DuplaAutenticacao() {
   const fontsLoaded = useCustomFonts();
   const [code, setCode] = useState(['', '', '', '', '', '']); // 6 dígitos
   const inputRefs = Array(6).fill(0).map(() => React.createRef<TextInput>());
-
+  const { showMessage } = useFlashMessage();
+  
   if (!fontsLoaded) return null;
 
   const handleChange = (text: string, index: number) => {
@@ -29,14 +31,14 @@ export default function DuplaAutenticacao() {
   const handleVerify = async () => {
     const verificationCode = code.join('');
     if (verificationCode.length < 6) {
-      alert('Preencha todos os 6 dígitos.');
+      showMessage('Preencha todos os 6 dígitos.', "warning");
       return;
     }
 
     try {
       const tempToken = await AsyncStorage.getItem('tempToken');
       if (!tempToken) {
-        alert('Token de verificação ausente. Faça login novamente.');
+        showMessage('Token de verificação ausente. Faça login novamente.', "warning");
         router.push('/login');
         return;
       }
@@ -58,15 +60,14 @@ export default function DuplaAutenticacao() {
         await AsyncStorage.setItem('userType', data.userType);
         await AsyncStorage.removeItem('tempToken'); 
 
-        alert('Login realizado com sucesso!');
+        showMessage('Login realizado com sucesso!', "success");
         router.push('/mapa');
       } else {
-        alert('O código está incorreto ou expirou.');
+        showMessage('O código está incorreto ou expirou.', "warning");
       }
 
     } catch (error) {
-      console.log(error);
-      alert('Erro ao verificar o código. Tente novamente.');
+      showMessage('Erro ao verificar o código. Tente novamente.', "error");
     }
   };
 
@@ -74,7 +75,7 @@ export default function DuplaAutenticacao() {
     try {
       const tempToken = await AsyncStorage.getItem('tempToken');
       if (!tempToken) {
-        alert('Token ausente. Faça login novamente.');
+        showMessage('Token ausente. Faça login novamente.', "warning");
         router.push('/login');
         return;
       }
@@ -88,15 +89,14 @@ export default function DuplaAutenticacao() {
       });
 
       if (response.ok) {
-        Alert.alert('Código reenviado', 'Verifique seu telefone.');
+        showMessage('Código reenviado, Verifique seu telefone.', "warning");
         setCode(['', '', '', '', '', '']);
         inputRefs[0].current?.focus();
       } else {
-        Alert.alert('Erro', 'Erro ao reenviar código.');
+        showMessage('Erro ao reenviar código.', "error");
       }
     } catch (error) {
-      console.log(error);
-      Alert.alert('Erro', 'Erro ao reenviar o código.');
+      showMessage('Erro ao reenviar o código.', "error");
     }
   };
 

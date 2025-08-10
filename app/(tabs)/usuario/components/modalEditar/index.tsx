@@ -5,6 +5,7 @@ import { style } from "./style";
 import { useCustomFonts } from "@/assets/fonts/Fonts";
 import React, { useEffect, useRef, useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useFlashMessage } from "@/components/FlashMessageContext";
 
 interface Props {
   visible: boolean;
@@ -18,7 +19,8 @@ export default function ModalEdicao({ title, visible, onClose, onSuccess, valorI
   const fontsLoaded = useCustomFonts();
   const [valor, setValor] = React.useState(valorInicial || "");
   const [isEditing, setIsEditing] = React.useState(false);
-  const inputRef = React.useRef<TextInput>(null); 
+  const inputRef = React.useRef<TextInput>(null);
+  const { showMessage } = useFlashMessage(); 
 
   if (!fontsLoaded) return null;
 
@@ -28,7 +30,7 @@ export default function ModalEdicao({ title, visible, onClose, onSuccess, valorI
     const tipo = await AsyncStorage.getItem("userType");
 
     if (!token || !usuarioId || !tipo) {
-      alert("Usuário não autenticado");
+      showMessage("Usuário não autenticado", "error");
       return;
     }
 
@@ -47,15 +49,15 @@ export default function ModalEdicao({ title, visible, onClose, onSuccess, valorI
       const data = await response.json();
 
       if (response.ok) {
-        alert("Sucesso, usuário atualizado");
+        showMessage("Sucesso, usuário atualizado", "success");
         setIsEditing(false);
         onClose();
         onSuccess?.();
       } else {
-        alert(data.message || "Erro ao atualizar");
+        showMessage(data.message || "Erro ao atualizar", "error");
       }
     } catch (err) {
-      alert("Erro ao atualizar usuário");
+      showMessage("Erro ao atualizar usuário", "error");
     }
   };
 
@@ -80,6 +82,7 @@ export default function ModalEdicao({ title, visible, onClose, onSuccess, valorI
       visible={visible}
       onRequestClose={onClose}
     >
+      
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <View style={style.modalOverlay}>
           <View style={style.container}>

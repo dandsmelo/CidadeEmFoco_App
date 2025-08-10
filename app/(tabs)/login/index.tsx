@@ -9,6 +9,7 @@ import { useCustomFonts } from "@/assets/fonts/Fonts";
 import { router } from 'expo-router';
 import { useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useFlashMessage } from "@/components/FlashMessageContext";
 
 export default function Login() {
   const fontsLoaded = useCustomFonts();
@@ -16,10 +17,11 @@ export default function Login() {
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
   const [senhaVisivel, setSenhaVisivel] = useState(false);
+  const { showMessage } = useFlashMessage();
 
   const handleLogin = async () => {
   if (!email || !senha) {
-    alert('Preencha todos os campos');
+    showMessage('Preencha todos os campos', "warning");
     return;
   }
 
@@ -47,15 +49,14 @@ export default function Login() {
         await AsyncStorage.setItem('userId', data.userId);
         await AsyncStorage.setItem('userType', data.userType);
 
-        alert('Usuário logado com sucesso');
+        showMessage('Usuário logado com sucesso', "success");
         router.push('/mapa');
       }
     } else {
-      alert(data.message || 'Usuário ou senha incorretos');
+      showMessage('Usuário ou senha incorretos', "warning")
     }
   } catch (error) {
-    console.log('Erro no login:', error);
-    alert('Erro ao conectar ao servidor');
+    showMessage('Erro ao conectar ao servidor', "error");
   }
 };
 

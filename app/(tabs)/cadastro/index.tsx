@@ -5,6 +5,7 @@ import { useState } from "react";
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import { router } from 'expo-router';
 import DropDownPicker from 'react-native-dropdown-picker';
+import { useFlashMessage } from "@/components/FlashMessageContext";
 
 
 export default function Cadastro(){
@@ -29,39 +30,37 @@ export default function Cadastro(){
     const [confirmarSenha, setConfirmarSenha] = useState("")
     const [senhaVisivel, setSenhaVisivel] = useState(false);
     const [confirmarSenhaVisivel, setConfirmarSenhaVisivel] = useState(false);
+    const { showMessage } = useFlashMessage();
+
 
     const handleCadastro = async () =>{
         if (!nomeCompleto || !telefone || !email || !senha || !confirmarSenha || !tipo) {
-            alert("Por favor, preencha todos os campos.");
+            showMessage("Por favor, preencha todos os campos.", 'warning')
             return;
         }
 
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!emailRegex.test(email)) {
-            alert("Por favor, insira um e-mail válido.");
+            showMessage("Por favor, insira um e-mail válido.", 'warning');
             return;
         }
 
         const telefoneRegex = /^\(?\d{2}\)?[\s-]?\d{4,5}-?\d{4}$/;
         if (!telefoneRegex.test(telefone)) {
-            alert("Por favor, insira um número de telefone válido.");
+            showMessage("Por favor, insira um número de telefone válido.", "warning");
             return;
         }
 
         if (senha !== confirmarSenha) {
-            alert("As senhas não coincidem.");
+            showMessage("As senhas não coincidem.", "warning");
             return;
         }
 
          const senhaRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/;
          if (!senhaRegex.test(senha)) {
-            alert("A senha deve ter pelo menos 6 caracteres e conter letras e números.");
+            showMessage("A senha deve ter pelo menos 6 caracteres e conter letras e números.", "warning");
             return;
         }
-
-        if (isLoading) return;
-        setIsLoading(true);
-        router.push('/login')
 
         try {
             const response = await fetch("http://localhost:3000/usuario", {
@@ -81,20 +80,20 @@ export default function Cadastro(){
             const data = await response.json();
 
             if (response.ok) {
-                alert("Usuário cadastrado com sucesso!");
                 setNomeCompleto("");
                 setTelefone("");
                 setEmail("");
                 setSenha("");
                 setConfirmarSenha("");
                 setTipo(null);
+                showMessage("Usuário cadastrado com sucesso!")
+                router.push('/login')
     } else {
-      alert(data.message || "Erro ao cadastrar. Tente novamente.");
+        showMessage("Erro ao cadastrar. Tente novamente", 'error')
     }
 
     } catch (error) {
-    console.error(error);
-    alert("Erro de conexão com o servidor. Verifique sua internet ou tente mais tarde.");
+    showMessage("Erro de conexão com o servidor. Verifique sua internet ou tente mais tarde.", 'error');
     } finally {
     setIsLoading(false);
   }
