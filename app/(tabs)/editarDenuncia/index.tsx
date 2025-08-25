@@ -10,6 +10,7 @@ import DropDownPicker from 'react-native-dropdown-picker';
 import {useLocalSearchParams } from 'expo-router';
 import { router } from 'expo-router';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useFlashMessage } from "@/components/FlashMessageContext";
 
 export default function EditarDenuncia(){
     const { id } = useLocalSearchParams();
@@ -57,6 +58,7 @@ export default function EditarDenuncia(){
     const [endereco, setEndereco] = useState("R. Abacaxi, 123");
     const [data, setData] = useState("12/02/2025");
     const [descricao, setDescricao] = useState("Lorem Ipsum is simply dummy text of the printing and typesetting industry.");
+    const { showMessage } = useFlashMessage();
 
     useEffect(() => {
         const buscarDenuncia = async () => {
@@ -108,16 +110,15 @@ export default function EditarDenuncia(){
             });
 
             if (response.ok) {
-                alert("Denúncia atualizada com sucesso!");
+                showMessage("Denúncia atualizada com sucesso!", "success");
                 setIsEditing(false);
                 router.push("/minhasDenuncias");
             } else {
                 const dataError = await response.json();
-                alert(dataError.message || "Erro ao atualizar denúncia.");
+                showMessage(dataError.message || "Erro ao atualizar denúncia.", "error");
             }
         } catch (error) {
-            console.error(error);
-            alert("Erro de conexão. Tente novamente.");
+            showMessage("Erro de conexão. Tente novamente.", "error");
         }
     };
 
@@ -134,15 +135,14 @@ export default function EditarDenuncia(){
             });
 
             if (response.ok) {
-                alert("Denúncia excluída com sucesso!");
+                showMessage("Denúncia excluída com sucesso!", "success");
                 router.push("/minhasDenuncias");
             } else {
                 const dataError = await response.json();
-                alert(dataError.message || "Erro ao excluir denúncia.");
+                showMessage(dataError.message || "Erro ao excluir denúncia.", "error");
             }
         } catch (error) {
-            console.error(error);
-            alert("Erro de conexão. Tente novamente.");
+            showMessage("Erro de conexão. Tente novamente.", "error");
         }
     };
 

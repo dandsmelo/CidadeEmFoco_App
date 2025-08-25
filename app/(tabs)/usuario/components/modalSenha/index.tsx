@@ -1,18 +1,17 @@
 import { useCustomFonts } from "@/assets/fonts/Fonts";
 import {
-  Keyboard,
   Modal,
   View,
   Text,
   TextInput,
-  Alert,
   TouchableOpacity,
 } from "react-native";
 import { style } from "./style";
 import StyledButton from "@/components/Button";
 import { MaterialIcons } from '@expo/vector-icons';
-import React, { useState } from "react";
+import { useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useFlashMessage } from "@/components/FlashMessageContext";
 
 interface Props {
   visible: boolean;
@@ -26,6 +25,7 @@ export default function ModalSenha({ visible, onClose, onSucess }: Props) {
   const [novaSenha, setNovaSenha] = useState("");
   const [showSenhaAtual, setShowSenhaAtual] = useState(false);
   const [showNovaSenha, setShowNovaSenha] = useState(false);
+  const { showMessage } = useFlashMessage();
 
   if (!fontsLoaded) return null;
 
@@ -34,12 +34,12 @@ export default function ModalSenha({ visible, onClose, onSucess }: Props) {
     const usuarioId = await AsyncStorage.getItem("userId");
 
     if (!token || !usuarioId) {
-      Alert.alert("Erro", "Usuário não autenticado");
+      showMessage("Usuário não autenticado", "error");
       return;
     }
 
     if (senhaAtual === novaSenha) {
-      Alert.alert("Erro", "A nova senha deve ser diferente da atual");
+      showMessage("A nova senha deve ser diferente da atual", "warning");
       return;
     }
 
@@ -57,16 +57,16 @@ export default function ModalSenha({ visible, onClose, onSucess }: Props) {
       });
 
       if (response.ok) {
-        Alert.alert("Sucesso", "Senha atualizada com sucesso ");
+        showMessage("Senha atualizada com sucesso", "success");
         onClose();
         onSucess();
         setSenhaAtual("");
         setNovaSenha("");
       } else {
-        Alert.alert("Erro", "Erro ao atualizar senha");
+        showMessage("Erro ao atualizar senha", "error");
       }
     } catch (err) {
-      Alert.alert("Erro", "Erro inesperado ao atualizar a senha");
+      showMessage("Erro inesperado ao atualizar a senha", "error");
     }
   };
 
