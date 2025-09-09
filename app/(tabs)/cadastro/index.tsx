@@ -1,6 +1,6 @@
 import {View, Text, TextInput, TouchableOpacity, Image, ScrollView} from "react-native";
 import { useCustomFonts } from "@/assets/fonts/Fonts";
-import { CadastroStyle } from "./cadastroStyle";
+import { style } from "./style";
 import { useState } from "react";
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import { router } from 'expo-router';
@@ -101,28 +101,28 @@ export default function Cadastro(){
 
     return(
         <ScrollView>
-        <View style={CadastroStyle.container}>
+        <View style={style.container}>
 
-            <View style={CadastroStyle.topoImg}>
-            <TouchableOpacity style={CadastroStyle.topoIcon}>
+            <View style={style.topoImg}>
+            <TouchableOpacity style={style.topoIcon}>
                 <Icon name="chevron-left" size={25} color="#FFFFFF" onPress={() => router.push('/')}/>
             </TouchableOpacity>
-                <Image source={require('@/assets/images/cadastro.png')} style={CadastroStyle.img} />
+                <Image source={require('@/assets/images/cadastro.png')} style={style.img} />
             </View>
 
-            <View style={CadastroStyle.bodyText}>
+            <View style={style.bodyText}>
 
-            <View style={CadastroStyle.topoTexto}>
-            <Text style={CadastroStyle.title}>Registre-se</Text>
-            <Text style={CadastroStyle.text}>"A sua contribuição é valiosa. Ajude a tornar nossa cidade um lugar mais seguro!”</Text>
+            <View style={style.topoTexto}>
+            <Text style={style.title}>Registre-se</Text>
+            <Text style={style.text}>"A sua contribuição é valiosa. Ajude a tornar nossa cidade um lugar mais seguro!”</Text>
             </View>
 
-            <View style={CadastroStyle.bodyInput}>
+            <View style={style.bodyInput}>
             
             <View>
-            <Icon name="user-alt" size={20} color="#898989" style={CadastroStyle.inputIcon} />
+            <Icon name="user-alt" size={20} color="#898989" style={style.inputIcon} />
             <TextInput
-            style={CadastroStyle.input}
+            style={style.input}
             placeholder="Nome Completo"
             value={nomeCompleto}
             onChangeText={setNomeCompleto}
@@ -131,9 +131,9 @@ export default function Cadastro(){
             </View>
 
             <View>
-            <Icon name="mobile-alt" size={20} color="#898989" style={CadastroStyle.inputIcon} />
+            <Icon name="mobile-alt" size={20} color="#898989" style={style.inputIcon} />
             <TextInput
-            style={CadastroStyle.input}
+            style={style.input}
             placeholder="Telefone"
             keyboardType="phone-pad"
             value={telefone}
@@ -144,9 +144,9 @@ export default function Cadastro(){
             </View>
 
             <View>
-            <Icon name="envelope" size={20} color="#898989" style={CadastroStyle.inputIcon} />
+            <Icon name="envelope" size={20} color="#898989" style={style.inputIcon} />
             <TextInput
-            style={CadastroStyle.input}
+            style={style.input}
             placeholder="Email"
             value={email}
             onChangeText={setEmail}
@@ -155,9 +155,9 @@ export default function Cadastro(){
             </View>
 
             <View>
-            <Icon name="lock" size={20} color="#898989" style={CadastroStyle.inputIcon} />
+            <Icon name="lock" size={20} color="#898989" style={style.inputIcon} />
             <TextInput
-                style={CadastroStyle.input}
+                style={style.input}
                 placeholder="Senha"
                 value={senha}
                 onChangeText={setSenha}
@@ -165,7 +165,7 @@ export default function Cadastro(){
                 placeholderTextColor="#898989"
             />
             <TouchableOpacity
-                style={CadastroStyle.inputIconRight}
+                style={style.inputIconRight}
                 onPress={() => setSenhaVisivel(!senhaVisivel)}
             >
                 <Icon
@@ -177,9 +177,9 @@ export default function Cadastro(){
             </View>
 
             <View>
-            <Icon name="lock" size={20} color="#898989" style={CadastroStyle.inputIcon} />
+            <Icon name="lock" size={20} color="#898989" style={style.inputIcon} />
             <TextInput
-                style={CadastroStyle.input}
+                style={style.input}
                 placeholder="Confirmar Senha"
                 value={confirmarSenha}
                 onChangeText={setConfirmarSenha}
@@ -187,7 +187,7 @@ export default function Cadastro(){
                 placeholderTextColor="#898989"
             />
             <TouchableOpacity
-                style={CadastroStyle.inputIconRight}
+                style={style.inputIconRight}
                 onPress={() => setConfirmarSenhaVisivel(!confirmarSenhaVisivel)}
             >
                 <Icon
@@ -231,8 +231,8 @@ export default function Cadastro(){
             </View>
 
             <View>
-            <TouchableOpacity style={CadastroStyle.button} onPress={handleCadastro}>
-                <Text style={CadastroStyle.textButton}>Cadastrar</Text>
+            <TouchableOpacity style={style.button} onPress={handleCadastro}>
+                <Text style={style.textButton}>Cadastrar</Text>
             </TouchableOpacity>
             </View>
 

@@ -1,6 +1,6 @@
 import { StyleSheet } from "react-native";
 
-export const InitialPageStyles = StyleSheet.create({
+export const style = StyleSheet.create({
     container: {
         backgroundColor: "#6A0DAD",
         height: '100%',

@@ -1,6 +1,6 @@
 import { StyleSheet } from "react-native";
 
-export const CadastroStyle = StyleSheet.create({
+export const style = StyleSheet.create({
     container: {
         height: '100%',
         display: 'flex',
