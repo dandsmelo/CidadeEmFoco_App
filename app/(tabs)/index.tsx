@@ -1,5 +1,5 @@
 import { View, Text, Image, TouchableOpacity } from 'react-native';
-import { InitialPageStyles } from './initialPageStyle';
+import { style } from './style';
 import { useCustomFonts } from '@/assets/fonts/Fonts';
 import { router } from 'expo-router';
 
@@ -10,22 +10,22 @@ export default function InitialPage() {
     return null; 
   }
   return (
-    <View style={InitialPageStyles.container}>
-      <Image source={require('@/assets/images/logo.png')} style={InitialPageStyles.img} />
-      <Text style={InitialPageStyles.title}>Cidade em Foco</Text>
-      <Text style={InitialPageStyles.caption}>"Cada problema reportado é um passo em direção à solução."</Text>
+    <View style={style.container}>
+      <Image source={require('@/assets/images/logo.png')} style={style.img} />
+      <Text style={style.title}>Cidade em Foco</Text>
+      <Text style={style.caption}>"Cada problema reportado é um passo em direção à solução."</Text>
       <View>
         <TouchableOpacity  
-          style={InitialPageStyles.button}
+          style={style.button}
           onPress={() => router.push('/login')}
         >
-          <Text style={InitialPageStyles.btnText}>Login</Text>
+          <Text style={style.btnText}>Login</Text>
         </TouchableOpacity>
         <TouchableOpacity 
-          style={InitialPageStyles.button}
+          style={style.button}
           onPress={() => router.push('/cadastro')}
         >
-          <Text style={InitialPageStyles.btnText}>Cadastrar</Text>
+          <Text style={style.btnText}>Cadastrar</Text>
         </TouchableOpacity>
       </View>
     </View>
