@@ -10,6 +10,7 @@ import { router } from 'expo-router';
 import { UsuarioData } from "@/interfaces/UsuarioData";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useFlashMessage } from "@/components/FlashMessageContext";
+import { useAuth } from "@/hook/auth/useAuth";
 
 export default function Usuario() {
     const fontsLoaded = useCustomFonts()
@@ -18,6 +19,7 @@ export default function Usuario() {
     const [selectedField, setselectedField] = useState("");
     const [modalSenha, setModalSenha] = useState(false);
     const [usuario, setUsuario] = React.useState<UsuarioData>();
+    const { logout } = useAuth();
     const { showMessage } = useFlashMessage();
 
     const openModalEditar = (campo: string) => {
@@ -63,9 +65,7 @@ export default function Usuario() {
 
     const handleLogout = async () => {
         try{
-          await AsyncStorage.removeItem("token");
-          await AsyncStorage.removeItem("userId");
-          await AsyncStorage.removeItem("userType");
+          logout();
           router.replace('/login');
 
         } catch (error) {
