@@ -1,19 +1,29 @@
-import { router } from 'expo-router';
+import { router } from "expo-router";
 import StyledButton from "@/components/Button";
-import { View, Text, TextInput, TouchableOpacity, Image, Alert } from "react-native";
-import React, { useState } from 'react';
+import {
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  Image,
+  Alert,
+} from "react-native";
+import React, { useState } from "react";
 import { Style } from "./style";
 import { useCustomFonts } from "@/assets/fonts/Fonts";
-import Icon from 'react-native-vector-icons/FontAwesome5';
+import Icon from "react-native-vector-icons/FontAwesome5";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { useFlashMessage } from '@/components/FlashMessageContext';
+import { useFlashMessage } from "@/components/FlashMessageContext";
+import auth from "@react-native-firebase/auth";
 
 export default function DuplaAutenticacao() {
   const fontsLoaded = useCustomFonts();
-  const [code, setCode] = useState(['', '', '', '', '', '']); // 6 dígitos
-  const inputRefs = Array(6).fill(0).map(() => React.createRef<TextInput>());
+  const [code, setCode] = useState(["", "", "", "", "", ""]); // 6 dígitos
+  const inputRefs = Array(6)
+    .fill(0)
+    .map(() => React.createRef<TextInput>());
   const { showMessage } = useFlashMessage();
-  
+
   if (!fontsLoaded) return null;
 
   const handleChange = (text: string, index: number) => {
@@ -29,89 +39,110 @@ export default function DuplaAutenticacao() {
   };
 
   const handleVerify = async () => {
-    const verificationCode = code.join('');
+    const verificationCode = code.join("");
     if (verificationCode.length < 6) {
-      showMessage('Preencha todos os 6 dígitos.', "warning");
+      showMessage("Preencha todos os 6 dígitos.", "warning");
       return;
     }
 
     try {
-      const tempToken = await AsyncStorage.getItem('tempToken');
-      if (!tempToken) {
-        showMessage('Token de verificação ausente. Faça login novamente.', "warning");
-        router.push('/login');
+      const stored = await AsyncStorage.getItem("confirmationResult");
+      if (!stored) {
+        showMessage("Fluxo inválido. Faça login novamente.", "warning");
+        router.push("/login");
         return;
       }
 
-      const response = await fetch('http://localhost:3000/usuario/verificar-sms', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${tempToken}`
-        },
-        body: JSON.stringify({ code: verificationCode })
-      });
+      const confirmation = JSON.parse(stored);
+
+      const cred = await confirmation.confirm(verificationCode);
+      console.log("Telefone verificado:", cred.user.phoneNumber);
+
+      const email = await AsyncStorage.getItem("email");
+
+      const response = await fetch(
+        "http://localhost:3000/usuario/finalizar-2fa",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email }),
+        }
+      );
 
       const data = await response.json();
 
-      if (response.ok && data.success) {
-        await AsyncStorage.setItem('token', data.token);
-        await AsyncStorage.setItem('userId', data.userId);
-        await AsyncStorage.setItem('userType', data.userType);
-        await AsyncStorage.removeItem('tempToken'); 
-
-        showMessage('Login realizado com sucesso!', "success");
-        router.push('/mapa');
+      if (response.ok) {
+        await AsyncStorage.setItem("token", data.token);
+        await AsyncStorage.setItem("userId", data.userId);
+        await AsyncStorage.setItem("userType", data.userType);
+        await AsyncStorage.removeItem("confirmationResult");
+        showMessage("Login realizado com sucesso!", "success");
+        router.push("/mapa");
       } else {
-        showMessage('O código está incorreto ou expirou.', "warning");
+        showMessage("Erro ao finalizar login.", "error");
       }
-
     } catch (error) {
-      showMessage('Erro ao verificar o código. Tente novamente.', "error");
+      console.error(error);
+      showMessage("Erro ao verificar o código.", "error");
     }
   };
 
   const handleResend = async () => {
     try {
-      const tempToken = await AsyncStorage.getItem('tempToken');
-      if (!tempToken) {
-        showMessage('Token ausente. Faça login novamente.', "warning");
-        router.push('/login');
+      const email = await AsyncStorage.getItem("email");
+      if (!email) {
+        showMessage("Usuário não encontrado, faça login novamente.", "warning");
+        router.push("/login");
         return;
       }
 
-      const response = await fetch('http://localhost:3000/usuario/enviar-codigo', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${tempToken}`
-        }
-      });
+      // Busca telefone no backend
+      const response = await fetch(
+        `http://localhost:3000/usuario/telefone?email=${email}`
+      );
+      const data = await response.json();
 
       if (response.ok) {
-        showMessage('Código reenviado, Verifique seu telefone.', "warning");
-        setCode(['', '', '', '', '', '']);
+        const confirmation = await auth().signInWithPhoneNumber(
+          data.phoneNumber
+        );
+        await AsyncStorage.setItem(
+          "confirmationResult",
+          JSON.stringify(confirmation)
+        );
+        setCode(["", "", "", "", "", ""]);
         inputRefs[0].current?.focus();
+
+        showMessage("Novo código enviado via SMS.", "success");
       } else {
-        showMessage('Erro ao reenviar código.', "error");
+        showMessage("Erro ao buscar telefone.", "error");
       }
-    } catch (error) {
-      showMessage('Erro ao reenviar o código.', "error");
+    } catch (err) {
+      console.error(err);
+      showMessage("Erro ao reenviar código.", "error");
     }
   };
 
   return (
     <View style={Style.container}>
       <View style={Style.containerImg}>
-        <TouchableOpacity style={Style.topoIcon} onPress={() => router.push('/login')}>
+        <TouchableOpacity
+          style={Style.topoIcon}
+          onPress={() => router.push("/login")}
+        >
           <Icon name="chevron-left" size={25} color="#FFFFFF" />
         </TouchableOpacity>
-        <Image source={require('@/assets/images/duplaAutenticacao.png')} style={Style.img} />
+        <Image
+          source={require("@/assets/images/duplaAutenticacao.png")}
+          style={Style.img}
+        />
       </View>
 
       <View style={Style.bodyText}>
         <View style={Style.divTexto}>
-          <Text style={Style.texto}>Um código foi enviado para o número de telefone cadastrado</Text>
+          <Text style={Style.texto}>
+            Um código foi enviado para o número de telefone cadastrado
+          </Text>
         </View>
         <View style={Style.divTexto}>
           <Text style={Style.textoI}>Digite o código recebido</Text>
@@ -127,7 +158,7 @@ export default function DuplaAutenticacao() {
               maxLength={1}
               value={digit}
               onChangeText={(text) => handleChange(text, idx)}
-              returnKeyType={idx === 5 ? 'done' : 'next'}
+              returnKeyType={idx === 5 ? "done" : "next"}
               onSubmitEditing={() => {
                 if (idx < 5) {
                   inputRefs[idx + 1].current?.focus();
@@ -140,7 +171,11 @@ export default function DuplaAutenticacao() {
         </View>
 
         <View style={Style.containerbtn}>
-          <StyledButton text="Verificar" background="azul" onPress={handleVerify} />
+          <StyledButton
+            text="Verificar"
+            background="azul"
+            onPress={handleVerify}
+          />
         </View>
 
         <View style={Style.bottomDiv}>
