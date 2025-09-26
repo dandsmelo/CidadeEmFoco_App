@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+/* import React, { useEffect } from 'react';
 import { Platform, View, StyleSheet, Dimensions } from 'react-native';
 import { DenunciaData } from '@/interfaces/DenunciaData';
 
@@ -65,3 +65,4 @@ export default function MapaDenuncias({ denuncias }: Props) {
     );
 }
 
+ */

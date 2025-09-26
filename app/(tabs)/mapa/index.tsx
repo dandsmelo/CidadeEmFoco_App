@@ -8,7 +8,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, { useEffect } from 'react';
 import { UsuarioData } from '@/interfaces/UsuarioData';
 import { DenunciaData } from '@/interfaces/DenunciaData';
-import MapaDenuncias from '@/components/Mapa/MapaDenuncias';
+/* import MapaDenuncias from '@/components/Mapa/MapaDenuncias'; */
 
 export default function Mapa(){
     const [tipoUsuario, setTipoUsuario] = React.useState<string | null>(null);
@@ -112,7 +112,7 @@ export default function Mapa(){
                     <Text style={Style.textMapa}>Mapa de Denúncias</Text>
                 </View>
 
-                <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+                {/* <View style={{ justifyContent: 'center', alignItems: 'center' }}>
                     {denuncias.length > 0 ? (
                         <MapaDenuncias denuncias={denuncias} />
                     ) : (
@@ -120,7 +120,7 @@ export default function Mapa(){
                             <Text style={Style.noContentText}>Não há denúncias registradas.</Text>
                         </View>
                     )}
-                </View>
+                </View> */}
 
                 <View style={Style.divCard}>
                     <View style={Style.card}>
