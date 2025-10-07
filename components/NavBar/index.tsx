@@ -20,12 +20,14 @@ export default function NavBar(props: Props) {
 
     return (
         <View style={styles.container}>
-            <Icon 
-                name="chevron-left" 
-                size={25} 
-                style={styles.icon} 
-                onPress={() => router.push('/mapa')}
-            />
+            <View style={styles.circle}>
+                <Icon 
+                    name="chevron-left" 
+                    size={18} 
+                    style={styles.icon} 
+                    onPress={() => router.push('/mapa')}
+                />
+            </View>
             <Text style={styles.text}>{title}</Text>
         </View>
     )
@@ -33,17 +35,33 @@ export default function NavBar(props: Props) {
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: Colors.primary,
+        backgroundColor: 'white',
         height: 70,
         width: '100%',
         display: 'flex',
         flexDirection: 'row',
         alignItems: 'center',
+        borderBottomLeftRadius: 15,
+        borderBottomRightRadius: 15,
+        shadowColor: '#000',
+        shadowOpacity: 0.6,
+        shadowRadius: 4.65,
+        elevation: 2,
+    },
+    circle: {
+        backgroundColor: Colors.primary, 
+        borderRadius: '100%', 
+        width: 35, 
+        height: 35,
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginLeft: 18,
     },
     text: {
-        color: 'white',
+        color: Colors.primary,
         fontFamily: 'PoppinsSemiBold',
-        fontSize: 24,
+        fontSize: 22,
         marginLeft: 10,
     },
     icon: {
