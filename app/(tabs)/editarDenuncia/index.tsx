@@ -153,8 +153,8 @@ export default function EditarDenuncia(){
         <ScrollView style={Style.backgroud}>
         <View style={Style.container}>
             <View style={Style.navBar}>
-                <TouchableOpacity>
-                <Icon name="chevron-left" size={25} style={Style.iconNavBar} onPress={() => router.push('/minhasDenuncias')} />
+                <TouchableOpacity style={Style.circle}>
+                    <Icon name="chevron-left" size={18} style={Style.iconNavBar} onPress={() => router.push('/minhasDenuncias')} />
                 </TouchableOpacity>
                 {isEditing ? (
                     <>

@@ -125,11 +125,10 @@ export const Style = StyleSheet.create({
         marginLeft: 10,
     },
     inputTitulo:{
-        margin: 5,
-        color: 'white',
+        color: Colors.primary,
         fontFamily: 'PoppinsSemiBold',
-        fontSize: 24,
-        width: '60%',
+        fontSize: 22,
+        marginLeft: 10,
     },
     descricaoInput:{
         fontSize: 18,
@@ -143,9 +142,9 @@ export const Style = StyleSheet.create({
     
     },
     textTitulo: {
-        color: 'white',
+        color: Colors.primary,
         fontFamily: 'PoppinsSemiBold',
-        fontSize: 24,
+        fontSize: 22,
         marginLeft: 10,
     },
     iconNavBar: {
@@ -154,12 +153,29 @@ export const Style = StyleSheet.create({
         margin: 15,
     },
     navBar:{
-        backgroundColor: Colors.primary,
+        backgroundColor: 'white',
         height: 70,
         width: '100%',
         display: 'flex',
         flexDirection: 'row',
         alignItems: 'center',
+        borderBottomLeftRadius: 15,
+        borderBottomRightRadius: 15,
+        shadowColor: '#000',
+        shadowOpacity: 0.6,
+        shadowRadius: 4.65,
+        elevation: 1,
+    },
+
+    circle: {
+        backgroundColor: Colors.primary, 
+        borderRadius: '100%', 
+        width: 35, 
+        height: 35,
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginLeft: 18,
     },
 
     category: {
