@@ -8,6 +8,8 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { DenunciaData } from "@/interfaces/DenunciaData";
 import { TouchableOpacity } from "react-native";
 import { router } from 'expo-router';
+import { Colors } from "@/constants/Colors";
+import Icon from "react-native-vector-icons/FontAwesome5";
 
 export default function MinhasDenuncias() {
     const [denuncias, setDenuncias] = React.useState<DenunciaData[]>([]);
@@ -56,13 +58,17 @@ export default function MinhasDenuncias() {
     const getStatusColor = (status: string) => {
       switch (status) {
         case "Pendente":
-          return "#E72A2A";
+          return Colors.vermelho;
+        case "Rejeitada":
+          return Colors.cinza;
+        case "Em análise":
+          return Colors.amarelo;
         case "Em andamento":
-          return "#FFAC11"; 
+          return Colors.azul; 
         case "Resolvido":
-          return "#1663C8";
+          return Colors.verde;
         default:
-          return "#E72A2A"; 
+          return Colors.vermelho; 
       }
     };
 
@@ -81,6 +87,15 @@ export default function MinhasDenuncias() {
     return (
         <View style={style.container}>
             <NavBar title={tipoUsuario === "servidorPublico" ? "Denúncias" : "Minhas denúncias"} />
+            <View style={style.buttonView}>
+              <TouchableOpacity style={style.buttons}>
+                <Text style={style.textButton}>Ordenar</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={style.buttons}>
+                <Icon name="filter" size={15} style={{color: 'white'}}/>
+                <Text style={style.textButton}>Filtrar</Text>
+              </TouchableOpacity>
+            </View>
             <ScrollView>
               <View style={style.cardView}>
                   {denuncias.length > 0 ? denuncias.map((denuncia, index) => (
