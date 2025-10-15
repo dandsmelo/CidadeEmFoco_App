@@ -1,35 +1,36 @@
-import { View, Text, Image, TouchableOpacity } from 'react-native';
-import { style } from './style';
-import { useCustomFonts } from '@/assets/fonts/Fonts';
-import { router } from 'expo-router';
+import { View, Text, Image, TouchableOpacity } from "react-native";
+import { style } from "./style";
+import { useCustomFonts } from "@/assets/fonts/Fonts";
+import { router } from "expo-router";
+import { LinearGradient } from "expo-linear-gradient";
 
 export default function InitialPage() {
-  const fontsLoaded = useCustomFonts()
+  const fontsLoaded = useCustomFonts();
 
   if (!fontsLoaded) {
-    return null; 
+    return null;
   }
   return (
-    <View style={style.container}>
-      <Image source={require('@/assets/images/logo.png')} style={style.img} />
+    <LinearGradient colors={["#6A0DAD", "#2C0547"]} style={style.container}>
+      <Image source={require("@/assets/images/logo.png")} style={style.img} />
       <Text style={style.title}>Cidade em Foco</Text>
-      <Text style={style.caption}>"Cada problema reportado é um passo em direção à solução."</Text>
+      <Text style={style.caption}>
+        "Cada problema reportado é um passo em direção à solução."
+      </Text>
       <View>
-        <TouchableOpacity  
+        <TouchableOpacity
           style={style.button}
-          onPress={() => router.push('/login')}
+          onPress={() => router.push("/login")}
         >
           <Text style={style.btnText}>Login</Text>
         </TouchableOpacity>
-        <TouchableOpacity 
+        <TouchableOpacity
           style={style.button}
-          onPress={() => router.push('/cadastro')}
+          onPress={() => router.push("/cadastro")}
         >
           <Text style={style.btnText}>Cadastrar</Text>
         </TouchableOpacity>
       </View>
-    </View>
+    </LinearGradient>
   );
 }
-
-
