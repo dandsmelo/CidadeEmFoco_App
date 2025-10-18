@@ -5,7 +5,12 @@ import {
   TouchableOpacity,
   Image,
   ScrollView,
+  KeyboardAvoidingView,
+  Platform,
+  TouchableWithoutFeedback,
+  Keyboard,
 } from "react-native";
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { useCustomFonts } from "@/assets/fonts/Fonts";
 import { style } from "./style";
 import { useState } from "react";
@@ -119,7 +124,18 @@ export default function Cadastro() {
   };
 
   return (
-    <LinearGradient colors={["#6A0DAD", "#2C0547"]} style={style.container}>
+    <LinearGradient colors={["#6A0DAD", "#2C0547"]}  style={style.container}> 
+<KeyboardAwareScrollView
+            // Estilos do contêiner principal
+            style={{ flex: 1 }} 
+            // Estilos do conteúdo rolável
+            contentContainerStyle={{ flexGrow: 1, paddingBottom: 50 }} 
+            
+            // Configurações para garantir o funcionamento
+            enableOnAndroid={true} // Ativa o comportamento no Android também
+            extraScrollHeight={30} // Empurra o conteúdo um pouco mais para cima para não ficar colado no teclado
+            showsVerticalScrollIndicator={false}
+        >
       <View style={style.topoImg}>
         <TouchableOpacity style={style.topoIcon}>
           <IconI
@@ -258,6 +274,7 @@ export default function Cadastro() {
               setValue={setTipo}
               setItems={setItems}
               placeholder="Tipo de usuário"
+              listMode="SCROLLVIEW"
               style={{
                 backgroundColor: "#FFFFFF",
                 borderRadius: 10,
@@ -286,6 +303,7 @@ export default function Cadastro() {
           </TouchableOpacity>
         </View>
       </View>
+</KeyboardAwareScrollView>
     </LinearGradient>
   );
 }

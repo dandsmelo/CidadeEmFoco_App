@@ -9,6 +9,11 @@ export const style = StyleSheet.create({
     alignItems: "center",
   },
 
+  scrollContent: {
+    paddingBottom: 40, 
+    flexGrow: 1,
+  },
+
   //TOPO
 
   topoImg: {
@@ -28,7 +33,7 @@ export const style = StyleSheet.create({
     position: "absolute",
     alignSelf: "flex-start",
     color: "white",
-    top: 25,
+    top: 40,
     margin: 15,
   },
 
