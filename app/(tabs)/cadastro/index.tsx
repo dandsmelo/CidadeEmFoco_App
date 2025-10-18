@@ -124,7 +124,7 @@ export default function Cadastro() {
   };
 
   return (
-    <LinearGradient colors={["#6A0DAD", "#2C0547"]}  style={style.container}> 
+    <LinearGradient colors={["#6A0DAD", "#2C0547"]} locations={[0, 0.67]} style={style.container}> 
 <KeyboardAwareScrollView
             // Estilos do contêiner principal
             style={{ flex: 1 }} 

@@ -2,14 +2,18 @@ import { Colors } from "@/constants/Colors";
 import { StyleSheet } from "react-native";
 
 export const style = StyleSheet.create({
-    containerImg: {
-        display: 'flex',
-        justifyContent: 'center',
-        height: 210,
-        width: '100%',
-        backgroundColor: Colors.primary,
-        top: 0,
-        position: 'relative',
+    container: {
+        height: "100%",
+        display: "flex",
+        flex: 1,
+        width: "100%",
+        alignItems: "center",
+    },
+    topoImg: {
+        width: "100%",
+        alignItems: "center",
+        height: 256,
+        position: "relative",
     },
     icon: {
         position: "absolute",
@@ -18,19 +22,35 @@ export const style = StyleSheet.create({
         top: 0,
         margin: 15,
     },
+      topoIcon: {
+        position: "absolute",
+        alignSelf: "flex-start",
+        color: "white",
+        top: 40,
+        margin: 15,
+    },
     img: {
-        width: '100%',
-        height: 210,
-        marginTop: 18,
+        marginTop: 100,
+        width: 320,
+        height: 180,
     },
     textView: {
         textAlign: 'left',
         margin: 40,
     },
+    title: {
+        fontSize: 30,
+        color: "#FFFFFF",
+        fontFamily: "PoppinsSemiBold",
+        marginBottom: 5,
+        textAlign: "center",
+    },
     text: {
-        fontSize: 16,
-        fontFamily: 'PoppinsRegular',
-        marginTop: 10,
+        fontSize: 14,
+        fontFamily: "PoppinsRegular",
+        marginBottom: 10,
+        color: "#FFFFFF",
+        textAlign: "center",
     },
     divBtn: {
         marginTop: 20,
@@ -40,6 +60,7 @@ export const style = StyleSheet.create({
         fontSize: 16,
         fontFamily: 'PoppinsRegular',
         textDecorationLine: "underline",
+        color: "#FFFFFF",
     }
 
 })

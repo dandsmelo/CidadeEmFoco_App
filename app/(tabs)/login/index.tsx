@@ -1,15 +1,18 @@
-import { View, Text, Image } from "react-native";
+import { View, Text, Image,   TouchableOpacity, } from "react-native";
 import { style } from "./style";
 import StyledView from "@/components/StyledView";
 import StyledTitle from "@/components/StyledTitle";
 import StyledInputs from "@/components/StyledInputs";
 import StyledButton from "@/components/Button";
 import Icon from "react-native-vector-icons/FontAwesome5";
+import IconI from "react-native-vector-icons/Entypo";
 import { useCustomFonts } from "@/assets/fonts/Fonts";
 import { router } from 'expo-router';
 import { useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useFlashMessage } from "@/components/FlashMessageContext";
+import { LinearGradient } from "expo-linear-gradient";
+
 
 export default function Login() {
   const fontsLoaded = useCustomFonts();
@@ -65,18 +68,24 @@ export default function Login() {
 
   return (
     <StyledView>
-      <View style={style.containerImg}>
-        <Icon
-          name="chevron-left"
-          size={25}
-          style={style.icon}
-          onPress={() => router.push('/')}
+      <LinearGradient colors={["#6A0DAD", "#2C0547"]} locations={[0, 0.67]} style={style.container}> 
+      <View style={style.topoImg}>
+        <TouchableOpacity style={style.topoIcon}>
+          <IconI
+            name="chevron-thin-left"
+            size={25}
+            color="#FFFFFF"
+            onPress={() => router.push("/")}
+          />
+        </TouchableOpacity>
+        <Image
+          source={require("@/assets/images/cadastro.png")}
+          style={style.img}
         />
-        <Image source={require('@/assets/images/loginImg.png')} style={style.img} />
       </View>
 
       <View style={style.textView}>
-        <StyledTitle title="Bem vindo de volta" />
+        <Text style={style.title}>Login</Text>
         <Text style={style.text}>
           "Seja a voz da sua comunidade. Denuncie e inspire mudanças!"
         </Text>
@@ -100,7 +109,7 @@ export default function Login() {
           onToggleVisibility={() => setSenhaVisivel(!senhaVisivel)}
         />
       </View>
-
+      
       <View style={style.divBtn}>
         <StyledButton text="Logar" background="amarelo" onPress={handleLogin} />
         <Text
@@ -137,6 +146,7 @@ export default function Login() {
 
 
       </View>
+      </LinearGradient> 
     </StyledView>
   );
 }

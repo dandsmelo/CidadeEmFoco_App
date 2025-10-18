@@ -11,7 +11,7 @@ export default function InitialPage() {
     return null;
   }
   return (
-    <LinearGradient colors={["#6A0DAD", "#2C0547"]} style={style.container}>
+    <LinearGradient colors={["#6A0DAD", "#2C0547"]} locations={[0, 0.67]} style={style.container}>
       <Image source={require("@/assets/images/logo.png")} style={style.img} />
       <Text style={style.title}>Cidade em Foco</Text>
       <Text style={style.caption}>

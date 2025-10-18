@@ -117,6 +117,6 @@ export const style = StyleSheet.create({
   textButton: {
     color: "#FFFFFF",
     fontSize: 20,
-    fontFamily: "PoppinsMedium",
+    fontFamily: "PoppinsSemiBold",
   },
 });
