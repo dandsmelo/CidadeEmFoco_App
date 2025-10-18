@@ -3,16 +3,23 @@ import { Style } from "./style";
 import StyledButton from "@/components/Button";
 import StyledTitle from "@/components/StyledTitle";
 import Icon from 'react-native-vector-icons/FontAwesome5';
+import IconI from "react-native-vector-icons/Entypo";
 import { router, useLocalSearchParams } from 'expo-router';
 import React, { useState } from 'react';
 import { useFlashMessage } from "@/components/FlashMessageContext";
+import { LinearGradient } from "expo-linear-gradient";
+import { useCustomFonts } from "@/assets/fonts/Fonts";
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 export default function EsqueciMinhaSenha() {
     const { email } = useLocalSearchParams();
     const [code, setCode] = useState(['', '', '', '', '', '']);
     const inputRefs = Array(6).fill(0).map(() => React.createRef<TextInput>());
     const { showMessage } = useFlashMessage();
+    const fontsLoaded = useCustomFonts();
 
+    if (!fontsLoaded) return null;
+    
     const handleChange = (text: string, index: number) => {
         if (/^\d?$/.test(text)) {
             const newCode = [...code];
@@ -54,21 +61,33 @@ export default function EsqueciMinhaSenha() {
 
 
     return (
-        <View style={Style.container}>
-            <View style={Style.containerImg}>
-                <TouchableOpacity style={Style.topoIcon} onPress={() => router.push('/login')}>
-                    <Icon name="chevron-left" size={30} color="#FFFFFF" />
-                </TouchableOpacity>
-                <Image source={require('../../../assets/images/redefinirSenha.png')} style={Style.img} />
-            </View>
-
-            <View style={Style.bodyText}>
-                <View style={Style.divTexto}>
-                    <View style={Style.divTittle}>
-                        <StyledTitle title="Esqueci minha senha" />
-                    </View>
-                    <Text style={Style.texto}>Digite o código enviado para seu telefone</Text>
-                </View>
+        <LinearGradient colors={["#6A0DAD", "#2C0547"]} locations={[0, 0.57]} style={Style.container}>
+        <KeyboardAwareScrollView
+        style={{ flex: 1 }} 
+        contentContainerStyle={{ flexGrow: 1, paddingBottom: 50 }} 
+        enableOnAndroid={true} 
+        extraScrollHeight={30} 
+        showsVerticalScrollIndicator={false}
+        >
+                  <View style={Style.topoImg}>
+                          <TouchableOpacity style={Style.topoIcon}>
+                            <IconI
+                              name="chevron-thin-left"
+                              size={25}
+                              color="#FFFFFF"
+                              onPress={() => router.push("/")}
+                            />
+                          </TouchableOpacity>
+                          <Image
+                            source={require("@/assets/images/duplaAutenticacao.png")}
+                            style={Style.img}
+                          />
+                        </View>
+            <View style={Style.textView}>
+                    <Text style={Style.title}>Esqueci minha senha</Text>
+                    <Text style={Style.text}>Um código foi enviado para o telefone cadastrado</Text>
+                    <Text style={Style.textI}>Digite o código recebido</Text>
+                  </View>
 
                 <View style={Style.containerInput}>
                     {code.map((digit, idx) => (
@@ -95,7 +114,7 @@ export default function EsqueciMinhaSenha() {
                 <View style={Style.containerbtn}>
                     <StyledButton text="Verificar" background="azul" onPress={handleVerify} />
                 </View>
-            </View>
-        </View>
+            </KeyboardAwareScrollView>
+        </LinearGradient>
     );
 }

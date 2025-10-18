@@ -61,6 +61,9 @@ export const style = StyleSheet.create({
         fontFamily: 'PoppinsRegular',
         textDecorationLine: "underline",
         color: "#FFFFFF",
-    }
+    },
+    bodyInput: {
+        alignItems: "center",
+    },
 
 })

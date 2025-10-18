@@ -2,6 +2,13 @@ import { Colors } from "@/constants/Colors";
 import { StyleSheet } from "react-native";
 
 export const style = StyleSheet.create({
+    container: {
+        height: "100%",
+        display: "flex",
+        flex: 1,
+        width: "100%",
+        alignItems: "center",
+    },
     containerImg: {
         display: 'flex',
         justifyContent: 'center',
@@ -19,10 +26,9 @@ export const style = StyleSheet.create({
         margin: 15,
     },
     img: {
-        width: '100%',
-        height: 260,
-        marginTop: 35,
-        resizeMode: 'contain',
+        marginTop: 100,
+        width: 320,
+        height: 180,
     },
     titleDiv: {
         marginTop: 40,
@@ -30,10 +36,6 @@ export const style = StyleSheet.create({
         marginLeft: 40,
         width: '100%',
     },
-    title: {
-        textAlign: 'left',
-        marginLeft: 20, 
-    }, 
     buttonDiv: {
         marginTop: 10,
     },
@@ -41,6 +43,37 @@ export const style = StyleSheet.create({
         position: 'absolute',
         right: 15,
         top: 12,
+    },
+        topoImg: {
+        width: "100%",
+        alignItems: "center",
+        height: 256,
+        position: "relative",
+    },
+      topoIcon: {
+        position: "absolute",
+        alignSelf: "flex-start",
+        color: "white",
+        top: 40,
+        margin: 15,
+    },
+        textView: {
+        textAlign: 'left',
+        margin: 40,
+    },
+    title: {
+        fontSize: 30,
+        color: "#FFFFFF",
+        fontFamily: "PoppinsSemiBold",
+        marginBottom: 5,
+        textAlign: "center",
+    },
+    text: {
+        fontSize: 14,
+        fontFamily: "PoppinsRegular",
+        marginBottom: 10,
+        color: "#FFFFFF",
+        textAlign: "center",
     },
 
 })

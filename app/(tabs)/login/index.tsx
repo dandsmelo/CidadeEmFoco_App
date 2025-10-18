@@ -1,10 +1,8 @@
 import { View, Text, Image,   TouchableOpacity, } from "react-native";
 import { style } from "./style";
 import StyledView from "@/components/StyledView";
-import StyledTitle from "@/components/StyledTitle";
 import StyledInputs from "@/components/StyledInputs";
 import StyledButton from "@/components/Button";
-import Icon from "react-native-vector-icons/FontAwesome5";
 import IconI from "react-native-vector-icons/Entypo";
 import { useCustomFonts } from "@/assets/fonts/Fonts";
 import { router } from 'expo-router';
@@ -12,6 +10,7 @@ import { useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useFlashMessage } from "@/components/FlashMessageContext";
 import { LinearGradient } from "expo-linear-gradient";
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 
 export default function Login() {
@@ -68,7 +67,14 @@ export default function Login() {
 
   return (
     <StyledView>
-      <LinearGradient colors={["#6A0DAD", "#2C0547"]} locations={[0, 0.57]} style={style.container}> 
+      <LinearGradient colors={["#6A0DAD", "#2C0547"]} locations={[0, 0.57]} style={style.container}>
+            <KeyboardAwareScrollView
+            style={{ flex: 1 }} 
+            contentContainerStyle={{ flexGrow: 1, paddingBottom: 50 }} 
+            enableOnAndroid={true} 
+            extraScrollHeight={30} 
+            showsVerticalScrollIndicator={false}
+        >
       <View style={style.topoImg}>
         <TouchableOpacity style={style.topoIcon}>
           <IconI
@@ -91,7 +97,7 @@ export default function Login() {
         </Text>
       </View>
 
-      <View>
+      <View style={style.bodyInput}>
         <StyledInputs
           icon="user"
           placeholder="Email"
@@ -146,6 +152,7 @@ export default function Login() {
 
 
       </View>
+      </KeyboardAwareScrollView>
       </LinearGradient> 
     </StyledView>
   );

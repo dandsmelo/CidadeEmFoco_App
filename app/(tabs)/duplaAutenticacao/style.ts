@@ -2,7 +2,7 @@ import { StyleSheet } from "react-native";
 import { Colors } from "@/constants/Colors";
 
 export const Style = StyleSheet.create({
-    container: {
+  container: {
     height: "100%",
     display: "flex",
     flex: 1,

@@ -3,29 +3,30 @@ import { Colors } from "@/constants/Colors";
 
 export const Style = StyleSheet.create({
     container: {
-        height: '100%',
-        display: 'flex',
+        height: "100%",
+        display: "flex",
         flex: 1,
-        width: '100%',
-        alignItems: 'center',
-
-    },
-
-    topoIcon:{
+        width: "100%",
+        alignItems: "center",
+  },
+  topoIcon: {
         position: "absolute",
         alignSelf: "flex-start",
         color: "white",
-        top: 0,
+        top: 40,
         margin: 15,
     },
-
-    img: {
-        width: '100%',
-        height: 260, 
-        marginTop: 35,
-        resizeMode: 'contain',
+    topoImg: {
+        width: "100%",
+        alignItems: "center",
+        height: 256,
+        position: "relative",
     },
-
+    img: {
+        marginTop: 80,
+        width: 300,
+        height: 270,
+    },
     containerImg: {
         display: 'flex',
         justifyContent: 'center',
@@ -38,7 +39,6 @@ export const Style = StyleSheet.create({
 
 
     //TEXTO
-
     divTittle:{
         marginBottom:10,
         marginTop: 60,
@@ -50,27 +50,39 @@ export const Style = StyleSheet.create({
         width: '100%',
         height: '100%',
     },
-
-    texto:{
-        fontSize: 17,
-        fontFamily: 'PoppinsRegular',
-        marginBottom: 8,
+    text: {
+        fontSize: 20,
+        fontFamily: "PoppinsRegular",
+        marginBottom: 20,
+        color: "#FFFFFF",
     },
-
-    textoI:{
-        fontSize: 17,
-        fontFamily: 'PoppinsRegular',
+    textI: {
+        fontSize: 20,
+        fontFamily: "PoppinsRegular",
+        marginBottom: 0,
+        color: "#FFFFFF",
     },
-
     divTexto:{
         marginLeft: 40,
         marginRight: 40,
     },
-
+    textView: {
+        textAlign: 'left',
+        margin: 40,
+    },
+    title: {
+        fontSize: 28,
+        color: "#FFFFFF",
+        fontFamily: "PoppinsSemiBold",
+        marginBottom: 5,
+        textAlign: "center",
+        marginTop: 70,
+    },
+    
     //INPUT
 
     containerInput:{
-        marginTop: 10,
+        marginTop: 0,
         flexDirection: 'row',
         justifyContent: 'center',
     },
