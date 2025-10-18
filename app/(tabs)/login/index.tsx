@@ -68,7 +68,7 @@ export default function Login() {
 
   return (
     <StyledView>
-      <LinearGradient colors={["#6A0DAD", "#2C0547"]} locations={[0, 0.67]} style={style.container}> 
+      <LinearGradient colors={["#6A0DAD", "#2C0547"]} locations={[0, 0.57]} style={style.container}> 
       <View style={style.topoImg}>
         <TouchableOpacity style={style.topoIcon}>
           <IconI

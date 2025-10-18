@@ -5,12 +5,15 @@ import React, { useState } from 'react';
 import { Style } from "./style";
 import { useCustomFonts } from "@/assets/fonts/Fonts";
 import Icon from 'react-native-vector-icons/FontAwesome5';
+import IconI from "react-native-vector-icons/Entypo";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useFlashMessage } from '@/components/FlashMessageContext';
+import { LinearGradient } from "expo-linear-gradient";
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 export default function DuplaAutenticacao() {
   const fontsLoaded = useCustomFonts();
-  const [code, setCode] = useState(['', '', '', '', '', '']); // 6 dígitos
+  const [code, setCode] = useState(['', '', '', '', '', '']); 
   const inputRefs = Array(6).fill(0).map(() => React.createRef<TextInput>());
   const { showMessage } = useFlashMessage();
   
@@ -101,21 +104,37 @@ export default function DuplaAutenticacao() {
   };
 
   return (
-    <View style={Style.container}>
-      <View style={Style.containerImg}>
-        <TouchableOpacity style={Style.topoIcon} onPress={() => router.push('/login')}>
-          <Icon name="chevron-left" size={25} color="#FFFFFF" />
-        </TouchableOpacity>
-        <Image source={require('@/assets/images/duplaAutenticacao.png')} style={Style.img} />
-      </View>
+    <LinearGradient colors={["#6A0DAD", "#2C0547"]} locations={[0, 0.57]} style={Style.container}>
+         <KeyboardAwareScrollView
+                  style={{ flex: 1 }} 
+                  contentContainerStyle={{ flexGrow: 1, paddingBottom: 50 }} 
+                  enableOnAndroid={true} 
+                  extraScrollHeight={30} 
+                  showsVerticalScrollIndicator={false}
+              >
+      <View style={Style.topoImg}>
+              <TouchableOpacity style={Style.topoIcon}>
+                <IconI
+                  name="chevron-thin-left"
+                  size={25}
+                  color="#FFFFFF"
+                  onPress={() => router.push("/")}
+                />
+              </TouchableOpacity>
+              <Image
+                source={require("@/assets/images/duplaAutenticacao.png")}
+                style={Style.img}
+              />
+            </View>
 
-      <View style={Style.bodyText}>
-        <View style={Style.divTexto}>
-          <Text style={Style.texto}>Um código foi enviado para o número de telefone cadastrado</Text>
-        </View>
-        <View style={Style.divTexto}>
-          <Text style={Style.textoI}>Digite o código recebido</Text>
-        </View>
+            <View >
+            <View style={Style.topoTexto}>
+              <Text style={Style.text}>Um código foi enviado para o telefone cadastrado</Text>
+              <Text style={Style.textI}>Digite o código recebido</Text>
+            </View>
+            </View>
+
+
 
         <View style={Style.containerInput}>
           {code.map((digit, idx) => (
@@ -148,7 +167,7 @@ export default function DuplaAutenticacao() {
             <Text style={Style.link}>Reenviar código</Text>
           </TouchableOpacity>
         </View>
-      </View>
-    </View>
+        </KeyboardAwareScrollView>
+    </LinearGradient>
   );
 }

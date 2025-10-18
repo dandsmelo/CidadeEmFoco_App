@@ -124,16 +124,12 @@ export default function Cadastro() {
   };
 
   return (
-    <LinearGradient colors={["#6A0DAD", "#2C0547"]} locations={[0, 0.67]} style={style.container}> 
-<KeyboardAwareScrollView
-            // Estilos do contêiner principal
+    <LinearGradient colors={["#6A0DAD", "#2C0547"]} locations={[0, 0.57]} style={style.container}> 
+    <KeyboardAwareScrollView
             style={{ flex: 1 }} 
-            // Estilos do conteúdo rolável
             contentContainerStyle={{ flexGrow: 1, paddingBottom: 50 }} 
-            
-            // Configurações para garantir o funcionamento
-            enableOnAndroid={true} // Ativa o comportamento no Android também
-            extraScrollHeight={30} // Empurra o conteúdo um pouco mais para cima para não ficar colado no teclado
+            enableOnAndroid={true} 
+            extraScrollHeight={30} 
             showsVerticalScrollIndicator={false}
         >
       <View style={style.topoImg}>
