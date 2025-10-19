@@ -8,9 +8,11 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, { useEffect } from 'react';
 import { UsuarioData } from '@/interfaces/UsuarioData';
 import { DenunciaData } from '@/interfaces/DenunciaData';
+import CidadaoHome from './components/cidadaoHome';
+import ServidorHome from './components/servidorHome';
 /* import MapaDenuncias from '@/components/Mapa/MapaDenuncias'; */
 
-export default function Mapa(){
+export default function Home(){
     const [tipoUsuario, setTipoUsuario] = React.useState<string | null>(null);
     const [usuario, setUsuario] = React.useState<UsuarioData>();
     const [denuncias, setDenuncias] = React.useState<DenunciaData[]>([]);
@@ -90,27 +92,21 @@ export default function Mapa(){
 
     return(
         <View style={Style.container}>
-            
             <View style={Style.header}>
-
-                <View style={Style.divImg}>
-                    <TouchableOpacity onPress={() => router.push('/usuario')}>
+                    <TouchableOpacity onPress={() => router.push('/usuario')} style={Style.divHeader}>
                         <Image source={require('@/assets/images/user.png')} style={Style.img} />
                     </TouchableOpacity>
-                </View>
 
-                <View style={Style.divTextHeader}>
-                    <Text style={Style.textI}>Olá,</Text>
-                    <Text style={Style.textII}>{usuario?.nome}</Text>
-                </View>
-
+                    <Text style={Style.textHeader}>{usuario?.nome}</Text>
             </View> 
 
             <View style={Style.body}>
 
-                <View style={Style.textBody}>
-                    <Text style={Style.textMapa}>Mapa de Denúncias</Text>
-                </View>
+                {tipoUsuario === "cidadao" ? (
+                    <CidadaoHome />
+                ) : (
+                    <ServidorHome />
+                )}
 
                 {/* <View style={{ justifyContent: 'center', alignItems: 'center' }}>
                     {denuncias.length > 0 ? (
@@ -124,23 +120,17 @@ export default function Mapa(){
 
                 <View style={Style.divCard}>
                     <View style={Style.card}>
-                        <View style={Style.btn}>
-                            <TouchableOpacity onPress={() => router.push('/mapa')}>
-                                <Icon name="map-marker-alt" size={29} color="#000000" style={Style.icone} />
+                            <TouchableOpacity onPress={() => router.push('/home')}>
+                                <Icon name="map-marker-alt" size={35} color="#ffff" style={Style.icone} />
                             </TouchableOpacity>
-                        </View>
                         {tipoUsuario === "cidadao" ?  (
-                            <View style={Style.btn}>
                                 <TouchableOpacity onPress={() => router.push('/criarDenuncia')}>
-                                    <Icons name="add-circle-outline" size={35} color="#000000" style={Style.icone} />
+                                    <Icons name="add-circle" size={45} color="#ffff" style={Style.icone} />
                                 </TouchableOpacity>
-                            </View>
                         ): ''}
-                        <View style={Style.btn}>
                             <TouchableOpacity onPress={() => router.push('/minhasDenuncias')}>
-                                <Icon name="clipboard-list" size={29} color="#000000" style={Style.icone} />
+                                <Icon name="clipboard-list" size={35} color="#ffff" style={Style.icone} />
                             </TouchableOpacity>
-                        </View>
                     </View>
                 </View>
 

@@ -80,7 +80,7 @@ export default function Usuario() {
     return (
         <View>
             <View style={style.container}>
-                <Icon name="chevron-left" size={25} style={style.icon} onPress={() => router.push('/mapa')}/>
+                <Icon name="chevron-left" size={25} style={style.icon} onPress={() => router.push('/home')}/>
                 <View style={style.circle}>
                     <Icon name="user-edit" size={60} style={{color: 'white'}}/>
                 </View>

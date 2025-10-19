@@ -52,7 +52,7 @@ export default function Login() {
         await AsyncStorage.setItem('userType', data.userType);
 
         showMessage('Usuário logado com sucesso', "success");
-        router.push('/mapa');
+        router.push('/home');
       }
     } else {
       showMessage('Usuário ou senha incorretos', "warning")

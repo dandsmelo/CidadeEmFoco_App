@@ -25,7 +25,7 @@ export default function NavBar(props: Props) {
                     name="chevron-left" 
                     size={18} 
                     style={styles.icon} 
-                    onPress={() => router.push('/mapa')}
+                    onPress={() => router.push('/home')}
                 />
             </View>
             <Text style={styles.text}>{title}</Text>
