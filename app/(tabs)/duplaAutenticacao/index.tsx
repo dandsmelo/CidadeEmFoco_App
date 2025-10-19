@@ -64,7 +64,7 @@ export default function DuplaAutenticacao() {
         await AsyncStorage.removeItem('tempToken'); 
 
         showMessage('Login realizado com sucesso!', "success");
-        router.push('/mapa');
+        router.push('/home');
       } else {
         showMessage('O código está incorreto ou expirou.', "warning");
       }

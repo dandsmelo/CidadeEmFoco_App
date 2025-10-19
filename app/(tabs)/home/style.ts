@@ -7,6 +7,7 @@ export const Style = StyleSheet.create({
         display: 'flex',
         flex: 1,
         width: '100%',
+        backgroundColor: Colors.background,
     },
 
     //HEADER
@@ -15,25 +16,23 @@ export const Style = StyleSheet.create({
         flexDirection: 'row',
         backgroundColor: Colors.primary,
         width: '100%',
-        height: '12%',
-        alignItems: 'center'
+        height: 70,
+        alignItems: 'center',
+        borderBottomLeftRadius: 15,
+        borderBottomRightRadius: 15,
     },
 
     //TEXTO HEADER
 
-    textI:{
-        fontSize: 15,
-        fontFamily: 'PoppinsRegular',
-        color: '#FFFFFF'
+
+    divHeader:{
+        marginLeft: 12,
     },
 
-    textII:{
+    textHeader:{
         fontSize: 17,
-        fontFamily: 'PoppinsMedium',
-        color: '#FFFFFF'
-    },
-
-    divTextHeader:{
+        fontFamily: 'PoppinsSemiBold',
+        color: '#FFFFFF',
         marginLeft: 12,
     },
 
@@ -51,11 +50,6 @@ export const Style = StyleSheet.create({
 
     //IMAGEM HEADER
 
-    divImg:{
-        marginLeft: 10,
-
-    },
-
     img:{
         width: 45,
         height: 45,
@@ -64,19 +58,8 @@ export const Style = StyleSheet.create({
     //BODY
 
     body:{
-        backgroundColor:"#E8E8E8",
         width: '100%',
         height: '100%',
-    },
-
-    textMapa:{
-        fontSize: 25,
-        fontFamily: 'PoppinsMedium',
-    },
-
-    textBody:{
-        marginLeft: 15,
-        marginTop: 20,
     },
 
     divImgMapa:{
@@ -86,9 +69,16 @@ export const Style = StyleSheet.create({
 
     //FOOTER
 
+    divCard:{
+        alignItems: 'center',
+        marginTop:  40,
+        position: "relative",
+        bottom: 90,
+    },
+
     card:{
-        backgroundColor:'#FFFFFF',
-        width: 'auto',
+        backgroundColor: Colors.primary,
+        width: '90%',
         height: 60,
         borderRadius: 30,
         shadowColor: '#000',
@@ -97,17 +87,13 @@ export const Style = StyleSheet.create({
         shadowRadius: 4.65,
         flexDirection: 'row',
         alignItems: 'center',
-        justifyContent: 'center',
+        paddingHorizontal: 80,
+        justifyContent: 'space-between',
         
     },
 
-    divCard:{
-        alignItems: 'center',
-        marginTop:  40,
-    },
-
+    
     btn:{
-        backgroundColor: Colors.background,
         width: 43,
         height: 43,
         borderRadius: 30,

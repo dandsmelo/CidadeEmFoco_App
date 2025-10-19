@@ -5,5 +5,5 @@ export const Colors = {
   verde: '#8FCF57',
   vermelho: '#E72A2A',
   cinza: '#898989',
-  background: '#E8E8E8',
+  background: '#F1F1F1',
 };
