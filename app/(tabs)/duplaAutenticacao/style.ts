@@ -2,39 +2,44 @@ import { StyleSheet } from "react-native";
 import { Colors } from "@/constants/Colors";
 
 export const Style = StyleSheet.create({
-    container: {
-        height: '100%',
-        display: 'flex',
-        flex: 1,
-        width: '100%',
-        alignItems: 'center',
+  container: {
+    height: "100%",
+    display: "flex",
+    flex: 1,
+    width: "100%",
+    alignItems: "center",
+  },
 
-    },
+  topoImg: {
+    width: "100%",
+    alignItems: "center",
+    height: 256,
+    position: "relative",
+  },
 
-    topoIcon:{
-        position: "absolute",
-        alignSelf: "flex-start",
-        color: "white",
-        top: 0,
-        margin: 15,
-    },
+  img: {
+    marginTop: 80,
+    width: 300,
+    height: 270,
+  },
 
-    img: {
-        width: '100%',
-        height: 260, 
-        resizeMode: 'contain',
-    },
-
-    containerImg: {
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        height: 290,
-        width: '100%',
-        backgroundColor: Colors.primary,
-        top: 0,
-        position: 'relative',
-    },
+  topoIcon: {
+    position: "absolute",
+    alignSelf: "flex-start",
+    color: "white",
+    top: 40,
+    margin: 15,
+  },
+  containerImg: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: 290,
+    width: '100%',
+    backgroundColor: Colors.primary,
+    top: 0,
+    position: 'relative',
+},
 
 
     //TEXTO
@@ -50,13 +55,23 @@ export const Style = StyleSheet.create({
         width: '100%',
         height: '100%',
     },
-
-    texto:{
-        fontSize: 18,
-        fontFamily: 'PoppinsRegular',
-        marginBottom: 20,
-        marginTop: 40,
-    },
+    topoTexto: {
+    marginLeft: 40,
+    marginRight: 40,
+  },
+  text: {
+    fontSize: 20,
+    fontFamily: "PoppinsRegular",
+    marginBottom: 40,
+    marginTop: 120,
+    color: "#FFFFFF",
+  },
+  textI: {
+    fontSize: 20,
+    fontFamily: "PoppinsRegular",
+    marginBottom: 20,
+    color: "#FFFFFF",
+  },
 
     textoI:{
         fontSize: 18,
@@ -111,7 +126,8 @@ export const Style = StyleSheet.create({
     link:{
         fontSize: 16,
         fontFamily: 'PoppinsRegular',
-        textDecorationLine: 'underline',
+        textDecorationLine: "underline",
+        color: "#FFFFFF",
     }
 
     

@@ -4,10 +4,13 @@ import StyledTitle from "@/components/StyledTitle";
 import StyledView from "@/components/StyledView";
 import { View, Image, Text, TouchableOpacity } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome5";
+import IconI from "react-native-vector-icons/Entypo";
 import { style } from "./style";
 import { router, useLocalSearchParams } from "expo-router";
 import { useState } from "react";
 import { useFlashMessage } from "@/components/FlashMessageContext";
+import { LinearGradient } from "expo-linear-gradient";
+import { useCustomFonts } from "@/assets/fonts/Fonts";
 
 export default function RedefinirSenha() {
     const { email } = useLocalSearchParams(); 
@@ -15,6 +18,7 @@ export default function RedefinirSenha() {
     const [mostrarSenha, setMostrarSenha] = useState(false);
     const [loading, setLoading] = useState(false);
     const { showMessage } = useFlashMessage(); 
+    const fontsLoaded = useCustomFonts();
 
     const redefinirSenha = async () => {
         if (!novaSenha || novaSenha.length < 6) {
@@ -45,16 +49,29 @@ export default function RedefinirSenha() {
             setLoading(false);
         }
     };
+    
+    if (!fontsLoaded) return null;
 
     return (
-        <StyledView>
-            <View style={style.containerImg}>
-                <Icon name="chevron-left" size={25} style={style.icon} onPress={() => router.push('/login')}/>
-                <Image source={require('@/assets/images/redefinirSenha.png')} style={style.img} />
-            </View>
-            <View style={style.titleDiv}>
-                <StyledTitle title="Redefinir senha" style={style.title}/>
-            </View>
+    <LinearGradient colors={["#6A0DAD", "#2C0547"]} locations={[0, 0.57]} style={style.container}>
+       <View style={style.topoImg}>
+         <TouchableOpacity style={style.topoIcon}>
+           <IconI
+             name="chevron-thin-left"
+             size={25}
+             color="#FFFFFF"
+             onPress={() => router.push("/login")}
+           />
+         </TouchableOpacity>
+         <Image
+           source={require("@/assets/images/cadastro.png")}
+           style={style.img}
+         />
+       </View>
+       <View style={style.textView}>
+        <Text style={style.title}>Redefinir senha</Text>
+        <Text style={style.text}>"Seja a voz da sua comunidade. Denuncie e inspire mudanças!"</Text>
+        </View>
             <View>
                 <StyledInputs 
                 icon="lock" 
@@ -75,8 +92,8 @@ export default function RedefinirSenha() {
                     </TouchableOpacity>
             </View>
             <View style={style.buttonDiv}>
-                <StyledButton text="Redefinir" background="azul" onPress={redefinirSenha}/>
+                <StyledButton text="Redefinir" background="amarelo" onPress={redefinirSenha}/>
             </View>
-        </StyledView>
+    </LinearGradient> 
     );
 }

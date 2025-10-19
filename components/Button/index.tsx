@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
     text: {
         fontSize: 20,
         color: 'white',
-        fontFamily: 'PoppinsMedium',
+        fontFamily: 'PoppinsSemiBold',
         width: '100%',
         textAlign: 'center',
     }
