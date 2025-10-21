@@ -17,43 +17,50 @@ export default function ModalStatusDenuncia( props: Props) {
             visible={visible}
             onRequestClose={onClose}
         >
-            <View style={style.container}>
-                <View style={style.headView}>
-                    <Text style={{ fontFamily: "PoppinsMedium", fontSize: 14}}>27 denúncias</Text>
-                    <TouchableOpacity onPress={onClose} style={style.closeIcon}>
-                        <MaterialIcons name="close" size={24} color="gray" />
-                    </TouchableOpacity>
+            <View style={style.overlay}>
+                <View style={style.container}>
+                    <View style={style.headView}>
+                        <Text style={{ fontFamily: "PoppinsMedium", fontSize: 14}}>27 denúncias</Text>
+                        <TouchableOpacity onPress={onClose} style={style.closeIcon}>
+                            <MaterialIcons name="close" size={24} color="gray" />
+                        </TouchableOpacity>
+                    </View>
+                    <View style={style.viewLines}>
+                        <View style={style.cardLines}>
+                            <Text style={style.text}>Pendente</Text>
+                            <Text style={style.text}>2</Text>
+                        </View>
+                        <View style={style.cardLines}>
+                            <Text style={style.text}>Em análise</Text>
+                            <Text style={style.text}>2</Text>
+                        </View>
+                        <View style={style.cardLines}>
+                            <Text style={style.text}>Em andamento</Text>
+                            <Text style={style.text}>2</Text>
+                        </View>
+                        <View style={style.cardLines}>
+                            <Text style={style.text}>Concluido</Text>
+                            <Text style={style.text}>2</Text>
+                        </View>
+                        <View style={style.cardLines}>
+                            <Text style={style.text}>Rejeitada</Text>
+                            <Text style={style.text}>2</Text>
+                        </View>
+                    </View>
                 </View>
-                <View style={style.viewLines}>
-                    <View style={style.cardLines}>
-                        <Text style={style.text}>Pendente</Text>
-                        <Text style={style.text}>2</Text>
-                    </View>
-                    <View style={style.cardLines}>
-                        <Text style={style.text}>Em análise</Text>
-                        <Text style={style.text}>2</Text>
-                    </View>
-                    <View style={style.cardLines}>
-                        <Text style={style.text}>Em andamento</Text>
-                        <Text style={style.text}>2</Text>
-                    </View>
-                    <View style={style.cardLines}>
-                        <Text style={style.text}>Concluido</Text>
-                        <Text style={style.text}>2</Text>
-                    </View>
-                    <View style={style.cardLines}>
-                        <Text style={style.text}>Rejeitada</Text>
-                        <Text style={style.text}>2</Text>
-                    </View>
-                </View>
-                
-            </View>
+            </View> 
         </Modal>
     )
 
 }
 
 const style = StyleSheet.create({
+    overlay: {
+        flex: 1,
+        backgroundColor: "rgba(0, 0, 0, 0.5)", 
+        justifyContent: "center",
+        alignItems: "center",
+    },
     container: {
         display: 'flex',
         justifyContent: 'center',
