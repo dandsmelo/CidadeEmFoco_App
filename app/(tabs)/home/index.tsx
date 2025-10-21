@@ -1,6 +1,6 @@
 import { router } from 'expo-router';
 import { useCustomFonts } from "@/assets/fonts/Fonts";
-import { View, Text, Image, TouchableOpacity } from "react-native";
+import { View, Text, Image, TouchableOpacity, ScrollView } from "react-native";
 import { Style } from "./style";
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import Icons from 'react-native-vector-icons/Ionicons';
@@ -90,52 +90,47 @@ export default function Home(){
         fetchDenuncias();
     }, []);
 
-    return(
+    return (
         <View style={Style.container}>
             <View style={Style.header}>
-                    <TouchableOpacity onPress={() => router.push('/usuario')} style={Style.divHeader}>
-                        <Image source={require('@/assets/images/user.png')} style={Style.img} />
-                    </TouchableOpacity>
-
-                    <Text style={Style.textHeader}>{usuario?.nome}</Text>
+                <TouchableOpacity onPress={() => router.push('/usuario')} style={Style.divHeader}>
+                    <Image source={require('@/assets/images/user.png')} style={Style.img} />
+                </TouchableOpacity>
+                <Text style={Style.textHeader}>{usuario?.nome}</Text>
             </View> 
-
-            <View style={Style.body}>
-
-                {tipoUsuario === "cidadao" ? (
-                    <CidadaoHome />
-                ) : (
-                    <ServidorHome />
-                )}
-
-                {/* <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-                    {denuncias.length > 0 ? (
-                        <MapaDenuncias denuncias={denuncias} />
+            <ScrollView>
+                <View style={Style.body}>
+                    {tipoUsuario === "cidadao" ? (
+                        <CidadaoHome />
                     ) : (
-                        <View style={Style.divNoContent}>
-                            <Text style={Style.noContentText}>Não há denúncias registradas.</Text>
-                        </View>
+                        <ServidorHome />
                     )}
-                </View> */}
-
-                <View style={Style.divCard}>
-                    <View style={Style.card}>
-                            <TouchableOpacity onPress={() => router.push('/home')}>
-                                <Icon name="map-marker-alt" size={35} color="#ffff" style={Style.icone} />
-                            </TouchableOpacity>
-                        {tipoUsuario === "cidadao" ?  (
-                                <TouchableOpacity onPress={() => router.push('/criarDenuncia')}>
-                                    <Icons name="add-circle" size={45} color="#ffff" style={Style.icone} />
+                    {/* <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+                        {denuncias.length > 0 ? (
+                            <MapaDenuncias denuncias={denuncias} />
+                        ) : (
+                            <View style={Style.divNoContent}>
+                                <Text style={Style.noContentText}>Não há denúncias registradas.</Text>
+                            </View>
+                        )}
+                    </View> */}
+                    <View style={Style.divCard}>
+                        <View style={Style.card}>
+                                <TouchableOpacity onPress={() => router.push('/home')}>
+                                    <Icon name="map-marker-alt" size={35} color="#ffff" style={Style.icone} />
                                 </TouchableOpacity>
-                        ): ''}
-                            <TouchableOpacity onPress={() => router.push('/minhasDenuncias')}>
-                                <Icon name="clipboard-list" size={35} color="#ffff" style={Style.icone} />
-                            </TouchableOpacity>
+                            {tipoUsuario === "cidadao" ?  (
+                                    <TouchableOpacity onPress={() => router.push('/criarDenuncia')}>
+                                        <Icons name="add-circle" size={45} color="#ffff" style={Style.icone} />
+                                    </TouchableOpacity>
+                            ): ''}
+                                <TouchableOpacity onPress={() => router.push('/minhasDenuncias')}>
+                                    <Icon name="clipboard-list" size={35} color="#ffff" style={Style.icone} />
+                                </TouchableOpacity>
+                        </View>
                     </View>
                 </View>
-
-            </View>
-
+            </ScrollView>
         </View>
     )
 }

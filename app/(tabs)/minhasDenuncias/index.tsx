@@ -87,16 +87,16 @@ export default function MinhasDenuncias() {
     return (
         <View style={style.container}>
             <NavBar title={tipoUsuario === "servidorPublico" ? "Denúncias" : "Minhas denúncias"} />
-            <View style={style.buttonView}>
-              <TouchableOpacity style={style.buttons}>
-                <Text style={style.textButton}>Ordenar</Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={style.buttons}>
-                <Icon name="filter" size={15} style={{color: 'white'}}/>
-                <Text style={style.textButton}>Filtrar</Text>
-              </TouchableOpacity>
-            </View>
             <ScrollView>
+              <View style={style.buttonView}>
+                <TouchableOpacity style={style.buttons}>
+                  <Text style={style.textButton}>Ordenar</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={style.buttons}>
+                  <Icon name="filter" size={15} style={{color: 'white'}}/>
+                  <Text style={style.textButton}>Filtrar</Text>
+                </TouchableOpacity>
+              </View>
               <View style={style.cardView}>
                   {denuncias.length > 0 ? denuncias.map((denuncia, index) => (
                     <TouchableOpacity key={index} onPress={() => handleCardPress(denuncia)}>
