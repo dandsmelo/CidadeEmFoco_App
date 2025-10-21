@@ -1,4 +1,4 @@
-import { View } from "react-native";
+import { useWindowDimensions, View } from "react-native";
 import { StyleSheet } from "react-native";
 
 interface Props {
@@ -7,8 +7,9 @@ interface Props {
 
 export default function Card(props: Props) {
     const { children } = props;
+    const { width } = useWindowDimensions();
     return (
-        <View style={style.container}>
+        <View style={[style.container, { width: width * 0.95 }]}>
             {children}
         </View>
     )
@@ -19,7 +20,6 @@ const style = StyleSheet.create({
         backgroundColor: 'white',
         display: 'flex',
         flexDirection: 'column',
-        width: 370,
         height: 'auto',
         borderRadius: 10,
         paddingHorizontal: 20,
