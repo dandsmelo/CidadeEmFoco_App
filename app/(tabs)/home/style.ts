@@ -16,7 +16,9 @@ export const Style = StyleSheet.create({
         flexDirection: 'row',
         backgroundColor: Colors.primary,
         width: '100%',
-        height: 70,
+        height: "auto",
+        paddingTop: 30,
+        paddingBottom: 10,
         alignItems: 'center',
         borderBottomLeftRadius: 15,
         borderBottomRightRadius: 15,
@@ -72,8 +74,8 @@ export const Style = StyleSheet.create({
     divCard:{
         alignItems: 'center',
         marginTop:  40,
-        position: "relative",
-        bottom: 90,
+        position: "sticky",
+        bottom: 50,
     },
 
     card:{
