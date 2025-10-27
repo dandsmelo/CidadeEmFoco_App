@@ -65,7 +65,7 @@ export default function MinhasDenuncias() {
           return Colors.amarelo;
         case "Em andamento":
           return Colors.azul; 
-        case "Resolvido":
+        case "Resolvida":
           return Colors.verde;
         default:
           return Colors.vermelho; 

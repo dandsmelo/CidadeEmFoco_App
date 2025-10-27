@@ -1,7 +1,7 @@
 import { useCustomFonts } from "@/assets/fonts/Fonts";
 import { router } from 'expo-router';
 import NavBar from "@/components/NavBar";
-import { View, Image, Text, TouchableOpacity} from "react-native";
+import { View, Image, Text, TouchableOpacity, TextInput} from "react-native";
 import { Style } from "./style";
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import Card from "@/components/Card";
@@ -10,11 +10,19 @@ import { DenunciaData } from "@/interfaces/DenunciaData";
 import React, { useEffect, useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useFlashMessage } from "@/components/FlashMessageContext";
+import DropDownPicker from "react-native-dropdown-picker";
 
 export default function AtualizarDenuncia(){
     const [denuncia, setDenuncia] = React.useState<DenunciaData>();
     const [statusSelecionado, setStatusSelecionado] = React.useState<string | null>(null);
     const { showMessage } = useFlashMessage();
+    const [open, setOpen] = useState(false);
+    const [items, setItems] = useState([
+        { label: 'Em análise', value: 'Em análise' },
+        { label: 'Em andamento', value: 'Em andamento' },
+        { label: 'Resolvida', value: 'Resolvida' },
+        { label: 'Rejeitada', value: 'Rejeitada' },
+    ]);
     const fontsLoaded = useCustomFonts()
 
     if(!fontsLoaded){
@@ -82,24 +90,27 @@ export default function AtualizarDenuncia(){
 
     useEffect(() => {
         fetchDenuncia();
+        console.log(statusSelecionado);
     }, []);
 
     return(
         <View style={Style.container}>
-            
             <NavBar title={denuncia?.titulo!}/>
-        
             <View style={Style.divCard}>
-
                 <View style={Style.card}>
                     <Card>
                         <View style={Style.divImg}>
                             <Image source={require('@/assets/images/paisagem.png')} style={Style.img}></Image>
                         </View>
                         <View style={Style.divText}>
-                            <Icon name="map-pin" size={25} color="#000000" style={Style.icon}></Icon>
-                            <Text style={Style.textI}>{denuncia?.local}</Text>
-                            <Text style={Style.textII}>{new Date(denuncia?.data!).toLocaleDateString()}</Text>
+                            <View style={Style.divElements}>
+                                <Icon name="map-pin" size={20} color="#000000" style={Style.icon}></Icon>
+                                <Text style={Style.textI}>{denuncia?.local}</Text>
+                            </View>
+                            <View style={Style.divElements}>
+                                <Icon name='calendar-alt' size={20} color="#000000" />
+                                <Text style={Style.textI}>{new Date(denuncia?.data!).toLocaleDateString()}</Text>
+                            </View>
                         </View>
 
                         <View>
@@ -107,51 +118,44 @@ export default function AtualizarDenuncia(){
                             <Text style={Style.text}>{denuncia?.descricao}</Text>
                         </View>
 
-                        <View style={Style.labelText}>
+                        <View style={[Style.labelText, { zIndex: 2 }]}>
                             <Text style={Style.labelText}>Selecione um status</Text>
-                            <View style={Style.divButton}>
-                                <TouchableOpacity
-                                    style={[
-                                    Style.buttonIII,
-                                    statusSelecionado === "Em andamento" && { backgroundColor: "#6A0DAD" }
-                                    ]}
-                                    onPress={() => setStatusSelecionado("Em andamento")}
-                                >
-                                    <Text
-                                    style={[
-                                        Style.textButton,
-                                        statusSelecionado === "Em andamento" && { color: "#fff" }
-                                    ]}
-                                    >
-                                    Em andamento
-                                    </Text>
-                                </TouchableOpacity>
-
-                                <TouchableOpacity
-                                    style={[
-                                    Style.buttonII,
-                                    statusSelecionado === "Resolvido" && { backgroundColor: "#6A0DAD" }
-                                    ]}
-                                    onPress={() => setStatusSelecionado("Resolvido")}
-                                >
-                                    <Text
-                                    style={[
-                                        Style.textButtonI,
-                                        statusSelecionado === "Resolvido" && { color: "#fff" }
-                                    ]}
-                                    >
-                                    Resolvido
-                                    </Text>
-                                </TouchableOpacity>
-                                </View>
-                            <TouchableOpacity style={Style.buttonI} onPress={handleAtualizarDenuncia}>
-                                <Text style={Style.textButton}>Atualizar denúncia</Text>
-                            </TouchableOpacity>
+                            <DropDownPicker
+                                open={open}
+                                value={statusSelecionado}
+                                items={items}
+                                setOpen={setOpen}
+                                setValue={setStatusSelecionado}
+                                setItems={setItems}
+                                placeholder=""
+                                style={{
+                                    backgroundColor: '#FFFFFF',
+                                    borderRadius: 10,
+                                    borderColor: '#2e2e2e',
+                                    height: 50,
+                                }}
+                                textStyle={{
+                                    fontSize: 16,
+                                    fontFamily: 'PoppinsMedium',
+                                    color: '#2e2e2e',
+                                }}
+                                dropDownContainerStyle={{
+                                    backgroundColor: '#FFFFFF',
+                                    borderColor: '#FFFFFF',
+                                    zIndex: 12,
+                                }}
+                            />                            
                         </View>
+                        <View style={Style.labelText}>
+                            <Text style={Style.labelText}>Comentários</Text>
+                            <TextInput style={Style.comentarios} />
+                        </View>
+                        <TouchableOpacity style={Style.buttonI} onPress={handleAtualizarDenuncia}>
+                            <Text style={Style.textButton}>Atualizar denúncia</Text>
+                        </TouchableOpacity>
                     </Card>
                 </View>
             </View>
-
         </View>
     )
 }

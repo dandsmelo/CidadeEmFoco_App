@@ -34,8 +34,13 @@ export const Style = StyleSheet.create({
 
     divText:{
         marginTop: 10,
-        flexDirection: 'row',
+        flexDirection: 'column',
+    },
 
+    divElements: {
+        display: "flex",
+        flexDirection: "row",
+        alignItems: "center"
     },
 
     textI:{
@@ -43,15 +48,7 @@ export const Style = StyleSheet.create({
         fontSize: 16,
         color: '#000000',
         fontFamily: 'PoppinsRegular',
-        marginLeft: 5,
-    },
-
-    textII:{
-        marginTop: 5,
-        fontSize: 16,
-        color: '#000000',
-        fontFamily: 'PoppinsRegular',
-        marginLeft: 30,
+        marginLeft: 10,
     },
 
     icon:{
@@ -81,12 +78,6 @@ export const Style = StyleSheet.create({
         fontFamily: 'PoppinsMedium',
     },
 
-    //BOTÃO
-
-    divButton:{
-        flexDirection: 'row',
-    },
-
     buttonI:{
         backgroundColor: Colors.verde, 
         padding: 8,
@@ -98,29 +89,6 @@ export const Style = StyleSheet.create({
         marginBottom: 5,
     },
 
-    buttonII:{
-        backgroundColor: Colors.azul, 
-        padding: 5,
-        borderRadius: 10,
-        flexDirection:'row',
-        alignItems: 'center',
-        justifyContent: 'center',
-        marginTop: 5,
-        marginBottom: 5,
-        marginLeft: 10,
-    },
-
-    buttonIII:{
-        backgroundColor: Colors.amarelo, 
-        padding: 5,
-        borderRadius: 10,
-        flexDirection:'row',
-        alignItems: 'center',
-        justifyContent: 'center',
-        marginTop: 5,
-        marginBottom: 5,
-    },
-
     textButton:{
         color: "#FFFFFF",
         fontSize: 15,
@@ -128,13 +96,15 @@ export const Style = StyleSheet.create({
         marginLeft: 6,
         marginRight: 6,
     },
-
-    textButtonI:{
-        color: "#FFFFFF",
-        fontSize: 15,
-        fontFamily: 'PoppinsSemibold',
-        marginLeft: 12,
-        marginRight: 12,
-    }
+    comentarios: {
+        borderColor: Colors.cinza,
+        borderRadius: 10,
+        fontSize: 16,
+        fontFamily: 'PoppinsMedium',
+        padding: 5,
+        borderWidth: 1,
+        marginBottom: 15,
+        color: '#2e2e2e',
+    },
 
 })
