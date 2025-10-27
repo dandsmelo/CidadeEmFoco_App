@@ -13,6 +13,8 @@ import DropDownPicker from 'react-native-dropdown-picker';
 import { router } from 'expo-router';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useFlashMessage } from '@/components/FlashMessageContext';
+import Icons from 'react-native-vector-icons/Ionicons';
+import { Colors } from '@/constants/Colors';
 
 export default function CriarDenuncia() {
   const [open, setOpen] = useState(false);
@@ -138,7 +140,7 @@ export default function CriarDenuncia() {
             />
 
             <TouchableOpacity style={style.addImage} onPress={pickImage}>
-              <AntDesign name="pluscircle" size={60} color="white" />
+              <Icons name="add-circle" size={45} color="#ffff" />
               <Text style={{ fontFamily: 'PoppinsRegular', color: 'white' }}>Adicione uma imagem</Text>
             </TouchableOpacity>
 
@@ -150,7 +152,7 @@ export default function CriarDenuncia() {
             )}
 
             <View style={style.input}>
-              <AntDesign name="pluscircle" size={20} color="#2e2e2e" />
+              <Icon name="map-pin" size={30} color={Colors.cinza} />
               <TextInput
                 style={style.textInput}
                 placeholder='Adicionar endereço'
@@ -161,7 +163,7 @@ export default function CriarDenuncia() {
 
             <View>
               <TouchableOpacity onPress={() => setShowPicker(true)} activeOpacity={1} style={style.input}>
-                <Icon name='calendar-alt' size={20} color="#2e2e2e" />
+                <Icon name='calendar-alt' size={20} color={Colors.cinza} />
                 <TextInput
                   value={text}
                   placeholder="Selecionar data"
@@ -226,7 +228,7 @@ export default function CriarDenuncia() {
               style={{
                 backgroundColor: '#FFFFFF',
                 borderRadius: 10,
-                borderColor: '#2e2e2e',
+                borderColor: Colors.cinza,
                 height: 50,
               }}
               textStyle={{

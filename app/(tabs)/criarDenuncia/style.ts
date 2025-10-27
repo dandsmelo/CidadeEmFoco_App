@@ -1,8 +1,8 @@
 import { Colors } from "@/constants/Colors";
-import { ScrollView, StyleSheet } from "react-native";
+import { StyleSheet } from "react-native";
 
 export const style = StyleSheet.create({
-    background:{
+    background: {
         backgroundColor: Colors.background,
     },
     cardView: {
@@ -12,9 +12,9 @@ export const style = StyleSheet.create({
         fontSize: 18,
     },
     title: {
-        borderColor: '#2e2e2e',
+        borderColor: Colors.cinza,
         borderRadius: 10,
-        fontSize: 16,
+        fontSize: 18,
         fontFamily: 'PoppinsMedium',
         padding: 5,
         borderWidth: 1,
@@ -22,7 +22,7 @@ export const style = StyleSheet.create({
         color: '2e2e2e'
     },
     addImage: {
-        backgroundColor: '#2e2e2e',
+        backgroundColor: Colors.cinza,
         height: 100,
         borderRadius: 10,
         display: 'flex',
@@ -35,16 +35,21 @@ export const style = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         marginBottom: 5,
+        borderColor: Colors.cinza,
+        borderRadius: 10,
+        borderWidth: 1,
+        paddingLeft: 10
     },
     textInput: {
         fontFamily: 'PoppinsMedium',
         marginLeft: 5,
         fontSize: 18,
         padding: 5,
+        width: '100%',
         color: '#2e2e2e'
     },
     description: {
-        borderColor: '#2e2e2e',
+        borderColor: Colors.cinza,
         borderRadius: 10,
         fontSize: 18,
         fontFamily: 'PoppinsMedium',
@@ -52,7 +57,7 @@ export const style = StyleSheet.create({
         borderWidth: 1,
         marginBottom: 15,
         color: '#2e2e2e',
-        height:100,
+        height: 100,
     },
     select: {
         borderColor: Colors.cinza,
