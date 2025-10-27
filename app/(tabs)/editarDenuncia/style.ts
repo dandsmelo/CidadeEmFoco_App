@@ -154,7 +154,9 @@ export const Style = StyleSheet.create({
     },
     navBar:{
         backgroundColor: 'white',
-        height: 70,
+        height: "auto",
+        paddingTop: 30,
+        paddingBottom: 10,
         width: '100%',
         display: 'flex',
         flexDirection: 'row',
