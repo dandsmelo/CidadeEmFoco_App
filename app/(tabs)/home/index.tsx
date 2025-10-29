@@ -103,7 +103,7 @@ export default function Home(){
                     {tipoUsuario === "cidadao" ? (
                         <CidadaoHome />
                     ) : (
-                        <ServidorHome />
+                        <ServidorHome denuncias={denuncias}/>
                     )}
                     {/* <View style={{ justifyContent: 'center', alignItems: 'center' }}>
                         {denuncias.length > 0 ? (

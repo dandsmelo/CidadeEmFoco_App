@@ -73,4 +73,53 @@ export const style = StyleSheet.create({
         flexDirection: "column",
         width: "25%",
     },
+    topCard: {
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        width: '100%',
+        marginBottom: 5,
+    },
+    title: {
+        fontFamily: 'PoppinsMedium',
+        fontSize: 18,
+    },
+    data: {
+        fontFamily: 'PoppinsRegular',
+    },
+    endCard: {
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        width: '100%',
+    },
+    category: {
+        padding: 8,
+        backgroundColor: Colors.primary,
+        borderRadius: 10,
+        color: 'white',
+        fontFamily: 'PoppinsRegular',
+        marginTop: 5,
+    },
+    status: {
+        padding: 8,
+        borderRadius: 10,
+        color: 'white',
+        fontFamily: 'PoppinsRegular',
+        marginTop: 5,
+    },
+    flashCards: {
+        backgroundColor: 'white',
+        display: 'flex',
+        flexDirection: 'column',
+        height: 'auto',
+        borderRadius: 10,
+        paddingHorizontal: 20,
+        paddingVertical: 15,
+        marginBottom: 10,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 4 },
+        shadowOpacity: 0.3,
+        shadowRadius: 4.65,
+    }
 })
