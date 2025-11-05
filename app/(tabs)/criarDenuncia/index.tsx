@@ -127,9 +127,13 @@ export default function CriarDenuncia() {
 
 
   return (
-    <ScrollView style={style.background}>
+    <View style={style.container}>
+      <NavBar title="Criar denúncia" />
+      <ScrollView
+      contentContainerStyle={{ paddingBottom: 50 }}
+      showsVerticalScrollIndicator={false}
+     >
       <StyledView>
-        <NavBar title="Criar denúncia" />
         <View style={style.cardView}>
           <Card>
             <TextInput
@@ -253,5 +257,6 @@ export default function CriarDenuncia() {
         </View>
       </StyledView>
     </ScrollView>
+    </View>
   );
 }

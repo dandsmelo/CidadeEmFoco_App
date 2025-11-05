@@ -2,8 +2,11 @@ import { Colors } from "@/constants/Colors";
 import { StyleSheet } from "react-native";
 
 export const style = StyleSheet.create({
-    background: {
+    container: {
         backgroundColor: Colors.background,
+        width: '100%',
+        height: '100%',
+        overflow: 'visible'
     },
     cardView: {
         display: 'flex',

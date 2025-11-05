@@ -6,11 +6,13 @@ import ModalEdicao from "./components/modalEditar";
 import React, { useEffect, useState } from "react";
 import ModalSenha from "./components/modalSenha";
 import Icons from "react-native-vector-icons/Feather";
+import IconI from "react-native-vector-icons/Entypo";
 import { router } from 'expo-router';
 import { UsuarioData } from "@/interfaces/UsuarioData";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useFlashMessage } from "@/components/FlashMessageContext";
 import { useAuth } from "@/hook/auth/useAuth";
+import { LinearGradient } from "expo-linear-gradient";
 
 export default function Usuario() {
     const fontsLoaded = useCustomFonts()
@@ -79,33 +81,33 @@ export default function Usuario() {
 
     return (
         <View>
-            <View style={style.container}>
-                <Icon name="chevron-left" size={25} style={style.icon} onPress={() => router.push('/home')}/>
+            <LinearGradient colors={["#6A0DAD", "#2C0547"]} locations={[0, 0.57]} style={style.container}>
+                <IconI name="chevron-thin-left" size={25} style={style.icon} onPress={() => router.push('/home')}/>
                 <View style={style.circle}>
                     <Icon name="user-edit" size={60} style={{color: 'white'}}/>
                 </View>
                 <Text style={style.name}>{usuario?.nome}</Text>
-            </View>
+            </LinearGradient>
             <View style={style.inputsView}>
                 <TouchableOpacity style={style.btn} onPress={() => openModalEditar("nome")}>
                     <Text style={style.text}>Nome</Text>
-                    <Icons name="chevron-right" size={25} />
+                    <IconI name="chevron-thin-right" size={25} />
                 </TouchableOpacity>
                 <TouchableOpacity style={style.btn} onPress={() => openModalEditar("telefone")}>
                     <Text style={style.text}>Telefone</Text>
-                    <Icons name="chevron-right" size={25} />
+                    <IconI name="chevron-thin-right" size={25} />
                 </TouchableOpacity>
                 <TouchableOpacity style={style.btn} onPress={() => openModalEditar("email")}>
                     <Text style={style.text}>Email</Text>
-                    <Icons name="chevron-right" size={25} />
+                    <IconI name="chevron-thin-right" size={25} />
                 </TouchableOpacity>
                 <TouchableOpacity style={style.btn} onPress={() => openModalSenha()}>
                     <Text style={style.text}>Senha</Text>
-                    <Icons name="chevron-right" size={25} />
+                    <IconI name="chevron-thin-right" size={25} />
                 </TouchableOpacity>
                 <TouchableOpacity style={style.btn} onPress={handleLogout}>
                     <Text style={style.text}>Sair</Text>
-                    <Icons name="chevron-right" size={25} />
+                    <IconI name="chevron-thin-right" size={25} />
                 </TouchableOpacity>
             </View>
             <ModalEdicao

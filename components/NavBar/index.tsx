@@ -36,7 +36,7 @@ export default function NavBar(props: Props) {
 const styles = StyleSheet.create({
     container: {
         backgroundColor: 'white',
-        height: "auto",
+        height: '13%',
         paddingTop: 30,
         paddingBottom: 10,
         width: '100%',
@@ -59,16 +59,16 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         marginLeft: 18,
+        marginTop: 10,
     },
     text: {
         color: Colors.primary,
         fontFamily: 'PoppinsSemiBold',
         fontSize: 22,
         marginLeft: 10,
+        marginTop: 10,
     },
     icon: {
         color: "white",
-        top: 0,
-        margin: 15,
     },
 })

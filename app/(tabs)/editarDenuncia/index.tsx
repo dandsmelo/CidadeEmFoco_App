@@ -150,7 +150,6 @@ export default function EditarDenuncia(){
 
 
     return(
-        <ScrollView style={Style.backgroud}>
         <View style={Style.container}>
             <View style={Style.navBar}>
                 <TouchableOpacity style={Style.circle}>
@@ -305,6 +304,5 @@ export default function EditarDenuncia(){
             </View>
 
         </View>
-        </ScrollView>
     )
 }
