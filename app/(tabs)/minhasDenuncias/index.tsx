@@ -10,8 +10,12 @@ import { TouchableOpacity } from "react-native";
 import { router } from 'expo-router';
 import { Colors } from "@/constants/Colors";
 import Icon from "react-native-vector-icons/FontAwesome5";
+import ModalOrdenarDenuncia from "./components/modalOrdenarDenuncias";
+import ModalFiltrarDenuncia from "./components/modalFiltrarDenuncias";
 
 export default function MinhasDenuncias() {
+    const [modalDenunciaOrdenar, setModalDenunciaOrdenar] = React.useState<boolean>(false);
+    const [modalDenunciaFiltrar, setModalDenunciaFiltrar] = React.useState<boolean>(false);
     const [denuncias, setDenuncias] = React.useState<DenunciaData[]>([]);
     const [tipoUsuario, setTipoUsuario] = React.useState<string | null>(null);
     const fontsLoaded = useCustomFonts()
@@ -89,10 +93,10 @@ export default function MinhasDenuncias() {
             <NavBar title={tipoUsuario === "servidorPublico" ? "Denúncias" : "Minhas denúncias"} />
             <ScrollView>
               <View style={style.buttonView}>
-                <TouchableOpacity style={style.buttons}>
+                <TouchableOpacity onPress={() => setModalDenunciaOrdenar(true)} style={style.buttons}>
                   <Text style={style.textButton}>Ordenar</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={style.buttons}>
+                <TouchableOpacity onPress={() => setModalDenunciaFiltrar(true)} style={style.buttons}>
                   <Icon name="filter" size={15} style={{color: 'white'}}/>
                   <Text style={style.textButton}>Filtrar</Text>
                 </TouchableOpacity>
@@ -122,6 +126,15 @@ export default function MinhasDenuncias() {
                   )}
               </View>
             </ScrollView>
+            <ModalOrdenarDenuncia 
+                            visible={modalDenunciaOrdenar}
+                            onClose={() => setModalDenunciaOrdenar(false)}    
+                        />
+            <ModalFiltrarDenuncia 
+                            visible={modalDenunciaFiltrar}
+                            onClose={() => setModalDenunciaFiltrar(false)}    
+                        />
+
         </View>
     )
 }
