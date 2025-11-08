@@ -3,6 +3,8 @@ import { Modal, View, Text, TouchableOpacity, LayoutAnimation, Platform, UIManag
 import { StyleSheet } from "react-native";
 import React, { useState } from "react";
 import { Colors } from "@/constants/Colors";
+import DateTimePicker from "@react-native-community/datetimepicker";
+
 
 if (Platform.OS === "android") {
   UIManager.setLayoutAnimationEnabledExperimental &&
@@ -22,13 +24,37 @@ type CategoriaKey =
 | "seguranca"
 | "outro";
 
+type StatusKey =
+| "Pendente"
+| "Em análise"
+| "Em andamento"
+| "Resolvido"
+| "Rejeitado";
+
+
 export default function ModalFiltrarDenuncia( props: Props) {
     const {visible, onClose} = props;
     const [expanded, setExpanded] = useState(false);
+    const [isStatusExpanded, setIsStatusExpanded] = useState(false);
+
+    const [isDateExpanded, setIsDateExpanded] = useState(false);
+    const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+    const [showPicker, setShowPicker] = useState(false);
+
+
+
     const toggleExpand = () => {
         LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
         setExpanded(!expanded);
     };
+    const toggleStatusExpand = () => {
+        LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
+        setIsStatusExpanded(!isStatusExpanded);
+    };
+    const toggleDateExpand = () => {
+        setIsDateExpanded(prev => !prev);
+    };
+
 
     const [selected, setSelected] = useState<Record<CategoriaKey, boolean>>({
         lixo: false,
@@ -43,6 +69,20 @@ export default function ModalFiltrarDenuncia( props: Props) {
             ...prev,
             [key]: !prev[key],
         }));
+    };
+
+    const [statusSelected, setStatusSelected] = useState<Record<StatusKey, boolean>>({
+    "Pendente": false,
+    "Em análise": false,
+    "Em andamento": false,
+    "Resolvido": false,
+    "Rejeitado": false,
+    });
+    const toggleStatusCheck = (key: StatusKey) => {
+    setStatusSelected((prev) => ({
+        ...prev,
+        [key]: !prev[key],
+    }));
     };
 
 
@@ -63,6 +103,7 @@ export default function ModalFiltrarDenuncia( props: Props) {
                     </View>
 
                     <View style={style.viewLines}>
+
                         <View style={style.filtro}>
                             <TouchableOpacity onPress={toggleExpand} style={style.header}>
                                 <Text style={style.expandedIcon}>{expanded ? <MaterialIcons name="arrow-drop-down" size={20} color="black" /> : <MaterialIcons name="arrow-right" size={20} color="black" />}</Text>
@@ -80,15 +121,67 @@ export default function ModalFiltrarDenuncia( props: Props) {
                             )}
                         </View>
 
-                        <View style={style.cardLines}>
-                            <Text style={style.text}>Data</Text>
+                        <View style={style.filtro}>
+                            <TouchableOpacity onPress={toggleStatusExpand } style={style.header}>
+                                <Text style={style.expandedIcon}>{isStatusExpanded ? <MaterialIcons name="arrow-drop-down" size={20} color="black" /> : <MaterialIcons name="arrow-right" size={20} color="black" />}</Text>
+                                <Text style={style.text}>Status</Text>
+                            </TouchableOpacity>
+                            {isStatusExpanded && (
+                                <View style={style.content}>
+                                    {renderStatusCheck("Pendente", "Pendente", statusSelected, toggleStatusCheck)}
+                                    {renderStatusCheck("Em análise", "Em análise", statusSelected, toggleStatusCheck)}
+                                    {renderStatusCheck("Em andamento", "Em andamento", statusSelected, toggleStatusCheck)}
+                                    {renderStatusCheck("Resolvido", "Resolvido", statusSelected, toggleStatusCheck)}
+                                    {renderStatusCheck("Rejeitado", "Rejeitado", statusSelected, toggleStatusCheck)}
+                                </View>
+                            )}
                         </View>
-                        <View style={style.cardLines}>
-                            <Text style={style.text}>Status</Text>
+
+                        <View style={style.filtro}>
+                            <TouchableOpacity onPress={toggleDateExpand} style={style.header}>
+                                <Text style={style.expandedIcon}>
+                                {isDateExpanded
+                                    ? <MaterialIcons name="arrow-drop-down" size={20} color="black" />
+                                    : <MaterialIcons name="arrow-right" size={20} color="black" />}
+                                </Text>
+                                <Text style={style.text}>Data</Text>
+                            </TouchableOpacity>
+
+                            {isDateExpanded && (
+                                <View style={style.content}>
+                                
+                                <TouchableOpacity
+                                    style={style.dateButton}
+                                    onPress={() => setShowPicker(true)}
+                                    activeOpacity={0.7}
+                                >
+                                    <Text style={style.dateText}>
+                                    {selectedDate
+                                        ? selectedDate.toLocaleDateString()
+                                        : 
+                                        <View style={{ flexDirection: "row", alignItems: "center", gap: 4 }}>
+                                            <MaterialIcons name="edit-calendar" size={20} color="black" />
+                                            <Text>Selecionar data</Text>
+                                        </View>
+                                        }
+                                    </Text>
+                                </TouchableOpacity>
+
+                                {showPicker && (
+                                    <DateTimePicker
+                                    value={selectedDate || new Date()}
+                                    mode="date"
+                                    display="default"
+                                    onChange={(event, date) => {
+                                        setShowPicker(false);
+                                        if (date) setSelectedDate(date);
+                                    }}
+                                    />
+                                )}
+                                </View>
+                            )}
                         </View>
-                        <View style={style.cardLines}>
-                            <Text style={style.text}>Localização</Text>
-                        </View>
+
                     </View>
 
                     <View style={style.Divbuttons}>
@@ -129,6 +222,28 @@ const renderCheck = (
     </TouchableOpacity>
   );
 };
+
+const renderStatusCheck = (
+  label: string,
+  key: StatusKey,
+  selected: Record<StatusKey, boolean>,
+  toggleCheck: (key: StatusKey) => void
+) => {
+  return (
+    <TouchableOpacity
+      onPress={() => toggleCheck(key)}
+      style={style.checkRow}
+      activeOpacity={0.7}
+    >
+      <View style={[style.checkbox, selected[key] && style.checkboxSelected]}>
+        {selected[key] && <View style={style.checkboxMark} />}
+      </View>
+
+      <Text style={style.checkLabel}>{label}</Text>
+    </TouchableOpacity>
+  );
+};
+
 
 const style = StyleSheet.create({
     content: {
@@ -254,4 +369,19 @@ const style = StyleSheet.create({
         fontFamily: 'PoppinsSemiBold',
         fontSize: 16,
     },
+
+    dateButton: {
+        paddingVertical: 10,
+        paddingHorizontal: 12,
+        justifyContent: "center",
+        backgroundColor: "#fff",
+        marginBottom: 8
+    },
+
+    dateText: {
+        fontSize: 14,
+        color: "#333",
+        fontFamily: "PoppinsMedium",
+    },
+
 })
