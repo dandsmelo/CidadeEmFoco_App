@@ -1,5 +1,5 @@
 import { MaterialIcons } from "@expo/vector-icons";
-import { Modal, View, Text, TouchableOpacity, LayoutAnimation, Platform, UIManager} from "react-native";
+import { Modal, View, Text, TouchableOpacity, LayoutAnimation, Platform, UIManager, Alert} from "react-native";
 import { StyleSheet } from "react-native";
 import React, { useState } from "react";
 import { Colors } from "@/constants/Colors";
@@ -12,9 +12,16 @@ if (Platform.OS === "android") {
 }
 
 interface Props {
-    visible: boolean;
-    onClose: () => void;
+  visible: boolean;
+  onClose: () => void;
+  onFilter: (filters: {
+    categorias: string[];
+    status: string[];
+    startDate: Date | null;
+    endDate: Date | null;
+  }) => void;
 }
+
 
 type CategoriaKey =
 | "lixo"
@@ -39,7 +46,11 @@ export default function ModalFiltrarDenuncia( props: Props) {
 
     const [isDateExpanded, setIsDateExpanded] = useState(false);
     const [selectedDate, setSelectedDate] = useState<Date | null>(null);
-    const [showPicker, setShowPicker] = useState(false);
+
+    const [startDate, setStartDate] = useState<Date | null>(null);
+    const [endDate, setEndDate] = useState<Date | null>(null);
+    const [showPicker, setShowPicker] = useState<"start" | "end" | null>(null);
+
 
 
 
@@ -137,6 +148,7 @@ export default function ModalFiltrarDenuncia( props: Props) {
                             )}
                         </View>
 
+
                         <View style={style.filtro}>
                             <TouchableOpacity onPress={toggleDateExpand} style={style.header}>
                                 <Text style={style.expandedIcon}>
@@ -152,29 +164,42 @@ export default function ModalFiltrarDenuncia( props: Props) {
                                 
                                 <TouchableOpacity
                                     style={style.dateButton}
-                                    onPress={() => setShowPicker(true)}
+                                    onPress={() => setShowPicker("start")}
                                     activeOpacity={0.7}
                                 >
+                                    <View style={{ flexDirection: "row", alignItems: "center", gap: 2 }}>
+                                    <MaterialIcons name="edit-calendar" size={20} color="black" />
                                     <Text style={style.dateText}>
-                                    {selectedDate
-                                        ? selectedDate.toLocaleDateString()
-                                        : 
-                                        <View style={{ flexDirection: "row", alignItems: "center", gap: 4 }}>
-                                            <MaterialIcons name="edit-calendar" size={20} color="black" />
-                                            <Text>Selecionar data</Text>
-                                        </View>
-                                        }
+                                        {startDate ? startDate.toLocaleDateString() : "Selecionar data inicial"}
                                     </Text>
+                                    </View>
+                                </TouchableOpacity>
+
+
+                                <TouchableOpacity
+                                    style={style.dateButton}
+                                    onPress={() => setShowPicker("end")}
+                                    activeOpacity={0.7}
+                                >
+                                    <View style={{ flexDirection: "row", alignItems: "center", gap: 4 }}>
+                                    <MaterialIcons name="edit-calendar" size={20} color="black" />
+                                    <Text style={style.dateText}>
+                                        {endDate ? endDate.toLocaleDateString() : "Selecionar data final"}
+                                    </Text>
+                                    </View>
                                 </TouchableOpacity>
 
                                 {showPicker && (
                                     <DateTimePicker
-                                    value={selectedDate || new Date()}
+                                    value={showPicker === "start" ? (startDate || new Date()) : (endDate || new Date())}
                                     mode="date"
                                     display="default"
                                     onChange={(event, date) => {
-                                        setShowPicker(false);
-                                        if (date) setSelectedDate(date);
+                                        if (date) {
+                                        if (showPicker === "start") setStartDate(date);
+                                        else setEndDate(date);
+                                        }
+                                        setShowPicker(null);
                                     }}
                                     />
                                 )}
@@ -182,15 +207,67 @@ export default function ModalFiltrarDenuncia( props: Props) {
                             )}
                         </View>
 
+
                     </View>
 
                     <View style={style.Divbuttons}>
-                        <TouchableOpacity style={style.buttons}>
+
+                        <TouchableOpacity
+                            style={style.buttons}
+                            onPress={() => {
+                                setSelected({
+                                lixo: false,
+                                iluminacao: false,
+                                saneamento: false,
+                                infraestrutura: false,
+                                seguranca: false,
+                                outro: false,
+                                });
+                                setStatusSelected({
+                                "Pendente": false,
+                                "Em análise": false,
+                                "Em andamento": false,
+                                "Resolvido": false,
+                                "Rejeitado": false,
+                                });
+                                setStartDate(null);
+                                setEndDate(null);
+                            }}
+                            >
                             <Text style={style.textButton}>Limpar Filtros</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity style={style.buttons}>
+
+
+                        <TouchableOpacity
+                            style={style.buttons}
+                            onPress={() => {
+                                const categoriasSelecionadas = Object.keys(selected).filter(
+                                (key) => selected[key as CategoriaKey]
+                                );
+                                const statusSelecionados = Object.keys(statusSelected).filter(
+                                (key) => statusSelected[key as StatusKey]
+                                );
+
+                                
+                                if (startDate && endDate && endDate < startDate) {
+                                Alert.alert("Período inválido", "A data final deve ser posterior à inicial.");
+                                return;
+                                }
+
+                                
+                                props.onFilter({
+                                categorias: categoriasSelecionadas,
+                                status: statusSelecionados,
+                                startDate,
+                                endDate,
+                                });
+
+                                onClose(); 
+                            }}
+                            >
                             <Text style={style.textButton}>Filtrar</Text>
                         </TouchableOpacity>
+
                     </View>
 
                     
@@ -343,8 +420,6 @@ const style = StyleSheet.create({
     checkLabel: {
         fontSize: 16,
     },
-
-
     Divbuttons:{
         flexDirection: "row",
         marginBottom: 10,
@@ -369,18 +444,16 @@ const style = StyleSheet.create({
         fontFamily: 'PoppinsSemiBold',
         fontSize: 16,
     },
-
     dateButton: {
-        paddingVertical: 10,
-        paddingHorizontal: 12,
+        paddingVertical: 2,
+        paddingHorizontal: 10,
         justifyContent: "center",
         backgroundColor: "#fff",
         marginBottom: 8
     },
-
     dateText: {
         fontSize: 14,
-        color: "#333",
+        color: "#000",
         fontFamily: "PoppinsMedium",
     },
 
