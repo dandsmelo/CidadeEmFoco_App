@@ -1,14 +1,27 @@
 import { MaterialIcons } from "@expo/vector-icons";
 import { Modal, View, Text, TouchableOpacity } from "react-native";
 import { StyleSheet } from "react-native";
+import { Colors } from "@/constants/Colors";
+import { useState } from "react";
+
 
 interface Props {
     visible: boolean;
     onClose: () => void;
+    onSort: (type: "categoria" | "status" | "data" | "titulo") => void; 
 }
 
 export default function ModalOrdenarDenuncia( props: Props) {
-    const {visible, onClose} = props;
+    const { visible, onClose, onSort } = props;
+    const [selectedOption, setSelectedOption] = useState<"categoria" | "status" | "data" | "titulo" | null>(null);
+
+  function handleOrdenar() {
+    if (selectedOption) {
+      onSort(selectedOption) 
+      onClose();
+    }
+  }
+
 
     return (
         <Modal
@@ -19,34 +32,56 @@ export default function ModalOrdenarDenuncia( props: Props) {
         >
             <View style={style.overlay}>
                 <View style={style.container}>
+
                     <View style={style.headView}>
-                        <Text style={{ fontFamily: "PoppinsMedium", fontSize: 14}}>27 denúncias</Text>
+                        <Text style={{ fontFamily: "PoppinsSemiBold", fontSize: 22}}>Ordenar</Text>
                         <TouchableOpacity onPress={onClose} style={style.closeIcon}>
                             <MaterialIcons name="close" size={24} color="gray" />
                         </TouchableOpacity>
                     </View>
+
                     <View style={style.viewLines}>
-                        <View style={style.cardLines}>
-                            <Text style={style.text}>Pendente</Text>
-                            <Text style={style.text}>2</Text>
+                        <View>
+                            <TouchableOpacity 
+                            style={[style.cardLines, selectedOption === "categoria" && style.selected]}
+                            onPress={() => setSelectedOption("categoria")}
+                            >
+                                <Text style={style.text}>Categoria</Text>
+                            </TouchableOpacity>
                         </View>
-                        <View style={style.cardLines}>
-                            <Text style={style.text}>Em análise</Text>
-                            <Text style={style.text}>2</Text>
+
+                        <View>
+                            <TouchableOpacity 
+                            style={[style.cardLines, selectedOption === "status" && style.selected]}
+                            onPress={() => setSelectedOption("status")}
+                            >
+                                <Text style={style.text}>Status</Text>
+                            </TouchableOpacity>
                         </View>
-                        <View style={style.cardLines}>
-                            <Text style={style.text}>Em andamento</Text>
-                            <Text style={style.text}>2</Text>
+                        <View>
+                            <TouchableOpacity 
+                            style={[style.cardLines, selectedOption === "data" && style.selected]}
+                            onPress={() => setSelectedOption("data")}>
+                                <Text style={style.text}>Data</Text>
+                            </TouchableOpacity>
                         </View>
-                        <View style={style.cardLines}>
-                            <Text style={style.text}>Concluido</Text>
-                            <Text style={style.text}>2</Text>
-                        </View>
-                        <View style={style.cardLines}>
-                            <Text style={style.text}>Rejeitada</Text>
-                            <Text style={style.text}>2</Text>
+                        <View>
+                            <TouchableOpacity
+                                style={[style.cardLines, selectedOption === "titulo" && style.selected]}
+                                onPress={() => setSelectedOption("titulo")}
+                                >
+                                <Text style={style.text}>Título</Text>
+                            </TouchableOpacity>
+
                         </View>
                     </View>
+                    
+                    <View style={style.Divbuttons}>
+                        <TouchableOpacity style={style.buttons} onPress={handleOrdenar}>
+                            <Text style={style.textButton}>Ordenar</Text>
+                        </TouchableOpacity>
+                    </View>
+
                 </View>
             </View> 
         </Modal>
@@ -87,6 +122,8 @@ const style = StyleSheet.create({
     closeIcon: {
         zIndex: 1,
         color: 'gray',
+        display: 'flex',
+        flexDirection: 'row'
     },
     viewLines: {
         display: "flex",
@@ -97,12 +134,44 @@ const style = StyleSheet.create({
     cardLines: {
         display: "flex",
         flexDirection: "row",
-        justifyContent: "space-between",
+        alignItems: "center",
+        paddingVertical: 6,
         width: "100%",
-        marginTop: 3,
+        borderRadius: 8,
+        marginTop: 6,
+        backgroundColor: "rgba(167, 163, 170, 0.1)",        
+    },
+    selected: {
+        backgroundColor: "rgba(106, 13, 173, 0.1)",
     },
     text: {
         fontFamily: "PoppinsMedium",
-        fontSize: 12,
-    }
+        fontSize: 18,
+        paddingLeft: 10, 
+    },
+
+    Divbuttons:{
+        flexDirection: "row",
+        marginBottom: 10,
+        marginTop: 30,
+    },
+    buttons: {
+        backgroundColor: Colors.primary,
+        padding: 12,
+        paddingHorizontal: 20,
+        borderRadius: 10,
+        display: 'flex',
+        justifyContent: "center",
+        gap: 7,
+        alignItems: "center",
+        flexDirection: 'row',
+        marginRight: 18,
+        marginLeft: 18,
+            
+    },
+    textButton: {
+        color: 'white',
+        fontFamily: 'PoppinsSemiBold',
+        fontSize: 16,
+    },
 })

@@ -19,6 +19,25 @@ export default function MinhasDenuncias() {
     const [denuncias, setDenuncias] = React.useState<DenunciaData[]>([]);
     const [tipoUsuario, setTipoUsuario] = React.useState<string | null>(null);
     const fontsLoaded = useCustomFonts()
+    
+    function handleSort(type: "categoria" | "status" | "data" | "titulo") {
+      let sorted = [...denuncias];
+
+      if (type === "categoria") {
+        sorted.sort((a, b) => a.categoria.localeCompare(b.categoria));
+      } else if (type === "status") {
+        sorted.sort((a, b) => a.status.localeCompare(b.status));
+      } else if (type === "data") {
+        sorted.sort(
+          (a, b) => new Date(b.data).getTime() - new Date(a.data).getTime()
+        );
+      } else if (type === "titulo") {
+        sorted.sort((a, b) => a.titulo.localeCompare(b.titulo));
+      }
+
+      setDenuncias(sorted);
+    }
+
         
     if (!fontsLoaded) {
       return null; 
@@ -128,7 +147,8 @@ export default function MinhasDenuncias() {
             </ScrollView>
             <ModalOrdenarDenuncia 
                             visible={modalDenunciaOrdenar}
-                            onClose={() => setModalDenunciaOrdenar(false)}    
+                            onClose={() => setModalDenunciaOrdenar(false)}
+                            onSort={handleSort}    
                         />
             <ModalFiltrarDenuncia 
                             visible={modalDenunciaFiltrar}
