@@ -1,43 +1,50 @@
-import React, { useState } from 'react';
-import { Alert, Text, TextInput, TouchableOpacity, View, Image, ScrollView } from "react-native";
-import * as ImagePicker from 'expo-image-picker';
+import React, { useState } from "react";
+import {
+  Alert,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+  Image,
+  ScrollView,
+} from "react-native";
+import * as ImagePicker from "expo-image-picker";
 import Card from "@/components/Card";
 import NavBar from "@/components/NavBar";
 import StyledView from "@/components/StyledView";
 import { style } from "./style";
 import { useCustomFonts } from "@/assets/fonts/Fonts";
-import { AntDesign } from '@expo/vector-icons';
+import { AntDesign } from "@expo/vector-icons";
 import Icon from "react-native-vector-icons/FontAwesome5";
-import DateTimePicker from '@react-native-community/datetimepicker';
-import DropDownPicker from 'react-native-dropdown-picker';
-import { router } from 'expo-router';
+import DateTimePicker from "@react-native-community/datetimepicker";
+import DropDownPicker from "react-native-dropdown-picker";
+import { router } from "expo-router";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { useFlashMessage } from '@/components/FlashMessageContext';
-import Icons from 'react-native-vector-icons/Ionicons';
-import { Colors } from '@/constants/Colors';
+import { useFlashMessage } from "@/components/FlashMessageContext";
+import Icons from "react-native-vector-icons/Ionicons";
+import { Colors } from "@/constants/Colors";
 
 export default function CriarDenuncia() {
   const [open, setOpen] = useState(false);
   const [categoria, setCategoria] = useState<string | null>(null);
   const [items, setItems] = useState([
-    { label: 'Lixo', value: 'lixo' },
-    { label: 'Iluminação', value: 'iluminacao' },
-    { label: 'Saneamento', value: 'saneamento' },
-    { label: 'Infraestrutura', value: 'infraestrutura' },
-    { label: 'Segurança', value: 'seguranca' },
-    { label: 'Outro', value: 'outro' }
+    { label: "Lixo", value: "lixo" },
+    { label: "Iluminação", value: "iluminacao" },
+    { label: "Saneamento", value: "saneamento" },
+    { label: "Infraestrutura", value: "infraestrutura" },
+    { label: "Segurança", value: "seguranca" },
+    { label: "Outro", value: "outro" },
   ]);
 
-  const [titulo, setTitulo] = useState('');
-  const [endereco, setEndereco] = useState('');
+  const [titulo, setTitulo] = useState("");
+  const [endereco, setEndereco] = useState("");
   const [date, setDate] = useState<Date | undefined>(undefined);
-  const [descricao, setDescricao] = useState('');
-  const [text, setText] = useState('');
+  const [descricao, setDescricao] = useState("");
+  const [text, setText] = useState("");
   const [showPicker, setShowPicker] = useState(false);
   const [imageUri, setImageUri] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const { showMessage } = useFlashMessage();
-  
 
   const fontsLoaded = useCustomFonts();
 
@@ -56,9 +63,14 @@ export default function CriarDenuncia() {
       {
         text: "Galeria",
         onPress: async () => {
-          const permission = await ImagePicker.requestMediaLibraryPermissionsAsync();
-          if (!permission.granted) return alert("Permissão de acesso à galeria negada");
-          const result = await ImagePicker.launchImageLibraryAsync({ mediaTypes: 'images', quality: 1 });
+          const permission =
+            await ImagePicker.requestMediaLibraryPermissionsAsync();
+          if (!permission.granted)
+            return alert("Permissão de acesso à galeria negada");
+          const result = await ImagePicker.launchImageLibraryAsync({
+            mediaTypes: "images",
+            quality: 1,
+          });
           if (!result.canceled) setImageUri(result.assets[0].uri);
         },
       },
@@ -66,7 +78,8 @@ export default function CriarDenuncia() {
         text: "Câmera",
         onPress: async () => {
           const permission = await ImagePicker.requestCameraPermissionsAsync();
-          if (!permission.granted) return alert("Permissão de uso da câmera negada");
+          if (!permission.granted)
+            return alert("Permissão de uso da câmera negada");
           const result = await ImagePicker.launchCameraAsync({ quality: 1 });
           if (!result.canceled) setImageUri(result.assets[0].uri);
         },
@@ -85,22 +98,23 @@ export default function CriarDenuncia() {
 
     setIsLoading(true);
 
-    const token = await AsyncStorage.getItem('token');
+    const token = await AsyncStorage.getItem("token");
 
     try {
       const response = await fetch("http://localhost:3000/denuncia", {
         method: "POST",
-        headers: { 
-          "Content-Type": "application/json", 
-          'Authorization': `Bearer ${token}`,},
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
         body: JSON.stringify({
           titulo,
           data: date.toISOString(),
-          status: "Pendente",         
+          status: "Pendente",
           descricao,
           categoria,
           local: endereco,
-          imagem: null
+          imagem: null,
         }),
       });
 
@@ -113,7 +127,7 @@ export default function CriarDenuncia() {
         setDate(undefined);
         setCategoria(null);
         setImageUri(null);
-        showMessage("Denúncia enviada com sucesso!", "success")
+        showMessage("Denúncia enviada com sucesso!", "success");
         router.push("/minhasDenuncias");
       } else {
         showMessage(data.message || "Erro ao enviar denúncia.", "error");
@@ -124,7 +138,6 @@ export default function CriarDenuncia() {
       setIsLoading(false);
     }
   };
-
 
   return (
     <ScrollView style={style.background}>
@@ -141,13 +154,40 @@ export default function CriarDenuncia() {
 
             <TouchableOpacity style={style.addImage} onPress={pickImage}>
               <Icons name="add-circle" size={45} color="#ffff" />
-              <Text style={{ fontFamily: 'PoppinsRegular', color: 'white' }}>Adicione uma imagem</Text>
+              <Text style={{ fontFamily: "PoppinsRegular", color: "white" }}>
+                Adicione uma imagem
+              </Text>
             </TouchableOpacity>
 
             {imageUri && (
-              <View style={{ marginTop: 10, alignItems: 'center' }}>
-                <Text style={{ fontFamily: 'PoppinsRegular', marginBottom: 5 }}>Imagem selecionada:</Text>
-                <Image source={{ uri: imageUri }} style={{ width: 200, height: 200, borderRadius: 10 }} />
+              <View
+                style={{
+                  marginTop: 20,
+                  marginBottom: 20,
+                  alignItems: "center",
+                  padding: 10,
+                  backgroundColor: "#f8f8f8",
+                  borderRadius: 10,
+                }}
+              >
+                <Text
+                  style={{
+                    fontFamily: "PoppinsRegular",
+                    marginBottom: 10,
+                    color: "#2e2e2e",
+                  }}
+                >
+                  Imagem selecionada:
+                </Text>
+                <Image
+                  source={{ uri: imageUri }}
+                  style={{
+                    width: 200,
+                    height: 200,
+                    borderRadius: 10,
+                    resizeMode: "cover",
+                  }}
+                />
               </View>
             )}
 
@@ -155,37 +195,20 @@ export default function CriarDenuncia() {
               <Icon name="map-pin" size={30} color={Colors.cinza} />
               <TextInput
                 style={style.textInput}
-                placeholder='Adicionar endereço'
+                placeholder="Adicionar endereço"
                 value={endereco}
                 onChangeText={setEndereco}
               />
             </View>
 
             <View>
-              <TouchableOpacity onPress={() => setShowPicker(true)} activeOpacity={1} style={style.input}>
-                <Icon name='calendar-alt' size={20} color={Colors.cinza} />
-                <TextInput
-                  value={text}
-                  placeholder="Selecionar data"
-                  style={style.textInput}
-                  onChangeText={(input) => {
-                    setText(input);
-                    const partes = input.split('/');
-                    if (partes.length === 3) {
-                      const [dia, mes, ano] = partes;
-                      const novaData = new Date(`${ano}-${mes}-${dia}`);
-                      if (!isNaN(novaData.getTime())) {
-                        setDate(novaData);
-                      } else {
-                        setDate(undefined); 
-                      }
-                    } else {
-                      setDate(undefined);
-                    }
-                  }}
-
-                  keyboardType="numeric"
-                />
+              <TouchableOpacity
+                onPress={() => setShowPicker(true)}
+                activeOpacity={0.8}
+                style={style.input}
+              >
+                <Icon name="calendar-alt" size={20} color={Colors.cinza} />
+                <Text style={style.textInput}>{text || "Selecionar data"}</Text>
               </TouchableOpacity>
 
               {showPicker && (
@@ -197,7 +220,7 @@ export default function CriarDenuncia() {
                     setShowPicker(false);
                     if (selectedDate) {
                       setDate(selectedDate);
-                      setText(selectedDate.toLocaleDateString('pt-BR'));
+                      setText(selectedDate.toLocaleDateString("pt-BR"));
                     }
                   }}
                 />
@@ -205,7 +228,16 @@ export default function CriarDenuncia() {
             </View>
 
             <View>
-              <Text style={{ fontFamily: 'PoppinsSemiBold', fontSize: 18, marginVertical: 10, color: '#2e2e2e' }}>Descrição</Text>
+              <Text
+                style={{
+                  fontFamily: "PoppinsSemiBold",
+                  fontSize: 18,
+                  marginVertical: 10,
+                  color: "#2e2e2e",
+                }}
+              >
+                Descrição
+              </Text>
               <TextInput
                 style={style.description}
                 placeholder="Escreva a denúncia aqui"
@@ -226,27 +258,30 @@ export default function CriarDenuncia() {
               setItems={setItems}
               placeholder="Selecione categoria"
               style={{
-                backgroundColor: '#FFFFFF',
+                backgroundColor: "#FFFFFF",
                 borderRadius: 10,
                 borderColor: Colors.cinza,
                 height: 50,
               }}
               textStyle={{
                 fontSize: 18,
-                fontFamily: 'PoppinsMedium',
-                color: '#2e2e2e',
+                fontFamily: "PoppinsMedium",
+                color: "#2e2e2e",
               }}
               placeholderStyle={{
-                color: '#2e2e2e',
+                color: "#2e2e2e",
                 fontSize: 18,
               }}
               dropDownContainerStyle={{
-                backgroundColor: '#FFFFFF',
-                borderColor: '#FFFFFF',
+                backgroundColor: "#FFFFFF",
+                borderColor: "#FFFFFF",
               }}
             />
 
-            <TouchableOpacity style={style.button} onPress={handleCriarDenuncia}>
+            <TouchableOpacity
+              style={style.button}
+              onPress={handleCriarDenuncia}
+            >
               <Text style={style.textBtn}>Criar denúncia</Text>
             </TouchableOpacity>
           </Card>
