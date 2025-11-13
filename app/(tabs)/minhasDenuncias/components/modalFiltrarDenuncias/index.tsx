@@ -35,8 +35,8 @@ type StatusKey =
 | "Pendente"
 | "Em análise"
 | "Em andamento"
-| "Resolvido"
-| "Rejeitado";
+| "Resolvida"
+| "Rejeitada";
 
 
 export default function ModalFiltrarDenuncia( props: Props) {
@@ -86,8 +86,8 @@ export default function ModalFiltrarDenuncia( props: Props) {
     "Pendente": false,
     "Em análise": false,
     "Em andamento": false,
-    "Resolvido": false,
-    "Rejeitado": false,
+    "Resolvida": false,
+    "Rejeitada": false,
     });
     const toggleStatusCheck = (key: StatusKey) => {
     setStatusSelected((prev) => ({
@@ -142,8 +142,8 @@ export default function ModalFiltrarDenuncia( props: Props) {
                                     {renderStatusCheck("Pendente", "Pendente", statusSelected, toggleStatusCheck)}
                                     {renderStatusCheck("Em análise", "Em análise", statusSelected, toggleStatusCheck)}
                                     {renderStatusCheck("Em andamento", "Em andamento", statusSelected, toggleStatusCheck)}
-                                    {renderStatusCheck("Resolvido", "Resolvido", statusSelected, toggleStatusCheck)}
-                                    {renderStatusCheck("Rejeitado", "Rejeitado", statusSelected, toggleStatusCheck)}
+                                    {renderStatusCheck("Resolvida", "Resolvida", statusSelected, toggleStatusCheck)}
+                                    {renderStatusCheck("Rejeitada", "Rejeitada", statusSelected, toggleStatusCheck)}
                                 </View>
                             )}
                         </View>
@@ -227,8 +227,8 @@ export default function ModalFiltrarDenuncia( props: Props) {
                                 "Pendente": false,
                                 "Em análise": false,
                                 "Em andamento": false,
-                                "Resolvido": false,
-                                "Rejeitado": false,
+                                "Resolvida": false,
+                                "Rejeitada": false,
                                 });
                                 setStartDate(null);
                                 setEndDate(null);
