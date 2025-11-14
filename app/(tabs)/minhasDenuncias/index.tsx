@@ -22,14 +22,18 @@ export default function MinhasDenuncias() {
   const [tipoUsuario, setTipoUsuario] = React.useState<string | null>(null);
   const fontsLoaded = useCustomFonts();
 
-  function handleSort(type: "categoria" | "status" | "data" | "titulo") {
+  function handleSort(
+    type: "categoria" | "status" | "data_recente" | "data_antiga" | "titulo"
+  ) {
     let sorted = [...denuncias];
 
     if (type === "categoria") {
       sorted.sort((a, b) => a.categoria.localeCompare(b.categoria));
-    } else if (type === "status") {
-      sorted.sort((a, b) => a.status.localeCompare(b.status));
-    } else if (type === "data") {
+    } else if (type === "data_recente") {
+      sorted.sort(
+        (a, b) => new Date(a.data).getTime() - new Date(b.data).getTime()
+      );
+    } else if (type === "data_antiga") {
       sorted.sort(
         (a, b) => new Date(b.data).getTime() - new Date(a.data).getTime()
       );

@@ -7,13 +7,15 @@ import { useState } from "react";
 interface Props {
   visible: boolean;
   onClose: () => void;
-  onSort: (type: "categoria" | "status" | "data" | "titulo") => void;
+  onSort: (
+    type: "categoria" | "status" | "data_recente" | "data_antiga" | "titulo"
+  ) => void;
 }
 
 export default function ModalOrdenarDenuncia(props: Props) {
   const { visible, onClose, onSort } = props;
   const [selectedOption, setSelectedOption] = useState<
-    "categoria" | "status" | "data" | "titulo" | null
+    "categoria" | "status" | "data_recente" | "data_antiga" | "titulo" | null
   >(null);
 
   function handleOrdenar() {
@@ -51,6 +53,9 @@ export default function ModalOrdenarDenuncia(props: Props) {
                 onPress={() => setSelectedOption("categoria")}
               >
                 <Text style={style.text}>Categoria</Text>
+                {selectedOption === "categoria" && (
+                  <MaterialIcons name="check" size={24} color="black" />
+                )}
               </TouchableOpacity>
             </View>
 
@@ -63,19 +68,42 @@ export default function ModalOrdenarDenuncia(props: Props) {
                 onPress={() => setSelectedOption("status")}
               >
                 <Text style={style.text}>Status</Text>
+                {selectedOption === "status" && (
+                  <MaterialIcons name="check" size={24} color="black" />
+                )}
               </TouchableOpacity>
             </View>
+
             <View>
               <TouchableOpacity
                 style={[
                   style.cardLines,
-                  selectedOption === "data" && style.selected,
+                  selectedOption === "data_recente" && style.selected,
                 ]}
-                onPress={() => setSelectedOption("data")}
+                onPress={() => setSelectedOption("data_recente")}
               >
-                <Text style={style.text}>Data</Text>
+                <Text style={style.text}>Data (Mais recente)</Text>
+                {selectedOption === "data_recente" && (
+                  <MaterialIcons name="check" size={24} color="black" />
+                )}
               </TouchableOpacity>
             </View>
+
+            <View>
+              <TouchableOpacity
+                style={[
+                  style.cardLines,
+                  selectedOption === "data_antiga" && style.selected,
+                ]}
+                onPress={() => setSelectedOption("data_antiga")}
+              >
+                <Text style={style.text}>Data (Mais antiga)</Text>
+                {selectedOption === "data_antiga" && (
+                  <MaterialIcons name="check" size={24} color="black" />
+                )}
+              </TouchableOpacity>
+            </View>
+
             <View>
               <TouchableOpacity
                 style={[
@@ -85,6 +113,9 @@ export default function ModalOrdenarDenuncia(props: Props) {
                 onPress={() => setSelectedOption("titulo")}
               >
                 <Text style={style.text}>Título</Text>
+                {selectedOption === "titulo" && (
+                  <MaterialIcons name="check" size={24} color="black" />
+                )}
               </TouchableOpacity>
             </View>
           </View>
@@ -151,9 +182,7 @@ const style = StyleSheet.create({
     borderRadius: 8,
     marginTop: 6,
   },
-  selected: {
-    backgroundColor: "rgba(106, 13, 173, 0.1)",
-  },
+  selected: {},
   text: {
     fontFamily: "PoppinsMedium",
     fontSize: 18,
