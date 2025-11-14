@@ -29,6 +29,8 @@ export default function MinhasDenuncias() {
 
     if (type === "categoria") {
       sorted.sort((a, b) => a.categoria.localeCompare(b.categoria));
+    } else if (type === "status") {
+      sorted.sort((a, b) => a.status.localeCompare(b.status));
     } else if (type === "data_recente") {
       sorted.sort(
         (a, b) => new Date(a.data).getTime() - new Date(b.data).getTime()
