@@ -16,7 +16,7 @@ export const Style = StyleSheet.create({
         flexDirection: 'row',
         backgroundColor: Colors.primary,
         width: '100%',
-        height: "auto",
+        height: '13%',
         paddingTop: 30,
         paddingBottom: 10,
         alignItems: 'center',
@@ -29,6 +29,7 @@ export const Style = StyleSheet.create({
 
     divHeader:{
         marginLeft: 12,
+        marginTop: 20,
     },
 
     textHeader:{
@@ -36,6 +37,7 @@ export const Style = StyleSheet.create({
         fontFamily: 'PoppinsSemiBold',
         color: '#FFFFFF',
         marginLeft: 12,
+        marginTop: 20,
     },
 
     divNoContent: {

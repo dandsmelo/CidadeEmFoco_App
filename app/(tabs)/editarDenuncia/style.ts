@@ -3,17 +3,12 @@ import { Colors } from "@/constants/Colors";
 
 export const Style = StyleSheet.create({
     container: {
-        height: '100%',
+        height: "auto",
         display: 'flex',
         flex: 1,
         width: '100%',
         alignItems: 'center',
         backgroundColor: Colors.background,
-
-    },
-    backgroud: {
-        backgroundColor: Colors.background,
-
     },
 
     divCard: {
@@ -129,6 +124,7 @@ export const Style = StyleSheet.create({
         fontFamily: 'PoppinsSemiBold',
         fontSize: 22,
         marginLeft: 10,
+        marginTop: 10,
     },
     descricaoInput:{
         fontSize: 18,
@@ -146,15 +142,14 @@ export const Style = StyleSheet.create({
         fontFamily: 'PoppinsSemiBold',
         fontSize: 22,
         marginLeft: 10,
+        marginTop: 10,
     },
     iconNavBar: {
         color: "white",
-        top: 0,
-        margin: 15,
     },
     navBar:{
         backgroundColor: 'white',
-        height: "auto",
+        height: '13%',
         paddingTop: 30,
         paddingBottom: 10,
         width: '100%',
@@ -166,9 +161,10 @@ export const Style = StyleSheet.create({
         shadowColor: '#000',
         shadowOpacity: 0.6,
         shadowRadius: 4.65,
-        elevation: 1,
+        elevation: 2,
+        zIndex: 10,
+        overflow: 'visible',
     },
-
     circle: {
         backgroundColor: Colors.primary, 
         borderRadius: '100%', 
@@ -178,6 +174,7 @@ export const Style = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         marginLeft: 18,
+        marginTop: 10,
     },
 
     category: {
