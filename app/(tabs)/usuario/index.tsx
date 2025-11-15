@@ -14,6 +14,7 @@ import { useFlashMessage } from "@/components/FlashMessageContext";
 import { useAuth } from "@/hook/auth/useAuth";
 import { LinearGradient } from "expo-linear-gradient";
 import * as ImagePicker from "expo-image-picker";
+import { Platform } from "react-native";
 
 export default function Usuario() {
     const fontsLoaded = useCustomFonts()
@@ -28,32 +29,32 @@ export default function Usuario() {
 
 
     const selecionarImagem = async () => {
-    try {
-        const permission = await ImagePicker.requestMediaLibraryPermissionsAsync();
+        try {
+            const permission = await ImagePicker.requestMediaLibraryPermissionsAsync();
 
-        if (!permission.granted) {
-        showMessage("Permissão negada para acessar a galeria", "error");
-        return;
+            if (!permission.granted) {
+            showMessage("Permissão negada para acessar a galeria", "error");
+            return;
+            }
+
+            const result = await ImagePicker.launchImageLibraryAsync({
+            mediaTypes: ImagePicker.MediaTypeOptions.Images,
+            allowsEditing: true,
+            quality: 0.7,
+            });
+
+            if (!result.canceled) {
+                const uri = result.assets[0].uri;
+                setFotoPerfil(uri); 
+                const usuarioId = await AsyncStorage.getItem("userId");
+                await AsyncStorage.setItem(`fotoPerfil_${usuarioId}`, uri);
+                await enviarFotoPerfil(uri); 
+                showMessage("Imagem atualizada com sucesso!", "success");
+            }
+        }catch(error) {
+            showMessage("Erro ao selecionar imagem", "error");
         }
-
-        const result = await ImagePicker.launchImageLibraryAsync({
-        mediaTypes: ImagePicker.MediaTypeOptions.Images,
-        allowsEditing: true,
-        quality: 0.7,
-        });
-
-        if (!result.canceled) {
-            const uri = result.assets[0].uri;
-            setFotoPerfil(uri); 
-            const usuarioId = await AsyncStorage.getItem("userId");
-            await AsyncStorage.setItem(`fotoPerfil_${usuarioId}`, uri);
-            await enviarFotoPerfil(uri); 
-            showMessage("Imagem atualizada com sucesso!", "success");
-        }
-    }catch(error) {
-        showMessage("Erro ao selecionar imagem", "error");
-    }
-};
+    };
 
     useEffect(() => {
         fetchUsuario();
@@ -61,27 +62,30 @@ export default function Usuario() {
     }, []);
 
     const carregarFotoLocal = async () => {
-    const usuarioId = await AsyncStorage.getItem("userId");
-    if (!usuarioId) return;
+        const usuarioId = await AsyncStorage.getItem("userId");
+        if (!usuarioId) return;
 
-    const fotoSalva = await AsyncStorage.getItem(`fotoPerfil_${usuarioId}`);
-    if (fotoSalva) {
-        setFotoPerfil(fotoSalva);
-    } else {
-        setFotoPerfil(null); 
-    }
-};
+        const fotoSalva = await AsyncStorage.getItem(`fotoPerfil_${usuarioId}`);
+        if (fotoSalva) {
+            setFotoPerfil(fotoSalva);
+        } else {
+            setFotoPerfil(null); 
+        }
+    };
 
 
     const enviarFotoPerfil = async (uri: string) => {
         const token = await AsyncStorage.getItem("token");
         const usuarioId = await AsyncStorage.getItem("userId");
 
+        const fileUri = Platform.OS === "ios" ? uri.replace("file://", "") : uri;
+
         const formData = new FormData();
+
         formData.append("fotoPerfil", {
-            uri,
-            name: "perfil.jpg",
-            type: "image/jpeg",
+            uri: fileUri,
+            name: `perfil_${usuarioId}_${Date.now()}.jpg`,
+            type: "image/jpeg"
         } as any);
 
         try {
@@ -90,24 +94,16 @@ export default function Usuario() {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
-                body: formData,
+                body: formData
             });
 
             const data = await response.json();
+            console.log("Resposta servidor:", data);
 
-            if (response.ok) {
-                await fetchUsuario(); 
-            } else {
-                showMessage(data.message || "Erro ao enviar foto para o servidor.", "error");
-            }
         } catch (error) {
-            showMessage("Erro na comunicação com o servidor ao enviar foto.", "error");
+            console.error("Erro ao enviar foto:", error);
         }
     };
-
-
-
-
 
     const openModalEditar = (campo: string) => {
         setselectedField(campo);
