@@ -24,12 +24,16 @@ export default function Home(){
 
     const carregarFotoLocal = async () => {
         const usuarioId = await AsyncStorage.getItem("userId");
-        if (!usuarioId) return;
+        if (!usuarioId) return; 
 
         const fotoSalva = await AsyncStorage.getItem(`fotoPerfil_${usuarioId}`);
-        setFotoPerfil(fotoSalva || null);
+        
+        if (fotoSalva) {
+            setFotoPerfil(fotoSalva);
+        } else {
+            setFotoPerfil(null); 
+        }
     };
-
 
 
     const fetchUsuario = async () => {
@@ -109,7 +113,7 @@ export default function Home(){
                 <TouchableOpacity onPress={() => router.push('/usuario')} style={Style.divHeader}>
                     <Image
                         source={
-                            fotoPerfil
+                            fotoPerfil && fotoPerfil.trim() !== ""
                                 ? { uri: fotoPerfil }
                                 : require("@/assets/images/user.png")
                         }

@@ -43,21 +43,17 @@ export default function Usuario() {
         });
 
         if (!result.canceled) {
-        const uri = result.assets[0].uri;
-        setFotoPerfil(uri);
-
-        const usuarioId = await AsyncStorage.getItem("userId");
-
-        await AsyncStorage.setItem(`fotoPerfil_${usuarioId}`, uri);
-        await enviarFotoPerfil(uri);
-
-
-        showMessage("Imagem atualizada com sucesso!", "success");
+            const uri = result.assets[0].uri;
+            setFotoPerfil(uri); 
+            const usuarioId = await AsyncStorage.getItem("userId");
+            await AsyncStorage.setItem(`fotoPerfil_${usuarioId}`, uri);
+            await enviarFotoPerfil(uri); 
+            showMessage("Imagem atualizada com sucesso!", "success");
         }
-    } catch (error) {
+    }catch(error) {
         showMessage("Erro ao selecionar imagem", "error");
     }
-    };
+};
 
     useEffect(() => {
         fetchUsuario();
@@ -65,16 +61,16 @@ export default function Usuario() {
     }, []);
 
     const carregarFotoLocal = async () => {
-        const usuarioId = await AsyncStorage.getItem("userId");
-        if (!usuarioId) return;
+    const usuarioId = await AsyncStorage.getItem("userId");
+    if (!usuarioId) return;
 
-        const fotoSalva = await AsyncStorage.getItem(`fotoPerfil_${usuarioId}`);
-        if (fotoSalva) {
-            setFotoPerfil(fotoSalva);
-        } else {
-            setFotoPerfil(null); 
-        }
-    };
+    const fotoSalva = await AsyncStorage.getItem(`fotoPerfil_${usuarioId}`);
+    if (fotoSalva) {
+        setFotoPerfil(fotoSalva);
+    } else {
+        setFotoPerfil(null); 
+    }
+};
 
 
     const enviarFotoPerfil = async (uri: string) => {
@@ -88,14 +84,25 @@ export default function Usuario() {
             type: "image/jpeg",
         } as any);
 
-        await fetch(`http://localhost:3000/usuario/${usuarioId}/foto`, {
-            method: "PUT",
-            headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "multipart/form-data",
-            },
-            body: formData,
-        });
+        try {
+            const response = await fetch(`http://localhost:3000/usuario/${usuarioId}/foto`, {
+                method: "PUT",
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+                body: formData,
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                await fetchUsuario(); 
+            } else {
+                showMessage(data.message || "Erro ao enviar foto para o servidor.", "error");
+            }
+        } catch (error) {
+            showMessage("Erro na comunicação com o servidor ao enviar foto.", "error");
+        }
     };
 
 
