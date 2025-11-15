@@ -1,5 +1,5 @@
 import { useCustomFonts } from "@/assets/fonts/Fonts";
-import { TouchableOpacity, View, Text } from "react-native";
+import { TouchableOpacity, View, Text, Image } from "react-native";
 import { style } from "./style";
 import Icon from "react-native-vector-icons/FontAwesome5";
 import ModalEdicao from "./components/modalEditar";
@@ -13,6 +13,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useFlashMessage } from "@/components/FlashMessageContext";
 import { useAuth } from "@/hook/auth/useAuth";
 import { LinearGradient } from "expo-linear-gradient";
+import * as ImagePicker from "expo-image-picker";
 
 export default function Usuario() {
     const fontsLoaded = useCustomFonts()
@@ -23,6 +24,83 @@ export default function Usuario() {
     const [usuario, setUsuario] = React.useState<UsuarioData>();
     const { logout } = useAuth();
     const { showMessage } = useFlashMessage();
+    const [fotoPerfil, setFotoPerfil] = useState<string | null>(null);
+
+
+    const selecionarImagem = async () => {
+    try {
+        const permission = await ImagePicker.requestMediaLibraryPermissionsAsync();
+
+        if (!permission.granted) {
+        showMessage("Permissão negada para acessar a galeria", "error");
+        return;
+        }
+
+        const result = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.Images,
+        allowsEditing: true,
+        quality: 0.7,
+        });
+
+        if (!result.canceled) {
+        const uri = result.assets[0].uri;
+        setFotoPerfil(uri);
+
+        const usuarioId = await AsyncStorage.getItem("userId");
+
+        await AsyncStorage.setItem(`fotoPerfil_${usuarioId}`, uri);
+        await enviarFotoPerfil(uri);
+
+
+        showMessage("Imagem atualizada com sucesso!", "success");
+        }
+    } catch (error) {
+        showMessage("Erro ao selecionar imagem", "error");
+    }
+    };
+
+    useEffect(() => {
+        fetchUsuario();
+        carregarFotoLocal();
+    }, []);
+
+    const carregarFotoLocal = async () => {
+        const usuarioId = await AsyncStorage.getItem("userId");
+        if (!usuarioId) return;
+
+        const fotoSalva = await AsyncStorage.getItem(`fotoPerfil_${usuarioId}`);
+        if (fotoSalva) {
+            setFotoPerfil(fotoSalva);
+        } else {
+            setFotoPerfil(null); 
+        }
+    };
+
+
+    const enviarFotoPerfil = async (uri: string) => {
+        const token = await AsyncStorage.getItem("token");
+        const usuarioId = await AsyncStorage.getItem("userId");
+
+        const formData = new FormData();
+        formData.append("fotoPerfil", {
+            uri,
+            name: "perfil.jpg",
+            type: "image/jpeg",
+        } as any);
+
+        await fetch(`http://localhost:3000/usuario/${usuarioId}/foto`, {
+            method: "PUT",
+            headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "multipart/form-data",
+            },
+            body: formData,
+        });
+    };
+
+
+
+
 
     const openModalEditar = (campo: string) => {
         setselectedField(campo);
@@ -83,9 +161,17 @@ export default function Usuario() {
         <View>
             <LinearGradient colors={["#6A0DAD", "#2C0547"]} locations={[0, 0.57]} style={style.container}>
                 <IconI name="chevron-thin-left" size={25} style={style.icon} onPress={() => router.push('/home')}/>
-                <View style={style.circle}>
-                    <Icon name="user-edit" size={60} style={{color: 'white'}}/>
-                </View>
+                <TouchableOpacity style={style.circle} onPress={selecionarImagem}>
+                    {fotoPerfil ? (
+                        <Image 
+                        source={{ uri: fotoPerfil }} 
+                        style={{ width: "100%", height: "100%", borderRadius: 100 }}
+                        />
+                    ) : (
+                        <Icon name="user-edit" size={60} style={{ color: "white" }} />
+                    )}
+                </TouchableOpacity>
+
                 <Text style={style.name}>{usuario?.nome}</Text>
             </LinearGradient>
             <View style={style.inputsView}>

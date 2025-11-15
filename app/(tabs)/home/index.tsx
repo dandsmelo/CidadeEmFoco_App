@@ -16,10 +16,21 @@ export default function Home(){
     const [tipoUsuario, setTipoUsuario] = React.useState<string | null>(null);
     const [usuario, setUsuario] = React.useState<UsuarioData>();
     const [denuncias, setDenuncias] = React.useState<DenunciaData[]>([]);
+    const [fotoPerfil, setFotoPerfil] = React.useState<string | null>(null);
     const fontsLoaded = useCustomFonts()
     if (!fontsLoaded){
         return null;
     }
+
+    const carregarFotoLocal = async () => {
+        const usuarioId = await AsyncStorage.getItem("userId");
+        if (!usuarioId) return;
+
+        const fotoSalva = await AsyncStorage.getItem(`fotoPerfil_${usuarioId}`);
+        setFotoPerfil(fotoSalva || null);
+    };
+
+
 
     const fetchUsuario = async () => {
         try {
@@ -88,13 +99,22 @@ export default function Home(){
         fetchUsuario();
         fetchTipoUsuario();
         fetchDenuncias();
+        carregarFotoLocal();
     }, []);
+
 
     return (
         <View style={Style.container}>
             <View style={Style.header}>
                 <TouchableOpacity onPress={() => router.push('/usuario')} style={Style.divHeader}>
-                    <Image source={require('@/assets/images/user.png')} style={Style.img} />
+                    <Image
+                        source={
+                            fotoPerfil
+                                ? { uri: fotoPerfil }
+                                : require("@/assets/images/user.png")
+                        }
+                        style={Style.img}
+                    />
                 </TouchableOpacity>
                 <Text style={Style.textHeader}>{usuario?.nome}</Text>
             </View> 
