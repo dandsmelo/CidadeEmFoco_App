@@ -28,8 +28,9 @@ export const Style = StyleSheet.create({
     },
 
     img:{
-        height: 130,
-        width: 260,
+        height: 150,
+        width: 340,
+        borderRadius:10,
     },
 
     divText:{
@@ -79,32 +80,34 @@ export const Style = StyleSheet.create({
     },
 
     buttonI:{
-        backgroundColor: Colors.verde, 
-        padding: 8,
+        display: 'flex',
+        height: 45,
+        width: 'auto',
+        padding: 10,
         borderRadius: 10,
-        flexDirection:'row',
-        alignItems: 'center',
+        marginBottom: 10,
+        backgroundColor: Colors.verde,
         justifyContent: 'center',
-        marginTop: 15,
-        marginBottom: 5,
+        marginTop: 10,
     },
 
     textButton:{
-        color: "#FFFFFF",
-        fontSize: 15,
-        fontFamily: 'PoppinsSemibold',
-        marginLeft: 6,
-        marginRight: 6,
+        fontSize: 20,
+        color: 'white',
+        fontFamily: 'PoppinsSemiBold',
+        width: '100%',
+        textAlign: 'center',
     },
     comentarios: {
-        borderColor: Colors.cinza,
+        borderColor: '#000000',
         borderRadius: 10,
         fontSize: 16,
         fontFamily: 'PoppinsMedium',
         padding: 5,
         borderWidth: 1,
         marginBottom: 15,
-        color: '#2e2e2e',
+        color: '#000000',
+        height: 50,
     },
 
 })

@@ -29,7 +29,7 @@ export const Style = StyleSheet.create({
 
     img:{
         height: 150,
-        width: 260,
+        width: 340,
         borderRadius:10,
     },
 
@@ -62,7 +62,7 @@ export const Style = StyleSheet.create({
         marginTop: 10,
         fontSize: 18,
         color: '#000000',
-        fontFamily: 'PoppinsSemibold',
+        fontFamily: 'PoppinsBold',
     },
 
     text:{
@@ -108,7 +108,7 @@ export const Style = StyleSheet.create({
         marginTop: 3,
     },
     input: {
-        width: '100%',
+        width: '90%',
         paddingVertical: 5,
         fontSize: 18,
         color: '#898989',

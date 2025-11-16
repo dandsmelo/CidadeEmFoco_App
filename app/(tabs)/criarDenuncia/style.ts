@@ -22,7 +22,7 @@ export const style = StyleSheet.create({
         padding: 5,
         borderWidth: 1,
         marginBottom: 15,
-        color: '2e2e2e'
+        color: '#2e2e2e',
     },
     addImage: {
         backgroundColor: Colors.cinza,
@@ -49,7 +49,7 @@ export const style = StyleSheet.create({
         fontSize: 18,
         padding: 5,
         width: '100%',
-        color: '#2e2e2e'
+        color: '#2e2e2e',
     },
     description: {
         borderColor: Colors.cinza,
@@ -77,7 +77,7 @@ export const style = StyleSheet.create({
     },
     button: {
         display: 'flex',
-        height: 40,
+        height: 45,
         width: 'auto',
         padding: 10,
         borderRadius: 10,

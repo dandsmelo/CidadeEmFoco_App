@@ -56,7 +56,9 @@ export default function ServidorHome(props: Props) {
                 </View>
                 <View style={style.cardsPequenos}>
                     <Text style={{fontFamily: "PoppinsSemiBold", fontSize: 35, color: Colors.azul}}>20</Text>
-                    <Text style={{fontFamily: "PoppinsMedium", fontSize: 14}}>Novas denúncias</Text>
+                    <View style={{ flexShrink: 1 }}>
+                        <Text style={{fontFamily: "PoppinsMedium", fontSize: 14}}>Novas denúncias</Text>
+                    </View>
                 </View>
             </View>
 
