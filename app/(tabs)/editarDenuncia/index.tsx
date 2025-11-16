@@ -90,24 +90,34 @@ export default function EditarDenuncia(){
         }
 
         try {
-            const token = await AsyncStorage.getItem('token');
+            const formData = new FormData();
 
-            const response = await fetch(`http://localhost:3000/denuncia/${id}`, {
-                method: "PUT",
-                headers: {
-                    "Content-Type": "application/json",
-                    'Authorization': `Bearer ${token}`,
-                },
-                body: JSON.stringify({
-                    titulo,
-                    data: new Date(data).toISOString(),
-                    status: "Pendente",
-                    descricao,
-                    categoria,
-                    local: endereco,
-                    imagem: null 
-                }),
-            });
+        formData.append("titulo", titulo);
+        formData.append("data", new Date(data).toISOString());
+        formData.append("descricao", descricao);
+        formData.append("categoria", categoria || "");
+        formData.append("local", endereco);
+
+        if (imagemUrl) {
+        const filename = imagemUrl.split("/").pop();
+        const ext = filename?.split(".").pop();
+
+        formData.append("imagem", {
+            uri: imagemUrl,
+            name: filename,
+            type: `image/${ext}`,
+        } as any);
+        }
+
+        const token = await AsyncStorage.getItem("token");
+
+        const response = await fetch(`http://localhost:3000/denuncia/${id}`, {
+            method: "PUT",
+            headers: { Authorization: `Bearer ${token}` },
+            body: formData,
+        });
+
+
 
             if (response.ok) {
                 showMessage("Denúncia atualizada com sucesso!", "success");
