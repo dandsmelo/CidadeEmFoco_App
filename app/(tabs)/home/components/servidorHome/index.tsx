@@ -7,6 +7,7 @@ import { TouchableOpacity } from "react-native";
 import { router } from "expo-router";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useFlashMessage } from "@/components/FlashMessageContext";
+import MapaDenuncias from "@/components/Mapa/Mapa";
 
 interface Props {
     denuncias: DenunciaData[];
@@ -84,7 +85,7 @@ export default function ServidorHome(props: Props) {
     return (
         <View style={style.container}>
             <Text style={style.titles}>Confira as denúncias reportadas na sua área de atuação</Text>
-            <View style={style.mapView} />
+            <MapaDenuncias denuncias={denuncias} />
 
             <View>
                 <Text style={style.titles}>Estatística de desempenho</Text>
