@@ -1,10 +1,12 @@
 import { View, Text, FlatList, ViewToken, useWindowDimensions, NativeScrollEvent, NativeSyntheticEvent } from "react-native";
 import { style } from "./style";
 import { Colors } from "@/constants/Colors";
-import { DenunciaData } from "@/interfaces/DenunciaData";
-import React, { useRef, useState } from "react";
+import { DenunciaData, ResumoGeral } from "@/interfaces/DenunciaData";
+import React, { useEffect, useRef, useState } from "react";
 import { TouchableOpacity } from "react-native";
 import { router } from "expo-router";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useFlashMessage } from "@/components/FlashMessageContext";
 
 interface Props {
     denuncias: DenunciaData[];
@@ -12,7 +14,9 @@ interface Props {
 
 export default function ServidorHome(props: Props) {  
     const { denuncias } = props;
+    const [resumoGeral, setResumoGeral] = React.useState<ResumoGeral>();
     const ultimasDenuncias = denuncias.slice(-3).reverse();
+    const { showMessage } = useFlashMessage();
 
     const [currentIndex, setCurrentIndex] = useState(0);
     const viewabilityConfig = useRef({ viewAreaCoveragePercentThreshold: 50 }).current;
@@ -45,34 +49,56 @@ export default function ServidorHome(props: Props) {
         setCurrentIndex(index);
     };
 
+    const fetchResumoGeral = async () => {
+        try {
+            const token = await AsyncStorage.getItem("token");
+
+            if (!token) {
+                alert("Usuário não autenticado");
+                return;
+            }
+
+            const response = await fetch("http://localhost:3000/denuncia/resumo/geral", {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                setResumoGeral(data);
+            } else {
+                showMessage(data.message || "Erro ao carregar resumo geral");
+            }
+
+        } catch (error) {
+            showMessage("Erro ao carregar resumo geral");
+        }
+    };
+
+    useEffect(() => {
+        fetchResumoGeral();
+    }, []);
+
     return (
         <View style={style.container}>
             <Text style={style.titles}>Confira as denúncias reportadas na sua área de atuação</Text>
             <View style={style.mapView} />
-            <View style={style.cardsPView}>
-                <View style={style.cardsPequenos}>
-                    <Text style={{fontFamily: "PoppinsSemiBold", fontSize: 35, color: Colors.primary}}>45</Text>
-                    <Text style={{fontFamily: "PoppinsMedium", fontSize: 14}}>Denúncias reportadas</Text>
-                </View>
-                <View style={style.cardsPequenos}>
-                    <Text style={{fontFamily: "PoppinsSemiBold", fontSize: 35, color: Colors.azul}}>20</Text>
-                    <Text style={{fontFamily: "PoppinsMedium", fontSize: 14}}>Novas denúncias</Text>
-                </View>
-            </View>
 
             <View>
                 <Text style={style.titles}>Estatística de desempenho</Text>
                 <View style={style.cardView}>
                     <View style={style.infoCard}>
-                        <Text style={{fontFamily: "PoppinsSemiBold", fontSize: 35, color: Colors.primary}}>25</Text>
+                        <Text style={{fontFamily: "PoppinsSemiBold", fontSize: 35, color: Colors.primary}}>{resumoGeral?.totalDenuncias}</Text>
                         <Text style={{fontFamily: "PoppinsMedium", fontSize: 12}}>denúncias atualizadas</Text>
                     </View>
                     <View style={style.infoCard}>
-                        <Text style={{fontFamily: "PoppinsSemiBold", fontSize: 35, color: Colors.amarelo}}>55%</Text>
-                        <Text style={{fontFamily: "PoppinsMedium", fontSize: 12}}>da categoria segurança</Text>
+                        <Text style={{fontFamily: "PoppinsSemiBold", fontSize: 35, color: Colors.amarelo}}>{resumoGeral?.categoriaMaisComum.total}</Text>
+                        <Text style={{fontFamily: "PoppinsMedium", fontSize: 12}}>{`da categoria ${resumoGeral?.categoriaMaisComum.categoria}`}</Text>
                     </View>
                     <View style={style.infoCard}>
-                        <Text style={{fontFamily: "PoppinsSemiBold", fontSize: 35, color: Colors.azul}}>10</Text>
+                        <Text style={{fontFamily: "PoppinsSemiBold", fontSize: 35, color: Colors.azul}}>{resumoGeral?.resolvidas}</Text>
                         <Text style={{fontFamily: "PoppinsMedium", fontSize: 12}}>denúncias resolvidas</Text>
                     </View>
                 </View>

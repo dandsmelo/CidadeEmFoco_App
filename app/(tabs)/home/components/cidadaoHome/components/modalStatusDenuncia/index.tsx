@@ -1,3 +1,4 @@
+import { DenunciaCount } from "@/interfaces/DenunciaData";
 import { MaterialIcons } from "@expo/vector-icons";
 import { Modal, View, Text, TouchableOpacity } from "react-native";
 import { StyleSheet } from "react-native";
@@ -5,10 +6,11 @@ import { StyleSheet } from "react-native";
 interface Props {
     visible: boolean;
     onClose: () => void;
+    denunciasCount?: DenunciaCount;
 }
 
 export default function ModalStatusDenuncia( props: Props) {
-    const {visible, onClose} = props;
+    const {visible, onClose, denunciasCount} = props;
 
     return (
         <Modal
@@ -20,7 +22,7 @@ export default function ModalStatusDenuncia( props: Props) {
             <View style={style.overlay}>
                 <View style={style.container}>
                     <View style={style.headView}>
-                        <Text style={{ fontFamily: "PoppinsMedium", fontSize: 14}}>27 denúncias</Text>
+                        <Text style={{ fontFamily: "PoppinsMedium", fontSize: 14}}>{`${denunciasCount?.total} denúncias`}</Text>
                         <TouchableOpacity onPress={onClose} style={style.closeIcon}>
                             <MaterialIcons name="close" size={24} color="gray" />
                         </TouchableOpacity>
@@ -28,23 +30,23 @@ export default function ModalStatusDenuncia( props: Props) {
                     <View style={style.viewLines}>
                         <View style={style.cardLines}>
                             <Text style={style.text}>Pendente</Text>
-                            <Text style={style.text}>2</Text>
+                            <Text style={style.text}>{denunciasCount?.porStatus.pendente}</Text>
                         </View>
                         <View style={style.cardLines}>
                             <Text style={style.text}>Em análise</Text>
-                            <Text style={style.text}>2</Text>
+                            <Text style={style.text}>{denunciasCount?.porStatus.em_analise}</Text>
                         </View>
                         <View style={style.cardLines}>
                             <Text style={style.text}>Em andamento</Text>
-                            <Text style={style.text}>2</Text>
+                            <Text style={style.text}>{denunciasCount?.porStatus.em_andamento}</Text>
                         </View>
                         <View style={style.cardLines}>
-                            <Text style={style.text}>Concluido</Text>
-                            <Text style={style.text}>2</Text>
+                            <Text style={style.text}>Resolvida</Text>
+                            <Text style={style.text}>{denunciasCount?.porStatus.resolvida}</Text>
                         </View>
                         <View style={style.cardLines}>
                             <Text style={style.text}>Rejeitada</Text>
-                            <Text style={style.text}>2</Text>
+                            <Text style={style.text}>{denunciasCount?.porStatus.rejeitada}</Text>
                         </View>
                     </View>
                 </View>
