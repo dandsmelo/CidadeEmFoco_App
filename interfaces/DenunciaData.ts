@@ -11,3 +11,23 @@ export interface DenunciaData {
     latitude?: number;
     longitude?: number;
 }
+
+export interface DenunciaCount {
+total: number,
+  porStatus: {
+    pendente: number,
+    em_analise: number,
+    em_andamento: number,
+    resolvida: number,
+    rejeitada: number,
+  }
+}
+
+export interface ResumoGeral {
+  totalDenuncias: number;
+  categoriaMaisComum: {
+    categoria: string | null;
+    total: number;
+  };
+  resolvidas: number;
+}
