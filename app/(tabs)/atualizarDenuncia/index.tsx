@@ -24,7 +24,6 @@ export default function AtualizarDenuncia(){
         { label: 'Rejeitada', value: 'Rejeitada' },
     ]);
     const fontsLoaded = useCustomFonts()
-
     if(!fontsLoaded){
         return null;
     }
@@ -103,9 +102,9 @@ export default function AtualizarDenuncia(){
                             <Image
                                 source={
                                     denuncia?.imagem
-                                        ? { uri: `http://localhost:3000/uploads/denuncias/${denuncia.imagem}` }
+                                        ? { uri: `http://localhost:3000${denuncia.imagem}` }
                                         : require('@/assets/images/paisagem.png')
-                                }
+                                    }
                                 style={Style.img}
                             />
 
@@ -127,7 +126,6 @@ export default function AtualizarDenuncia(){
                         </View>
 
                         <View style={[Style.labelText, { zIndex: 2 }]}>
-                            <Text style={Style.labelText}>Selecione um status</Text>
                             <DropDownPicker
                                 open={open}
                                 value={statusSelecionado}
@@ -135,22 +133,22 @@ export default function AtualizarDenuncia(){
                                 setOpen={setOpen}
                                 setValue={setStatusSelecionado}
                                 setItems={setItems}
-                                placeholder=""
+                                placeholder="Selecione um status"
                                 style={{
                                     backgroundColor: '#FFFFFF',
                                     borderRadius: 10,
-                                    borderColor: '#2e2e2e',
+                                    borderColor: '#000000',
                                     height: 50,
                                 }}
                                 textStyle={{
                                     fontSize: 16,
                                     fontFamily: 'PoppinsMedium',
-                                    color: '#2e2e2e',
+                                    color: '#000000',
                                 }}
                                 dropDownContainerStyle={{
                                     backgroundColor: '#FFFFFF',
-                                    borderColor: '#FFFFFF',
                                     zIndex: 12,
+                                    borderColor: '#000000',
                                 }}
                             />                            
                         </View>

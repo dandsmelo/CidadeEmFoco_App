@@ -152,58 +152,63 @@ export default function CriarDenuncia() {
           <Card>
             <TextInput
               placeholder="Adicione um título à denúncia"
-              style={style.title}
+              style={[style.title, { color: '#2e2e2e' }]}
               value={titulo}
               onChangeText={setTitulo}
+              placeholderTextColor={Colors.cinza} 
             />
 
             <TouchableOpacity style={style.addImage} onPress={pickImage}>
-              <Icons name="add-circle" size={45} color="#ffff" />
-              <Text style={{ fontFamily: 'PoppinsRegular', color: 'white' }}>Adicione uma imagem</Text>
+              <Icons name={imageUri ? "refresh-circle" : "add-circle"} size={45} color="#ffff" />
+              <Text style={{ fontFamily: 'PoppinsRegular', color: 'white' }}>
+                {imageUri ? "Selecionar outra imagem" : "Adicione uma imagem"}
+              </Text>
             </TouchableOpacity>
 
             {imageUri && (
               <View style={{ marginTop: 10, alignItems: 'center' }}>
                 <Text style={{ fontFamily: 'PoppinsRegular', marginBottom: 5 }}>Imagem selecionada:</Text>
-                <Image source={{ uri: imageUri }} style={{ width: 200, height: 200, borderRadius: 10 }} />
+                <View
+                  style={{
+                    padding: 10, 
+                    backgroundColor: '#f2f2f2',
+                    borderRadius: 12,
+                    margin: 10,
+                  }}
+                >
+                  <Image
+                    source={{ uri: imageUri }}
+                    style={{
+                      width: 310,
+                      height: 200,
+                      borderRadius: 10,
+                    }}
+                  />
+                </View>
               </View>
             )}
 
             <View style={style.input}>
               <Icon name="map-pin" size={30} color={Colors.cinza} />
               <TextInput
-                style={style.textInput}
+                style={[style.textInput, { color: '#2e2e2e' }]}
                 placeholder='Adicionar endereço'
                 value={endereco}
                 onChangeText={setEndereco}
+                placeholderTextColor={Colors.cinza} 
               />
             </View>
 
             <View>
-              <TouchableOpacity onPress={() => setShowPicker(true)} activeOpacity={1} style={style.input}>
-                <Icon name='calendar-alt' size={20} color={Colors.cinza} />
-                <TextInput
-                  value={text}
-                  placeholder="Selecionar data"
-                  style={style.textInput}
-                  onChangeText={(input) => {
-                    setText(input);
-                    const partes = input.split('/');
-                    if (partes.length === 3) {
-                      const [dia, mes, ano] = partes;
-                      const novaData = new Date(`${ano}-${mes}-${dia}`);
-                      if (!isNaN(novaData.getTime())) {
-                        setDate(novaData);
-                      } else {
-                        setDate(undefined); 
-                      }
-                    } else {
-                      setDate(undefined);
-                    }
-                  }}
-
-                  keyboardType="numeric"
-                />
+              <TouchableOpacity
+                onPress={() => setShowPicker(true)}
+                activeOpacity={0.8}
+                style={style.input}
+              >
+                <Icon name="calendar-alt" size={20} color={Colors.cinza} />
+                <Text style={[style.textInput, { color: text ? '#2e2e2e' : Colors.cinza }]}>
+                  {text || "Selecionar data"}
+                </Text>
               </TouchableOpacity>
 
               {showPicker && (
@@ -215,12 +220,14 @@ export default function CriarDenuncia() {
                     setShowPicker(false);
                     if (selectedDate) {
                       setDate(selectedDate);
-                      setText(selectedDate.toLocaleDateString('pt-BR'));
+                      setText(selectedDate.toLocaleDateString("pt-BR"));
                     }
                   }}
                 />
               )}
             </View>
+
+
 
             <View>
               <Text style={{ fontFamily: 'PoppinsSemiBold', fontSize: 18, marginVertical: 10, color: '#2e2e2e' }}>Descrição</Text>
@@ -232,6 +239,7 @@ export default function CriarDenuncia() {
                 textAlignVertical="top"
                 value={descricao}
                 onChangeText={setDescricao}
+                placeholderTextColor={Colors.cinza} 
               />
             </View>
 

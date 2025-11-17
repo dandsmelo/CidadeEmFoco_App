@@ -74,7 +74,11 @@ export default function EditarDenuncia(){
                 setDescricao(denuncia.descricao);
                 setCategoria(denuncia.categoria);
                 setData(denuncia.data.substring(0, 10));
-                // setImagemUrl(denuncia.imagem); // Quando tiver o upload da imagem no backend
+                setImagemUrl(
+                    denuncia.imagem
+                    ? `http://localhost:3000${denuncia.imagem}`
+                    : ""
+                );
             } catch (err) {
                 console.error(err);
             }
@@ -177,6 +181,11 @@ export default function EditarDenuncia(){
                     <Text style={Style.textTitulo}>{titulo}</Text>
                 )}
             </View>
+
+            <ScrollView
+                  contentContainerStyle={{ paddingBottom: 50 }}
+                  showsVerticalScrollIndicator={false}
+            >
         
             <View style={Style.divCard}>
 
@@ -189,7 +198,7 @@ export default function EditarDenuncia(){
                                     source={imagemUrl ? { uri: imagemUrl } : require('@/assets/images/placeholder-image.jpg')}
                                     style={Style.img}
                                     />
-                                    <Text style={{ textAlign: 'center', marginTop: 5, fontSize: 12, fontFamily: 'PoppinsMedium' }}>
+                                    <Text style={{ textAlign: 'center', marginTop: 5, fontSize: 12, fontFamily: 'PoppinsMedium', color: '#898989' }}>
                                         Clique na imagem para alterar
                                         </Text>
                                 </TouchableOpacity>
@@ -281,7 +290,7 @@ export default function EditarDenuncia(){
                             <Text style={Style.titulo}>Descrição</Text>
                             {isEditing ? (
                                 <TextInput
-                                style={[Style.descricaoInput, { height: 350, textAlignVertical: 'top' }]}
+                                style={[Style.descricaoInput, { height: 150, textAlignVertical: 'top' }]}
                                 value={descricao}
                                 onChangeText={setDescricao}
                                 multiline
@@ -312,7 +321,7 @@ export default function EditarDenuncia(){
                 
 
             </View>
-
+            </ScrollView>
         </View>
     )
 }

@@ -33,11 +33,11 @@ export default function MinhasDenuncias() {
       sorted.sort((a, b) => a.status.localeCompare(b.status));
     } else if (type === "data_recente") {
       sorted.sort(
-        (a, b) => new Date(a.data).getTime() - new Date(b.data).getTime()
+        (a, b) => new Date(b.data).getTime() - new Date(a.data).getTime()
       );
     } else if (type === "data_antiga") {
       sorted.sort(
-        (a, b) => new Date(b.data).getTime() - new Date(a.data).getTime()
+        (a, b) => new Date(a.data).getTime() - new Date(b.data).getTime()
       );
     } else if (type === "titulo") {
       sorted.sort((a, b) => a.titulo.localeCompare(b.titulo));
