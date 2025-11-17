@@ -4,11 +4,17 @@ import { Colors } from "@/constants/Colors";
 import { TouchableOpacity } from "react-native";
 import React, { useEffect } from "react";
 import ModalStatusDenuncia from "./components/modalStatusDenuncia";
-import { DenunciaCount, ResumoGeral } from "@/interfaces/DenunciaData";
+import { DenunciaCount, DenunciaData, ResumoGeral } from "@/interfaces/DenunciaData";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useFlashMessage } from "@/components/FlashMessageContext";
+import MapaDenuncias from "@/components/Mapa/Mapa";
 
-export default function CidadaoHome() {
+interface Props {
+    denuncias: DenunciaData[];
+}
+
+export default function CidadaoHome(props: Props) {
+    const { denuncias } = props;
     const [modalDenuncia, setModalDenuncia] = React.useState<boolean>(false);
     const [denunciasCount, setDenunciasCount] = React.useState<DenunciaCount>();
     const [resumoGeral, setResumoGeral] = React.useState<ResumoGeral>();
@@ -74,12 +80,13 @@ export default function CidadaoHome() {
     useEffect(() => {
         fetchDenunciasCount();
         fetchResumoGeral();
+        console.log(denuncias)
     }, []);
 
     return (
         <View style={style.container}>
             <Text style={style.titles}>Confira suas denúncias reportadas</Text>
-            <View style={style.mapView} />
+            <MapaDenuncias denuncias={denuncias} />
             <View>
                 <Text style={style.titles}>Estatística da cidade</Text>
                 <View style={style.cardView}>

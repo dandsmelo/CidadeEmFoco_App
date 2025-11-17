@@ -125,9 +125,9 @@ export default function Home(){
             <ScrollView>
                 <View style={Style.body}>
                     {tipoUsuario === "cidadao" ? (
-                        <CidadaoHome />
+                        <CidadaoHome denuncias={denuncias} />
                     ) : (
-                        <ServidorHome denuncias={denuncias}/>
+                        <ServidorHome denuncias={denuncias} />
                     )}
                     {/* <View style={{ justifyContent: 'center', alignItems: 'center' }}>
                         {denuncias.length > 0 ? (
