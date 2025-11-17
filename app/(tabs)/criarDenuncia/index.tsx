@@ -88,21 +88,35 @@ export default function CriarDenuncia() {
     const token = await AsyncStorage.getItem('token');
 
     try {
+      const formData = new FormData();
+
+      formData.append("titulo", titulo);
+      formData.append("data", date.toISOString());
+      formData.append("status", "Pendente");
+      formData.append("descricao", descricao);
+      formData.append("categoria", categoria);
+      formData.append("local", endereco);
+
+      if (imageUri) {
+        const filename = imageUri.split("/").pop();
+        const type = filename?.split(".").pop();
+
+        formData.append("imagem", {
+          uri: imageUri,
+          name: filename,
+          type: `image/${type}`,
+        } as any);
+      }
+
       const response = await fetch("http://localhost:3000/denuncia", {
         method: "POST",
-        headers: { 
-          "Content-Type": "application/json", 
-          'Authorization': `Bearer ${token}`,},
-        body: JSON.stringify({
-          titulo,
-          data: date.toISOString(),
-          status: "Pendente",         
-          descricao,
-          categoria,
-          local: endereco,
-          imagem: null
-        }),
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        body: formData,
       });
+
+
 
       const data = await response.json();
 

@@ -100,7 +100,15 @@ export default function AtualizarDenuncia(){
                 <View style={Style.card}>
                     <Card>
                         <View style={Style.divImg}>
-                            <Image source={require('@/assets/images/paisagem.png')} style={Style.img}></Image>
+                            <Image
+                                source={
+                                    denuncia?.imagem
+                                        ? { uri: `http://localhost:3000/uploads/denuncias/${denuncia.imagem}` }
+                                        : require('@/assets/images/paisagem.png')
+                                }
+                                style={Style.img}
+                            />
+
                         </View>
                         <View style={Style.divText}>
                             <View style={Style.divElements}>

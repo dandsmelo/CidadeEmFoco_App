@@ -57,6 +57,7 @@ export const Style = StyleSheet.create({
     img:{
         width: 45,
         height: 45,
+        borderRadius: 100,
     },
 
     //BODY
