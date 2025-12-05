@@ -30,8 +30,9 @@ A plataforma aproxima a população das autoridades responsáveis, oferecendo um
 
 ## Protótipos
 
-<img width="1397" height="791" alt="Group 107" src="https://github.com/user-attachments/assets/6a156410-4825-4d80-a1e6-e1610950e912" />
-<img width="1357" height="633" alt="Group 94" src="https://github.com/user-attachments/assets/ca9a87bc-957e-4d2b-870c-fb183d674117" />
+<img src="./assets/prototipo1.png" width="100%" alt="Protótipo 1" />
+<img src="./assets/prototipo2.png" width="100%" alt="Protótipo 2" />
+
 
 ## Como Executar o Projeto
 
