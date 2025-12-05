@@ -30,8 +30,8 @@ A plataforma aproxima a população das autoridades responsáveis, oferecendo um
 
 ## Protótipos
 
-<img src="./assets/prototipo1.png" width="100%" alt="Protótipo 1" />
-<img src="./assets/prototipo2.png" width="100%" alt="Protótipo 2" />
+<img src="./assets/images/prototipo1.png" width="100%" alt="Protótipo 1" />
+<img src="./assets/images/prototipo2.png" width="100%" alt="Protótipo 2" />
 
 
 ## Como Executar o Projeto
